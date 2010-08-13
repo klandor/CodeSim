@@ -149,6 +149,18 @@ void LT_sim::decode(){
 	} 
 }
 
+vector<char> LT_sim::encode(vector<char> a){
+	return a;
+}
+
+vector<char> LT_sim::decode(vector<char> a){
+	return a;
+}
+
+void LT_sim::reset(){
+	
+}
+
 double LT_sim::run(){
 //	long int           Degree_of_Edge[10] ;//= {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};//{1, 2, 3, 4, 5, 8, 20, 50, 100, 120};
 //	double			Omega[10];// ={0.095874,	0.310842,	0.347227,	0.126544,	0.001954,	0.015687,	0.022324	,0.074265,	0.003683,	0.001599	};//Geometry Weights(Tail2)

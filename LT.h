@@ -9,12 +9,13 @@
 
 #include <vector>
 #include "randomc.h"
+#include "Code.h"
 using namespace std;
 
-namespace LT_class {
+namespace LT_class{
 
 
-	class LT_sim{
+	class LT_sim : public CodeSim::Code{
 	public:
 		LT_sim();
 		LT_sim(int k, int max_n, int tag_size, int *tags, double * omega, int seed);
@@ -24,6 +25,9 @@ namespace LT_class {
 		void decode();
 		bool isDecoded(int t);
 		double run();
+		vector<char> encode(vector<char> a);
+		vector<char> decode(vector<char> a);
+		void reset();
 	private:
 		void codeGen(int t);
 		
