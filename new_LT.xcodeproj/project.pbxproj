@@ -34,6 +34,7 @@
 		8565BDD0120C28050081A319 /* mersenne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mersenne.cpp; sourceTree = "<group>"; };
 		8565BDD1120C28050081A319 /* randomc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randomc.h; sourceTree = "<group>"; };
 		8565BDD2120C28050081A319 /* userintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = userintf.cpp; sourceTree = "<group>"; };
+		85F4E8C712151B0900DA56AC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* new_LT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = new_LT; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* new_LT.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = new_LT.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				C6859E8B029090EE04C91782 /* new_LT.1 */,
+				85F4E8C712151B0900DA56AC /* README */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
