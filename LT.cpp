@@ -8,7 +8,7 @@
  */
 
 #include "LT.h"
-using namespace LT_class;
+using namespace CodeSim;
 
 LT_sim::LT_sim():Rnd(0){}
 
@@ -27,6 +27,7 @@ void LT_sim::init(int k, int max_n, int tag_size, int *tags, double * omega, int
 	//erasure.assign(max_n,0);
 	
 	DE.assign(k,0);
+	this->seed = seed;
 	Rnd.RandomInit(seed);
 	Degree_of_Edge.assign(tags, tags+tag_size);
 	Omega.assign(omega, omega+tag_size);
@@ -150,15 +151,46 @@ void LT_sim::decode(){
 }
 
 vector<char> LT_sim::encode(vector<char> a){
-	return a;
+	return vector<char>(Num_of_Output, 0);
 }
 
-vector<char> LT_sim::decode(vector<char> a){
-	return a;
+vector<char> LT_sim::decode(vector<char> a, vector<bool> erasure){
+	for (int i =0; i< a.size() && i< Num_of_Output; i++) {
+		if (! erasure[i]) {
+			receive(i);
+		}
+	}
+	decode();
+	
+	vector<char> t = DE;
+	for (int i=0; i< t.size(); i++) {
+		if (t[i] == 0) {
+			t[i] = -1;
+		}
+	}
+	return t;
 }
 
 void LT_sim::reset(){
+//	Num_of_Input = k;
+//	Num_of_Output= max_n;
+//	Num_of_Degree = tag_size;
 	
+	d.assign(Num_of_Output,0);
+	edge.assign(Num_of_Output,0);
+	R_M.assign(Num_of_Output,0);
+	//erasure.assign(max_n,0);
+	
+	DE.assign(Num_of_Input,0);
+	Rnd.RandomInit(seed);
+
+	
+	Num_of_Decoding = 0;
+	ReceivedSize = 0;
+	generatedCode = 0;
+	codeGen(Num_of_Output);
+	
+	receivedMask.assign(Num_of_Output, 0);
 }
 
 double LT_sim::run(){

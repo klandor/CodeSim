@@ -12,9 +12,10 @@ using namespace std;
 
 namespace CodeSim{
 	
+	template<class T>
 	class Code {
-		virtual vector<char> encode(vector<char> a) = 0;
-		virtual vector<char> decode(vector<char> a) = 0;
+		virtual vector<T> encode(vector<T> a) = 0;
+		virtual vector<T> decode(vector<T> a, vector<bool> erasure) = 0;
 		virtual void reset() = 0;
 	};
 }

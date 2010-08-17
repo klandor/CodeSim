@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>85F4E9891215875B00DA56AC</string>
+						<string>85F4E9CB1219639500DA56AC</string>
 						<key>history</key>
 						<array>
 							<string>85F4E97B121581F300DA56AC</string>
@@ -367,17 +367,18 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>85F4E9861215875B00DA56AC</string>
+										<string>85F4E9CA1219639500DA56AC</string>
 										<key>history</key>
 										<array>
 											<string>8565BDFF120ECF740081A319</string>
-											<string>8565BE00120ECF740081A319</string>
 											<string>8565BE01120ECF740081A319</string>
-											<string>85F4E974121581CA00DA56AC</string>
-											<string>85F4E9821215875B00DA56AC</string>
 											<string>85F4E9831215875B00DA56AC</string>
-											<string>85F4E9841215875B00DA56AC</string>
-											<string>85F4E9851215875B00DA56AC</string>
+											<string>85F4E9A41216737100DA56AC</string>
+											<string>85F4E9B4121791C500DA56AC</string>
+											<string>85F4E9C61219639500DA56AC</string>
+											<string>85F4E9C71219639500DA56AC</string>
+											<string>85F4E9C81219639500DA56AC</string>
+											<string>85F4E9C91219639500DA56AC</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -575,10 +576,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>85F4E9AB1216737100DA56AC</string>
+		<string>85F4E9AC1216737100DA56AC</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>8565BD44120C19560081A319</string>
-		<string>85F4E9871215875B00DA56AC</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/CMAES/new_LT/new_LT.xcodeproj</string>
+		<string>85F4E9871215875B00DA56AC</string>
 	</array>
 	<key>WindowString</key>
 	<string>419 213 788 504 0 0 1280 778 </string>
@@ -673,7 +677,7 @@
 			<key>WindowToolGUID</key>
 			<string>8565BD44120C19560081A319</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -952,7 +956,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>8565BE2F120F9B6C0081A319</string>
+				<string>85F4E9AA1216737100DA56AC</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

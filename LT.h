@@ -12,10 +12,10 @@
 #include "Code.h"
 using namespace std;
 
-namespace LT_class{
+namespace CodeSim{
 
 
-	class LT_sim : public CodeSim::Code{
+	class LT_sim : public CodeSim::Code<char>{
 	public:
 		LT_sim();
 		LT_sim(int k, int max_n, int tag_size, int *tags, double * omega, int seed);
@@ -26,19 +26,20 @@ namespace LT_class{
 		bool isDecoded(int t);
 		double run();
 		vector<char> encode(vector<char> a);
-		vector<char> decode(vector<char> a);
+		vector<char> decode(vector<char> a, vector<bool> erasure);
 		void reset();
 	private:
 		void codeGen(int t);
 		
-		long int Num_of_Input, Num_of_Output, Num_of_Degree, Num_of_Decoding, 
+		int Num_of_Input, Num_of_Output, Num_of_Degree, Num_of_Decoding, 
 				ReceivedSize, generatedCode;
+		int seed;
 		CRandomMersenne Rnd;
 		vector<long int>	d;//(Num_of_Output, 0);
 		vector<vector<long int> >	edge;// = new vector<long int>[Num_of_Output];
 		vector<long int>	R_M;//(Num_of_Output, 0);
 		//vector<long int>	erasure;//(Num_of_Output, 0);
-		vector<long int>	DE;//(Num_of_Input, 0);
+		vector<char>	DE;//(Num_of_Input, 0);
 		vector<int>			Degree_of_Edge;
 		vector<double>		Omega;
 		vector<int>			receivedMask;

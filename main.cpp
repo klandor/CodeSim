@@ -2,7 +2,7 @@
 #include <limits>
 #include "LT.h"
 using namespace std;
-using namespace LT_class;
+using namespace CodeSim;
 int main (int argc, char * const argv[]) {
     
 	//LT_sim sim;
