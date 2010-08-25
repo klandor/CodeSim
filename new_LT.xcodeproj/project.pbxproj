@@ -30,13 +30,13 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		854BD8951225411B006CD78C /* CodeSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSim.h; sourceTree = "<group>"; };
 		8565BD1D120C0A0D0081A319 /* LT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LT.h; sourceTree = "<group>"; };
 		8565BD1E120C0A0D0081A319 /* LT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT.cpp; sourceTree = "<group>"; };
 		8565BDD0120C28050081A319 /* mersenne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mersenne.cpp; sourceTree = "<group>"; };
 		8565BDD1120C28050081A319 /* randomc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randomc.h; sourceTree = "<group>"; };
 		8565BDD2120C28050081A319 /* userintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = userintf.cpp; sourceTree = "<group>"; };
 		85F4E8C712151B0900DA56AC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		85F4E8D712152AD300DA56AC /* Code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Code.h; sourceTree = "<group>"; };
 		85F4E8D812152AD300DA56AC /* Code.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Code.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* new_LT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = new_LT; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* new_LT.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = new_LT.1; sourceTree = "<group>"; };
@@ -72,8 +72,8 @@
 				8565BD1D120C0A0D0081A319 /* LT.h */,
 				8565BD1E120C0A0D0081A319 /* LT.cpp */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
-				85F4E8D712152AD300DA56AC /* Code.h */,
 				85F4E8D812152AD300DA56AC /* Code.cpp */,
+				854BD8951225411B006CD78C /* CodeSim.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
