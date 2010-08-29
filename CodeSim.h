@@ -9,6 +9,7 @@
 
 #include<vector>
 #include<string>
+#include<stack>
 using namespace std;
 
 namespace CodeSim {
@@ -16,13 +17,10 @@ namespace CodeSim {
 	template<class T>
 	class Symbol{
 	public:
-		bool inErased(){
-			return erased;
-		}
+		Symbol();
 		
-		void setErased(bool t){
-			erased = t;
-		}
+		bool isErased();		
+		void setErased(bool t);
 	protected:
 		T value;
 	private:
@@ -33,49 +31,65 @@ namespace CodeSim {
 	
 	class Bit : public Symbol<bool>{
 	public:
-		Bit(){
-			value = 0;
-		}
+		Bit();
 		
-		template<class T>
-		Bit(T t){
-			value = t;
-			
-		}
 		
-		template<class T>
-		Bit operator=(T t){
-			value = t;
-			return *this;
-		}
-		Bit operator+(Bit t){
-			return Bit(this->value ^ t.value);
-		}
+		Bit(int t);
 		
-		Bit operator*(Bit t){
-			return Bit(this->value & t.value);
-		}
-		
-		string toString()
-		{
-			if (value) {
-				return "1";
-			}
-			else {
-				return "0";
-			}
-		}
 
+		Bit operator+(Bit t);		
+		Bit operator*(Bit t);		
+		string toString();
+	};
+	
+	template<class S>
+	class Codeword : public vector<S> {
+	public:
+		stack<unsigned int>  getMessageSize(){
+			return messageSize;
+		}
 		
+		void setMessageSize(stack<unsigned int> s){
+			messageSize = s;
+		}
+	private:
+		stack<unsigned int> messageSize;
 	};
 	
 	template<class S1, class S2>
 	class CodingBlock {
 	public:
-		virtual S2 forward(S1 c) = 0;
-		virtual S1 backword(S2 c) = 0;
+		virtual Codeword<S2> forward(Codeword<S1> c) = 0;
+		virtual Codeword<S1> backword(Codeword<S2> c) = 0;
 		
 	private:
+	};
+	
+	template<class T>
+	class Permutator : public CodingBlock<T,T> {
+	public:
+		Permutator(){
+			blockSize = 1;
+			permutationTable.assign(1,1);
+			depermutationTable.assign(1,1);
+		}
+		Permutator(string filename, bool inverseOrder);
+		Permutator(string filename){
+			Permutator(filename, false);
+		}
+		Codeword<T> permutate(Codeword<T>);
+		Codeword<T> depermutate(Codeword<T>);
+		Codeword<T> forward(Codeword<T> c){
+			return permutate(c);
+		}
+		
+		Codeword<T> backward(Codeword<T> c){
+			return depermutate(c);
+		}
+		
+	private:
+		unsigned int blockSize;
+		vector<unsigned int> permutationTable, depermutationTable;
 	};
 }
 

@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		852554B3122A504200EFDDAF /* Permutator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 852554B2122A504200EFDDAF /* Permutator.cpp */; };
+		8544522C1226A22100BA9182 /* BitTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544522B1226A22100BA9182 /* BitTest.cpp */; };
+		8544527512279DDD00BA9182 /* Symbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Symbol.cpp */; };
 		8565BD1F120C0A0D0081A319 /* LT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BD1E120C0A0D0081A319 /* LT.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
 		85F4E8D912152AD300DA56AC /* Code.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F4E8D812152AD300DA56AC /* Code.cpp */; };
-		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* new_LT.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* new_LT.1 */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		852554B2122A504200EFDDAF /* Permutator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Permutator.cpp; sourceTree = "<group>"; };
+		8544522B1226A22100BA9182 /* BitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitTest.cpp; sourceTree = "<group>"; };
+		8544527412279DDD00BA9182 /* Symbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Symbol.cpp; sourceTree = "<group>"; };
 		854BD8951225411B006CD78C /* CodeSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSim.h; sourceTree = "<group>"; };
 		8565BD1D120C0A0D0081A319 /* LT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LT.h; sourceTree = "<group>"; };
 		8565BD1E120C0A0D0081A319 /* LT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT.cpp; sourceTree = "<group>"; };
@@ -66,6 +71,8 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				852554B1122A500600EFDDAF /* CodeSim */,
+				8544522E1226A25300BA9182 /* Tests */,
 				8565BDD0120C28050081A319 /* mersenne.cpp */,
 				8565BDD1120C28050081A319 /* randomc.h */,
 				8565BDD2120C28050081A319 /* userintf.cpp */,
@@ -73,7 +80,6 @@
 				8565BD1E120C0A0D0081A319 /* LT.cpp */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
 				85F4E8D812152AD300DA56AC /* Code.cpp */,
-				854BD8951225411B006CD78C /* CodeSim.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -84,6 +90,24 @@
 				8DD76F6C0486A84900D96B5E /* new_LT */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		852554B1122A500600EFDDAF /* CodeSim */ = {
+			isa = PBXGroup;
+			children = (
+				854BD8951225411B006CD78C /* CodeSim.h */,
+				8544527412279DDD00BA9182 /* Symbol.cpp */,
+				852554B2122A504200EFDDAF /* Permutator.cpp */,
+			);
+			name = CodeSim;
+			sourceTree = "<group>";
+		};
+		8544522E1226A25300BA9182 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8544522B1226A22100BA9182 /* BitTest.cpp */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		C6859E8C029090F304C91782 /* Documentation */ = {
@@ -138,11 +162,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
 				8565BD1F120C0A0D0081A319 /* LT.cpp in Sources */,
 				8565BDD3120C28050081A319 /* mersenne.cpp in Sources */,
 				8565BDD4120C28050081A319 /* userintf.cpp in Sources */,
 				85F4E8D912152AD300DA56AC /* Code.cpp in Sources */,
+				8544522C1226A22100BA9182 /* BitTest.cpp in Sources */,
+				8544527512279DDD00BA9182 /* Symbol.cpp in Sources */,
+				852554B3122A504200EFDDAF /* Permutator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
