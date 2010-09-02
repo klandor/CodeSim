@@ -19,10 +19,19 @@ namespace CodeSim {
 	template<class T>
 	class Symbol{
 	public:
-		Symbol();
+		Symbol(){
+			erased = false;
+		}
 		
-		bool isErased();		
-		void setErased(bool t);
+		
+		bool isErased(){
+			return erased;
+		}
+		
+		void setErased(bool t){
+			erased = t;
+		}
+		
 	protected:
 		T value;
 	private:

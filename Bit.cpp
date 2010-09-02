@@ -14,20 +14,7 @@
 using namespace std;
 
 namespace CodeSim {
-	
 
-	template<class T> Symbol<T>::Symbol(){
-			erased = false;
-	}
-		
-	template<class T> bool Symbol<T>::isErased(){
-		return erased;
-	}
-		
-	template<class T> void Symbol<T>::setErased(bool t){
-		erased = t;
-	}
-	
 	
 	
 	
