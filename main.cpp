@@ -20,7 +20,7 @@ int main (int argc, char * const argv[]) {
 	
 	for (int i=0; i<1000; i++) {
 		cout << "Run: " << i << '\n';
-		LT_sim sim;
+		LT_sim<int> sim;
 		sim.init(K, K*1.2, 10, Degree_of_Edge, Omega, r.IRandom(0, INT_MAX));
 		for (int i = 0; i< 16; i++) {
 //			double t = Encoder(K, K*(1.05+0.01*i), Dsize);
