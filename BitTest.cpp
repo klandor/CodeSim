@@ -21,4 +21,5 @@ int main(){
 	cout << "a+a = " << (a+a).toString() << endl;
 	cout << "a*a = " << (a*a).toString() << endl;
 	cout << "b+b = " << (b+b).toString() << endl;
+	cout << "a+1 = " << (a+1).toString() << endl;
 }

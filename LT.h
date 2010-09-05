@@ -39,10 +39,11 @@ namespace CodeSim{
 		vector<vector<long int> >	edge;// = new vector<long int>[Num_of_Output];
 		vector<long int>	R_M;//(Num_of_Output, 0);
 		//vector<long int>	erasure;//(Num_of_Output, 0);
-		Codeword<S>	DE;//(Num_of_Input, 0);
+		vector<char>	DE;//(Num_of_Input, 0);
 		vector<int>			Degree_of_Edge;
 		vector<double>		Omega;
 		vector<int>			receivedMask;
+		Codeword<S>			Result, Mid_Output;
 	};
 	
 	template<class S>
@@ -63,7 +64,7 @@ namespace CodeSim{
 		R_M.assign(max_n,0);
 		//erasure.assign(max_n,0);
 		
-		DE.assign(k,0);
+//		DE.assign(k,0);
 		this->seed = seed;
 		Rnd.RandomInit(seed);
 		Degree_of_Edge.assign(tags, tags+tag_size);
@@ -74,8 +75,9 @@ namespace CodeSim{
 		Num_of_Decoding = 0;
 		ReceivedSize = 0;
 		generatedCode = 0;
-		codeGen(max_n);
+		//codeGen(max_n);
 		
+		Result.assign(k,-1);
 		receivedMask.assign(max_n, 0);
 	}
 	
@@ -87,7 +89,7 @@ namespace CodeSim{
 	template<class S>
 	void LT_sim<S>::codeGen(int t){
 		if (t>= generatedCode){
-			for(int i=generatedCode; i<t+1; i++){
+			for(int i=generatedCode; i<t; i++){
 				// decide degree
 				double rando = Rnd.Random();
 				int s, flag;
@@ -166,7 +168,8 @@ namespace CodeSim{
 				if(d[R_M[i]]==1 && DE[ edge[ R_M[i] ][0] ]==0)
 				{
 					DE[ edge[ R_M[i] ][0] ]=1;
-					//    			Result[edge[R_M[i]][0]] = Mid_Output[R_M[i]];
+					Result[ edge[R_M[i]][0] ] = Mid_Output[R_M[i]];
+					Result[ edge[ R_M[i] ][0] ].setErased(false);
 					Num_of_Decoding++;
 					ReceivedSize--;
 					R_M[i]=R_M[ReceivedSize];
@@ -181,7 +184,7 @@ namespace CodeSim{
 				{
 					if(DE[ edge[ R_M[i] ][j] ]==1)
 					{
-						//		            Mid_Output[R_M[i]] = Mid_Output[R_M[i]] + Result[edge[R_M[i]][j]];
+						Mid_Output[R_M[i]] = Mid_Output[R_M[i]] + Result[edge[R_M[i]][j]];
 						d[R_M[i]]--;
 						edge[ R_M[i] ][j]=edge[ R_M[i] ][ d[R_M[i]] ];
 						j--;
@@ -193,25 +196,49 @@ namespace CodeSim{
 	
 	template<class S>
 	Codeword<S> LT_sim<S>::encode(Codeword<S> a){
-		return Codeword<S>(Num_of_Output, 0);
+		reset();
+		Codeword<S> output;
+		output.assign(Num_of_Output,0);
+		
+		for (int i=0; i< Num_of_Output; i++) {
+			for (int j=0; j<edge[i].size(); j++) {
+				output[i] = output[i] + a[edge[i][j]];
+			}
+		}
+		output.getMessageStack().push(seed);
+		Mid_Output = output;
+		return output;
 	}
 	
 	template<class S>
 	Codeword<S> LT_sim<S>::decode(Codeword<S> a){
+		stack<int> s = a.getMessageStack();
+		if (s.top() != seed) {
+			seed = s.top();
+			reset();
+			Mid_Output = a;
+		}
+		
+		if (Mid_Output.empty()) {
+			Mid_Output = a;
+		}
+		
 		for (int i =0; i< a.size() && i< Num_of_Output; i++) {
 			if (!a[i].isErased() ) {
 				receive(i);
 			}
 		}
+		
+		
 		decode();
 		
-		Codeword<S> t = DE;
-		for (int i=0; i< t.size(); i++) {
-			if (t[i] == 0) {
-				t[i] = -1;
-			}
-		}
-		return t;
+//		Codeword<S> t = DE;
+//		for (int i=0; i< t.size(); i++) {
+//			if (t[i] == 0) {
+//				t[i] = -1;
+//			}
+//		}
+		return Result;
 	}
 	
 	template<class S>
@@ -235,6 +262,10 @@ namespace CodeSim{
 		codeGen(Num_of_Output);
 		
 		receivedMask.assign(Num_of_Output, 0);
+		
+		Result.assign(Num_of_Input, -1);
+		Mid_Output.clear();
+		
 	}
 	
 	template<class S>

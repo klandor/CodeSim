@@ -10,7 +10,7 @@
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
-		85D061DA12300EC40094829A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; };
+		85D062CE12322E9D0094829A /* LT_sim_Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */; };
 		85F4E8D912152AD300DA56AC /* Code.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F4E8D812152AD300DA56AC /* Code.cpp */; };
 		8DD76F6A0486A84900D96B5E /* new_LT.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* new_LT.1 */; };
 /* End PBXBuildFile section */
@@ -29,7 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_sim_Test.cpp; sourceTree = "<group>"; };
 		8544522B1226A22100BA9182 /* BitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitTest.cpp; sourceTree = "<group>"; };
 		8544527412279DDD00BA9182 /* Bit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bit.cpp; sourceTree = "<group>"; };
 		854BD8951225411B006CD78C /* CodeSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSim.h; sourceTree = "<group>"; };
@@ -73,7 +73,6 @@
 			children = (
 				852554B1122A500600EFDDAF /* CodeSim */,
 				8544522E1226A25300BA9182 /* Tests */,
-				08FB7796FE84155DC02AAC07 /* main.cpp */,
 				85BD042C122A860E00EFCF85 /* Random */,
 			);
 			name = Source;
@@ -103,6 +102,7 @@
 		8544522E1226A25300BA9182 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */,
 				8544522B1226A22100BA9182 /* BitTest.cpp */,
 				85BD043D122A86A800EFCF85 /* PermutatorTest.cpp */,
 				85D061A4122FA19F0094829A /* LTTest.cpp */,
@@ -176,7 +176,7 @@
 				8565BDD4120C28050081A319 /* userintf.cpp in Sources */,
 				85F4E8D912152AD300DA56AC /* Code.cpp in Sources */,
 				8544527512279DDD00BA9182 /* Bit.cpp in Sources */,
-				85D061DA12300EC40094829A /* main.cpp in Sources */,
+				85D062CE12322E9D0094829A /* LT_sim_Test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

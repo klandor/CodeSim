@@ -24,7 +24,11 @@ namespace CodeSim {
 		
 	//template<class T>
 	Bit::Bit(int t){
-		value = t;
+		if (t == -1) {
+			setErased(true);
+		}
+		else
+			value = t;
 	}
 		
 //	template<class T>
@@ -33,7 +37,7 @@ namespace CodeSim {
 //		return *this;
 //	}
 	Bit Bit::operator+(Bit t){
-		return Bit(this->value ^ t.value);
+		return Bit(value ^ t.value);
 	}
 	
 	Bit Bit::operator*(Bit t){

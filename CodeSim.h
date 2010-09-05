@@ -32,6 +32,10 @@ namespace CodeSim {
 			erased = t;
 		}
 		
+		bool operator==(Symbol t){
+			return this->value == t.value;
+		}
+		
 	protected:
 		T value;
 	private:
@@ -58,14 +62,14 @@ namespace CodeSim {
 	public:
 		Codeword(){};
 		Codeword(int size, S s){
-			vector<S>(size,s);
+			assign(size,s);
 		}
-		stack<int>  getMessageSize(){
-			return messageSize;
+		stack<int>&  getMessageStack(){
+			return messageStack;
 		}
 		
-		void setMessageSize(stack<int> s){
-			messageSize = s;
+		void setMessageStack(stack<int> s){
+			messageStack = s;
 		}
 		
 		void trim(int m){
@@ -75,7 +79,7 @@ namespace CodeSim {
 			}
 		}
 	private:
-		stack<int> messageSize;
+		stack<int> messageStack;
 	};
 	
 	template<class S1, class S2>
@@ -201,5 +205,8 @@ namespace CodeSim {
 		int blockSize;
 		vector<unsigned int> permutationTable, depermutationTable;
 	};
+	
+	
+	
 }
 
