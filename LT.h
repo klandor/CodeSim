@@ -14,6 +14,9 @@ using namespace std;
 
 namespace CodeSim{
 
+	/**
+	 *	@brief Single block LT Coder
+	 */
 	template<class S>
 	class LT_sim : public CodingBlock<S,S>{
 	public:
@@ -213,7 +216,7 @@ namespace CodeSim{
 	template<class S>
 	Codeword<S> LT_sim<S>::decode(Codeword<S> a){
 		stack<int> s = a.getMessageStack();
-		if (s.top() != seed) {
+		if (s.size() != 0 && s.top() != seed) {
 			seed = s.top();
 			reset();
 			Mid_Output = a;

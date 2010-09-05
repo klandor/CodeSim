@@ -6,7 +6,7 @@ using namespace CodeSim;
 int main (int argc, char * const argv[]) {
     
 	//LT_sim sim;
-	CRandomMersenne r(12345);
+	CRandomMersenne r(123245);
 	
 	
 	int Degree_of_Edge[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
@@ -21,7 +21,7 @@ int main (int argc, char * const argv[]) {
 	for (int run=0; run<1000; run++) {
 		//cout << "Run: " << run << "\n";
 		LT_sim<Bit> sim;
-		sim.init(K, K*1.2, 10, Degree_of_Edge, Omega, r.IRandom(0, INT_MAX));
+		sim.init(K, K*1.2, 10, Degree_of_Edge, Omega, r.BRandom());
 		
 		Codeword<Bit> in(K, 0);
 		for (int i=1; i<K; i+=2) {
@@ -58,7 +58,7 @@ int main (int argc, char * const argv[]) {
 			
 			
 			//sum[i] += sim.run();
-//			cout << sim.run();
+			//cout << sim.run();
 			int s=0;
 			for (int j = 0; j<K; j++) {
 				if ( !out[j].isErased() && in[j] == out[j]) 
