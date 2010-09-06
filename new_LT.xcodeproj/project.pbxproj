@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		854065AA123395F200C37CE3 /* LTTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85D061A4122FA19F0094829A /* LTTest.cpp */; };
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
@@ -181,7 +180,6 @@
 				8565BDD4120C28050081A319 /* userintf.cpp in Sources */,
 				85F4E8D912152AD300DA56AC /* Code.cpp in Sources */,
 				8544527512279DDD00BA9182 /* Bit.cpp in Sources */,
-				854065AA123395F200C37CE3 /* LTTest.cpp in Sources */,
 				85B60A571234903000842D09 /* ConvoCodeTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
