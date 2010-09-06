@@ -7,12 +7,16 @@
  *
  */
 
+
 #include<vector>
 #include<string>
 #include<stack>
 #include<fstream>
 #include<iostream>
 using namespace std;
+
+#ifndef H_CodeSim_BASIC
+#define H_CodeSim_BASIC
 
 namespace CodeSim {
 	
@@ -209,4 +213,5 @@ namespace CodeSim {
 	
 	
 }
+#endif
 

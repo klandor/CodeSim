@@ -12,6 +12,9 @@
 #include "CodeSim.h"
 using namespace std;
 
+#ifndef H_LT
+#define H_LT
+
 namespace CodeSim{
 
 	/**
@@ -278,3 +281,5 @@ namespace CodeSim{
 		
 	}
 }
+
+#endif

@@ -13,6 +13,9 @@
 #include <limits>
 //#include <hash_set.h>
 
+#ifndef H_LTCode
+#define H_LTCode
+
 namespace CodeSim {
 	
 	/**
@@ -113,4 +116,5 @@ namespace CodeSim {
 	
 }
 
+#endif
 
