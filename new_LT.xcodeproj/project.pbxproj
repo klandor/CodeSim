@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_sim_Test.cpp; sourceTree = "<group>"; };
+		853626601235E65E00476D16 /* ConvoCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvoCode.cpp; sourceTree = "<group>"; };
 		8544522B1226A22100BA9182 /* BitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitTest.cpp; sourceTree = "<group>"; };
 		8544527412279DDD00BA9182 /* Bit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bit.cpp; sourceTree = "<group>"; };
 		854BD8951225411B006CD78C /* CodeSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSim.h; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				85F4E8D812152AD300DA56AC /* Code.cpp */,
 				85D061AA122FAC2F0094829A /* LTCode.h */,
 				85B60A531234900700842D09 /* ConvoCode.h */,
+				853626601235E65E00476D16 /* ConvoCode.cpp */,
 			);
 			name = CodeSim;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				85F4E8D912152AD300DA56AC /* Code.cpp in Sources */,
 				8544527512279DDD00BA9182 /* Bit.cpp in Sources */,
 				85B60A571234903000842D09 /* ConvoCodeTest.cpp in Sources */,
+				853626611235E65E00476D16 /* ConvoCode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
