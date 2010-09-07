@@ -36,6 +36,10 @@ namespace CodeSim {
 			erased = t;
 		}
 		
+		T getValue(){
+			return value;
+		}
+		
 		bool operator==(Symbol t){
 			return this->value == t.value;
 		}

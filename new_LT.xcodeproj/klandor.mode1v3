@@ -202,6 +202,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>8536268D123602C800476D16</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>ConvoCode.cpp</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>8536268E123602C800476D16</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>ConvoCode.cpp</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>853627191236186A00476D16</string>
+						<key>history</key>
+						<array>
+							<string>853626D012360C2500476D16</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1220, 654}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>30 54 1220 695 0 0 1280 778 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>85B60B1712350A5D00842D09</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>ConvoCode.h</string>
@@ -216,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>853626821235FB6100476D16</string>
+						<string>8536271A1236186A00476D16</string>
 						<key>history</key>
 						<array>
 							<string>853626551235567B00476D16</string>
@@ -270,6 +310,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -315,7 +357,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
+									<integer>9</integer>
 									<integer>2</integer>
 									<integer>1</integer>
 									<integer>0</integer>
@@ -341,7 +383,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>488 200 788 504 0 0 1280 778 </string>
+						<string>467 229 788 504 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -357,7 +399,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ConvoCode.cpp</string>
+								<string>ConvoCode.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -365,11 +407,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ConvoCode.cpp</string>
+										<string>ConvoCode.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>853626811235FB6100476D16</string>
+										<string>853627181236186A00476D16</string>
 										<key>history</key>
 										<array>
 											<string>85F4E9A41216737100DA56AC</string>
@@ -384,13 +426,13 @@
 											<string>8540661F1233BF0100C37CE3</string>
 											<string>85B60A691234919000842D09</string>
 											<string>85B60A6A1234919000842D09</string>
-											<string>85B60A981234C76A00842D09</string>
 											<string>85B60AB61234FD7D00842D09</string>
-											<string>85B60AB71234FD7D00842D09</string>
 											<string>85B60B8E1235293000842D09</string>
-											<string>853626761235EB6C00476D16</string>
-											<string>853626771235EB6C00476D16</string>
-											<string>853626801235FB6100476D16</string>
+											<string>853626A51236074100476D16</string>
+											<string>853626A71236074100476D16</string>
+											<string>853626F812360FBB00476D16</string>
+											<string>853627061236103400476D16</string>
+											<string>853627071236103400476D16</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -404,7 +446,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {580, 291}}</string>
 								<key>RubberWindowFrame</key>
-								<string>488 200 788 504 0 0 1280 778 </string>
+								<string>467 229 788 504 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -412,8 +454,6 @@
 							<string>291pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -426,7 +466,7 @@
 								<key>Frame</key>
 								<string>{{0, 296}, {580, 167}}</string>
 								<key>RubberWindowFrame</key>
-								<string>488 200 788 504 0 0 1280 778 </string>
+								<string>467 229 788 504 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -592,14 +632,15 @@
 	<array>
 		<string>853625DD12354C5100476D16</string>
 		<string>853625DE12354C5100476D16</string>
-		<string>8565BD44120C19560081A319</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>85B60B1712350A5D00842D09</string>
+		<string>8565BD44120C19560081A319</string>
+		<string>8536268D123602C800476D16</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>488 200 788 504 0 0 1280 778 </string>
+	<string>467 229 788 504 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -620,7 +661,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>ConvoCode.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -637,6 +678,8 @@
 							<string>404pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -689,7 +732,7 @@
 			<key>WindowToolGUID</key>
 			<string>8565BD44120C19560081A319</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

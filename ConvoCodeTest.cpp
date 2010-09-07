@@ -18,5 +18,30 @@ int main(){
 	ConvoCode cc("convo.txt");
 	cc.showInfo();
 	
+	
+	Codeword<Bit> a;
+	char c;
+	while (cin >> c) {
+		if (c == '0') {
+			a.push_back(0);
+		}
+		else if (c == '1'){
+			a.push_back(1);
+		}
+		else {
+			break;
+		}
+
+	}
+	
+	Codeword<Bit> b = cc.encode(a);
+	
+	for (int i = 0; i<b.size(); i++) {
+		cout << b[i].toString();
+	}
+	cout << '\n';
+	
+	
+	
 	return 0;
 }

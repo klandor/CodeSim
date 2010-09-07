@@ -38,6 +38,8 @@ namespace CodeSim {
 		
 	}
 	
+	
+	
 	/**
 	 *	@brief Construct ConvoCode from file.
 	 *	@param filename The file to be read.
@@ -58,9 +60,12 @@ namespace CodeSim {
 		fin>>n>>k;
 		forneyIndices.assign(k, 0 );
 		m=0;
+		max_forney = 0;
 		for (int i=0; i<k; i++) {
 			fin >> forneyIndices[i];
 			m += forneyIndices[i];
+			if(forneyIndices[i] > max_forney)
+				max_forney = forneyIndices[i];
 		}
 		
 		G.assign(k,0);
@@ -93,7 +98,7 @@ namespace CodeSim {
 		for(int i=0; i< trellis.size(); i++)
 		{
 			for(int j=0;j<trellis[i].size(); j++){
-				cout << trellis[i][j].next << ' ';
+				cout << trellis[i][j].out << ' ';
 			}
 			cout << '\n';
 		}
@@ -150,8 +155,63 @@ namespace CodeSim {
 		stack<int> s = a.getMessageStack();
 		s.push(a.size());
 		
+		int i, *o = new int[n], m = 0;
+		
+		for(i=0; i+k<a.size(); i+=k){
+			int t=0;
+			for(int j=0; j<k; j++){
+				t <<= 1;
+				t += a[i+j].getValue();
+			}
+			
+			intToArray(o, trellis[m][t].out, n);
+			
+			output.insert(output.end(), o, o+n);
+			
+			m = trellis[m][t].next;
+			
+		}
+		// last bits
+		int t=0;
+		for(int j=0; j< k; j++){
+			t <<= 1;
+			if(i+j < a.size())
+			{
+				t += a[i+j].getValue();
+			}
+			
+		}
+		
+		intToArray(o, trellis[m][t].out, n);
+		
+		output.insert(output.end(), o, o+n);
+		
+		m = trellis[m][t].next;
+		// end last bits
+		
+		// todo closing
+		for(i = 0; i< max_forney; i++){
+			int t=0;
+						
+			intToArray(o, trellis[m][t].out, n);
+			
+			output.insert(output.end(), o, o+n);
+			
+			m = trellis[m][t].next;
+		}
+		
+		delete [] o;
+		output.setMessageStack(s);
+		return output;
+	}
+	
+	Codeword<Bit> ConvoCode::decode(Codeword<Bit> a){
+		Codeword<Bit> output;
+		stack<int> s = a.getMessageStack();
 		
 		
+		
+		s.pop();
 		output.setMessageStack(s);
 		return output;
 	}
