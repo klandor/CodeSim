@@ -8,6 +8,7 @@
  */
 
 #include "ConvoCode.h"
+#include <list>
 
 namespace CodeSim {
 
@@ -209,7 +210,116 @@ namespace CodeSim {
 		Codeword<Bit> output;
 		stack<int> s = a.getMessageStack();
 		
+		while (a.size() % n != 0) {
+			a.push_back(0);
+		}
+		vector< vector<unsigned int> > preState, cost, preIn;
 		
+		preState.push_back( vector<unsigned int>(1<<m, 0) );
+		
+		cost.push_back( vector<unsigned int>(1<<m, 999999) );
+		preIn.push_back( vector<unsigned int>(1<<m, 0) );
+		
+		cost[0][0] = 0;
+		
+		int *o = new int[n];
+		for(int i=0; i< a.size()-max_forney*n ; i+=n){
+			preState.push_back( vector<unsigned int>(1<<m, 0) );
+			cost.push_back( vector<unsigned int>(1<<m, 99999999) );
+			preIn.push_back( vector<unsigned int>(1<<m, 0) );
+			
+			int p = i/n;
+			for(int fromState=0; fromState< (1 << m); fromState++){
+				for(int in=0; in < (1 << k); in++){
+					intToArray(o, trellis[fromState][in].out, n);
+					int tempCost = 0;
+					for(int s=0; s<n; s++){
+						if (a[i+s].isErased()) {
+							tempCost += 1;
+						}
+						else if(a[i+s].getValue() != o[s]){
+							tempCost += 9999;
+						}
+					}
+					
+					if (cost[p+1][ trellis[fromState][in].next ] > cost[p][fromState] + tempCost) {
+						cost[p+1][ trellis[fromState][in].next ] = cost[p][fromState] + tempCost;
+						preState[p+1][ trellis[fromState][in].next ] = fromState;
+						preIn[p+1][ trellis[fromState][in].next ] = in;
+					}
+				}
+			}
+			
+			unsigned int t_min = -1;
+			for (int j=0; j< (1<<m); j++) {
+				if(cost[p+1][j] < t_min){
+					t_min = cost[p+1][j];
+				}
+			}
+			for (int j=0; j< (1<<m); j++) {
+				cost[p+1][j] -= t_min;
+			}
+			
+		}
+		
+		// ending stage
+		
+		for(int i=a.size()-max_forney*n; i< a.size(); i+=n){
+			preState.push_back( vector<unsigned int>(1<<m, 0) );
+			cost.push_back( vector<unsigned int>(1<<m, 99999999) );
+			preIn.push_back( vector<unsigned int>(1<<m, 0) );
+			
+			int p = i/n;
+			for(int fromState=0; fromState< (1 << m); fromState++){
+				int in=0; 
+				{
+					intToArray(o, trellis[fromState][in].out, n);
+					int tempCost = 0;
+					for(int s=0; s<n; s++){
+						if (a[i+s].isErased()) {
+							tempCost += 1;
+						}
+						else if(a[i+s].getValue() != o[s]){
+							tempCost += 9999;
+						}
+					}
+					
+					if (cost[p+1][ trellis[fromState][in].next ] > cost[p][fromState] + tempCost) {
+						cost[p+1][ trellis[fromState][in].next ] = cost[p][fromState] + tempCost;
+						preState[p+1][ trellis[fromState][in].next ] = fromState;
+						preIn[p+1][ trellis[fromState][in].next ] = in;
+					}
+				}
+			}
+			
+			unsigned int t_min = -1;
+			for (int j=0; j< (1<<m); j++) {
+				if(cost[p+1][j] < t_min){
+					t_min = cost[p+1][j];
+				}
+			}
+			for (int j=0; j< (1<<m); j++) {
+				cost[p+1][j] -= t_min;
+			}
+			
+		}
+		
+		
+		// go through trellis
+		int state = 0;
+		list<unsigned int> out_temp;
+		for (int i = preState.size() - 1; i>0; i--) {
+			out_temp.push_front(preIn[i][state]);
+			state = preState[i][state];
+		}
+		
+		for (; !out_temp.empty(); out_temp.pop_front()) {
+			intToArray(o, out_temp.front(), k);
+			output.insert(output.end(), o, o+k);
+		}
+		
+		
+		delete [] o;
 		output.trim(s.top());
 		s.pop();
 		output.setMessageStack(s);

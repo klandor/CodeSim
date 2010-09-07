@@ -47,7 +47,7 @@ namespace CodeSim {
 	string Bit::toString()
 	{
 		if (isErased()) {
-			return "-1";
+			return "*";
 		}
 		if (value) {
 			return "1";
