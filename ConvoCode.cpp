@@ -210,7 +210,7 @@ namespace CodeSim {
 		stack<int> s = a.getMessageStack();
 		
 		
-		
+		output.trim(s.top());
 		s.pop();
 		output.setMessageStack(s);
 		return output;

@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>853627191236186A00476D16</string>
+						<string>8536272B123620CC00476D16</string>
 						<key>history</key>
 						<array>
 							<string>853626D012360C2500476D16</string>
@@ -256,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>8536271A1236186A00476D16</string>
+						<string>8536272C123620CC00476D16</string>
 						<key>history</key>
 						<array>
 							<string>853626551235567B00476D16</string>
@@ -310,8 +310,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -357,8 +355,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>9</integer>
-									<integer>2</integer>
+									<integer>11</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -399,7 +396,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ConvoCode.h</string>
+								<string>LTCode.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -407,11 +404,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ConvoCode.h</string>
+										<string>LTCode.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>853627181236186A00476D16</string>
+										<string>8536272A123620CC00476D16</string>
 										<key>history</key>
 										<array>
 											<string>85F4E9A41216737100DA56AC</string>
@@ -426,13 +423,13 @@
 											<string>8540661F1233BF0100C37CE3</string>
 											<string>85B60A691234919000842D09</string>
 											<string>85B60A6A1234919000842D09</string>
-											<string>85B60AB61234FD7D00842D09</string>
 											<string>85B60B8E1235293000842D09</string>
-											<string>853626A51236074100476D16</string>
 											<string>853626A71236074100476D16</string>
 											<string>853626F812360FBB00476D16</string>
-											<string>853627061236103400476D16</string>
-											<string>853627071236103400476D16</string>
+											<string>85362727123620CC00476D16</string>
+											<string>85362728123620CC00476D16</string>
+											<string>85362729123620CC00476D16</string>
+											<string>853626A51236074100476D16</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -454,6 +451,8 @@
 							<string>291pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -630,14 +629,15 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>8536272D123620CC00476D16</string>
 		<string>853625DD12354C5100476D16</string>
 		<string>853625DE12354C5100476D16</string>
+		<string>8565BD44120C19560081A319</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>85B60B1712350A5D00842D09</string>
-		<string>8565BD44120C19560081A319</string>
 		<string>8536268D123602C800476D16</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
+		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
 	<string>467 229 788 504 0 0 1280 778 </string>
@@ -732,7 +732,7 @@
 			<key>WindowToolGUID</key>
 			<string>8565BD44120C19560081A319</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

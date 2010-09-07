@@ -108,7 +108,7 @@ namespace CodeSim {
 		}
 		
 		s.pop();//pop seed
-		output.erase(output.begin()+s.top(), output.end());
+		output.trim(s.top());
 		s.pop();
 		output.setMessageStack(s);
 		return output;

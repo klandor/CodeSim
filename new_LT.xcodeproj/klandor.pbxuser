@@ -156,6 +156,17 @@
 			853627181236186A00476D16 /* PBXTextBookmark */ = 853627181236186A00476D16 /* PBXTextBookmark */;
 			853627191236186A00476D16 /* PBXTextBookmark */ = 853627191236186A00476D16 /* PBXTextBookmark */;
 			8536271A1236186A00476D16 /* PBXTextBookmark */ = 8536271A1236186A00476D16 /* PBXTextBookmark */;
+			8536271D1236206900476D16 /* PBXTextBookmark */ = 8536271D1236206900476D16 /* PBXTextBookmark */;
+			8536271E1236206900476D16 /* PBXTextBookmark */ = 8536271E1236206900476D16 /* PBXTextBookmark */;
+			8536271F1236206900476D16 /* PBXTextBookmark */ = 8536271F1236206900476D16 /* PBXTextBookmark */;
+			853627201236206900476D16 /* PBXTextBookmark */ = 853627201236206900476D16 /* PBXTextBookmark */;
+			853627211236207300476D16 /* PBXTextBookmark */ = 853627211236207300476D16 /* PBXTextBookmark */;
+			85362727123620CC00476D16 /* PBXTextBookmark */ = 85362727123620CC00476D16 /* PBXTextBookmark */;
+			85362728123620CC00476D16 /* PBXTextBookmark */ = 85362728123620CC00476D16 /* PBXTextBookmark */;
+			85362729123620CC00476D16 /* PBXTextBookmark */ = 85362729123620CC00476D16 /* PBXTextBookmark */;
+			8536272A123620CC00476D16 /* PBXTextBookmark */ = 8536272A123620CC00476D16 /* PBXTextBookmark */;
+			8536272B123620CC00476D16 /* PBXTextBookmark */ = 8536272B123620CC00476D16 /* PBXTextBookmark */;
+			8536272C123620CC00476D16 /* PBXTextBookmark */ = 8536272C123620CC00476D16 /* PBXTextBookmark */;
 			854065471233814F00C37CE3 = 854065471233814F00C37CE3 /* PBXTextBookmark */;
 			854065CE1233996000C37CE3 = 854065CE1233996000C37CE3 /* PBXTextBookmark */;
 			854065CF1233996000C37CE3 = 854065CF1233996000C37CE3 /* PBXTextBookmark */;
@@ -432,9 +443,9 @@
 	};
 	853626601235E65E00476D16 /* ConvoCode.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1161, 2782}}";
-			sepNavSelRange = "{3750, 0}";
-			sepNavVisRange = "{3255, 803}";
+			sepNavIntBoundsRect = "{{0, 0}, {1161, 2795}}";
+			sepNavSelRange = "{4084, 0}";
+			sepNavVisRange = "{3380, 765}";
 		};
 	};
 	853626761235EB6C00476D16 /* PBXTextBookmark */ = {
@@ -539,7 +550,7 @@
 		fRef = 853626601235E65E00476D16 /* ConvoCode.cpp */;
 		name = "ConvoCode.cpp: 165";
 		rLen = 0;
-		rLoc = 4074;
+		rLoc = 4095;
 		rType = 0;
 		vrLen = 333;
 		vrLoc = 2957;
@@ -563,7 +574,7 @@
 		fRef = 853626601235E65E00476D16 /* ConvoCode.cpp */;
 		name = "ConvoCode.cpp: 173";
 		rLen = 0;
-		rLoc = 4074;
+		rLoc = 4095;
 		rType = 0;
 		vrLen = 309;
 		vrLoc = 2897;
@@ -593,7 +604,7 @@
 		fRef = 85D061AA122FAC2F0094829A /* LTCode.h */;
 		name = "LTCode.h: 119";
 		rLen = 0;
-		rLoc = 2514;
+		rLoc = 2484;
 		rType = 0;
 		vrLen = 470;
 		vrLoc = 2038;
@@ -1096,6 +1107,116 @@
 		vrLen = 852;
 		vrLoc = 33;
 	};
+	8536271D1236206900476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85B60A531234900700842D09 /* ConvoCode.h */;
+		name = "ConvoCode.h: 30";
+		rLen = 0;
+		rLoc = 513;
+		rType = 0;
+		vrLen = 387;
+		vrLoc = 677;
+	};
+	8536271E1236206900476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 853626601235E65E00476D16 /* ConvoCode.cpp */;
+		name = "ConvoCode.cpp: 41";
+		rLen = 0;
+		rLoc = 583;
+		rType = 0;
+		vrLen = 380;
+		vrLoc = 3050;
+	};
+	8536271F1236206900476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 853626601235E65E00476D16 /* ConvoCode.cpp */;
+		name = "ConvoCode.cpp: 213";
+		rLen = 0;
+		rLoc = 4084;
+		rType = 0;
+		vrLen = 766;
+		vrLoc = 3380;
+	};
+	853627201236206900476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85B60A531234900700842D09 /* ConvoCode.h */;
+		name = "ConvoCode.h: 56";
+		rLen = 10;
+		rLoc = 948;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 33;
+	};
+	853627211236207300476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 853626601235E65E00476D16 /* ConvoCode.cpp */;
+		name = "ConvoCode.cpp: 164";
+		rLen = 0;
+		rLoc = 3255;
+		rType = 0;
+		vrLen = 535;
+		vrLoc = 2668;
+	};
+	85362727123620CC00476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 853626601235E65E00476D16 /* ConvoCode.cpp */;
+		name = "ConvoCode.cpp: 41";
+		rLen = 0;
+		rLoc = 583;
+		rType = 0;
+		vrLen = 380;
+		vrLoc = 3050;
+	};
+	85362728123620CC00476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8565BD1D120C0A0D0081A319 /* LT.h */;
+		name = "LT.h: 220";
+		rLen = 21;
+		rLoc = 4581;
+		rType = 0;
+		vrLen = 346;
+		vrLoc = 4642;
+	};
+	85362729123620CC00476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85B60A531234900700842D09 /* ConvoCode.h */;
+		name = "ConvoCode.h: 30";
+		rLen = 0;
+		rLoc = 513;
+		rType = 0;
+		vrLen = 387;
+		vrLoc = 677;
+	};
+	8536272A123620CC00476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85D061AA122FAC2F0094829A /* LTCode.h */;
+		name = "LTCode.h: 111";
+		rLen = 0;
+		rLoc = 2410;
+		rType = 0;
+		vrLen = 349;
+		vrLoc = 2137;
+	};
+	8536272B123620CC00476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 853626601235E65E00476D16 /* ConvoCode.cpp */;
+		name = "ConvoCode.cpp: 213";
+		rLen = 0;
+		rLoc = 4084;
+		rType = 0;
+		vrLen = 765;
+		vrLoc = 3380;
+	};
+	8536272C123620CC00476D16 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85B60A531234900700842D09 /* ConvoCode.h */;
+		name = "ConvoCode.h: 56";
+		rLen = 10;
+		rLoc = 948;
+		rType = 0;
+		vrLen = 811;
+		vrLoc = 33;
+	};
 	854065471233814F00C37CE3 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 8544527412279DDD00BA9182 /* Bit.cpp */;
@@ -1185,7 +1306,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -1237,9 +1358,9 @@
 	};
 	8565BD1D120C0A0D0081A319 /* LT.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1012, 3900}}";
-			sepNavSelRange = "{4664, 0}";
-			sepNavVisRange = "{4168, 872}";
+			sepNavIntBoundsRect = "{{0, 0}, {719, 3523}}";
+			sepNavSelRange = "{4581, 21}";
+			sepNavVisRange = "{4642, 346}";
 			sepNavWindowFrame = "{{36, 16}, {1071, 746}}";
 		};
 	};
@@ -1290,7 +1411,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1161, 793}}";
 			sepNavSelRange = "{948, 10}";
-			sepNavVisRange = "{33, 852}";
+			sepNavVisRange = "{33, 811}";
 			sepNavWindowFrame = "{{15, 22}, {1220, 751}}";
 		};
 	};
@@ -1326,7 +1447,7 @@
 		fRef = 85D061AA122FAC2F0094829A /* LTCode.h */;
 		name = "LTCode.h: 119";
 		rLen = 0;
-		rLoc = 2514;
+		rLoc = 2484;
 		rType = 0;
 		vrLen = 477;
 		vrLoc = 2038;
@@ -1439,9 +1560,9 @@
 	};
 	85D061AA122FAC2F0094829A /* LTCode.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {649, 1612}}";
-			sepNavSelRange = "{2514, 0}";
-			sepNavVisRange = "{2038, 470}";
+			sepNavIntBoundsRect = "{{0, 0}, {649, 1586}}";
+			sepNavSelRange = "{2410, 0}";
+			sepNavVisRange = "{2137, 349}";
 			sepNavWindowFrame = "{{15, 27}, {1071, 746}}";
 		};
 	};
