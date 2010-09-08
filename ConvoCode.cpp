@@ -213,22 +213,22 @@ namespace CodeSim {
 		while (a.size() % n != 0) {
 			a.push_back(0);
 		}
-		vector< vector<unsigned int> > preState, cost, preIn;
+		list< vector<unsigned int> > preState, cost, preIn;
 		
 		preState.push_back( vector<unsigned int>(1<<m, 0) );
 		
 		cost.push_back( vector<unsigned int>(1<<m, 999999) );
 		preIn.push_back( vector<unsigned int>(1<<m, 0) );
 		
-		cost[0][0] = 0;
+		cost.front()[0] = 0;
 		
-		int *o = new int[n];
+		int *o = new int[n], trellisLength = 0;
 		for(int i=0; i< a.size()-max_forney*n ; i+=n){
 			preState.push_back( vector<unsigned int>(1<<m, 0) );
 			cost.push_back( vector<unsigned int>(1<<m, 99999999) );
 			preIn.push_back( vector<unsigned int>(1<<m, 0) );
 			
-			int p = i/n;
+			//int p = i/n;
 			for(int fromState=0; fromState< (1 << m); fromState++){
 				for(int in=0; in < (1 << k); in++){
 					intToArray(o, trellis[fromState][in].out, n);
@@ -241,23 +241,55 @@ namespace CodeSim {
 							tempCost += 9999;
 						}
 					}
-					
-					if (cost[p+1][ trellis[fromState][in].next ] > cost[p][fromState] + tempCost) {
-						cost[p+1][ trellis[fromState][in].next ] = cost[p][fromState] + tempCost;
-						preState[p+1][ trellis[fromState][in].next ] = fromState;
-						preIn[p+1][ trellis[fromState][in].next ] = in;
+					list< vector<unsigned int> >::reverse_iterator iCost = cost.rbegin();
+					iCost++;
+					if ( ( *cost.rbegin() )[ trellis[fromState][in].next ] > ( *iCost )[fromState] + tempCost ) {
+						( *cost.rbegin() )[ trellis[fromState][in].next ] = ( *iCost )[fromState] + tempCost;
+						preState.back()[ trellis[fromState][in].next ] = fromState;
+						preIn.back()[ trellis[fromState][in].next ] = in;
 					}
 				}
 			}
 			
 			unsigned int t_min = -1;
 			for (int j=0; j< (1<<m); j++) {
-				if(cost[p+1][j] < t_min){
-					t_min = cost[p+1][j];
+				if(( *cost.rbegin() )[j] < t_min){
+					t_min = ( *cost.rbegin() )[j];
 				}
 			}
 			for (int j=0; j< (1<<m); j++) {
-				cost[p+1][j] -= t_min;
+				( *cost.rbegin() )[j] -= t_min;
+			}
+			
+			trellisLength++;
+			if (trellisLength > 1000) {
+				//sliding window decoding
+				int state = 0, windowSize = 0;
+				list<unsigned int> out_temp;
+				for (list< vector<unsigned int> >::reverse_iterator 
+					 iState = preState.rbegin(), 
+					 iStatePre = preState.rbegin(), 
+					 iIn = preIn.rbegin()
+					 ; ++iStatePre != preState.rend(); iState++, iIn++) {
+					
+					windowSize++;
+					if (windowSize >= 10*m) {
+						out_temp.push_front((*iIn)[state]);
+					}
+					state = (*iState)[state];
+					
+					
+				}
+				
+				
+				for (; !out_temp.empty(); out_temp.pop_front()) {
+					intToArray(o, out_temp.front(), k);
+					output.insert(output.end(), o, o+k);
+					
+					preState.pop_front();
+					cost.pop_front();
+					preIn.pop_front();
+				}
 			}
 			
 		}
@@ -269,7 +301,7 @@ namespace CodeSim {
 			cost.push_back( vector<unsigned int>(1<<m, 99999999) );
 			preIn.push_back( vector<unsigned int>(1<<m, 0) );
 			
-			int p = i/n;
+			//int p = i/n;
 			for(int fromState=0; fromState< (1 << m); fromState++){
 				int in=0; 
 				{
@@ -283,35 +315,42 @@ namespace CodeSim {
 							tempCost += 9999;
 						}
 					}
-					
-					if (cost[p+1][ trellis[fromState][in].next ] > cost[p][fromState] + tempCost) {
-						cost[p+1][ trellis[fromState][in].next ] = cost[p][fromState] + tempCost;
-						preState[p+1][ trellis[fromState][in].next ] = fromState;
-						preIn[p+1][ trellis[fromState][in].next ] = in;
+					list< vector<unsigned int> >::reverse_iterator iCost = cost.rbegin();
+					iCost++;
+					if ( ( *cost.rbegin() )[ trellis[fromState][in].next ] > ( *iCost )[fromState] + tempCost ) {
+						( *cost.rbegin() )[ trellis[fromState][in].next ] = ( *iCost )[fromState] + tempCost;
+						preState.back()[ trellis[fromState][in].next ] = fromState;
+						preIn.back()[ trellis[fromState][in].next ] = in;
 					}
 				}
 			}
 			
 			unsigned int t_min = -1;
 			for (int j=0; j< (1<<m); j++) {
-				if(cost[p+1][j] < t_min){
-					t_min = cost[p+1][j];
+				if(( *cost.rbegin() )[j] < t_min){
+					t_min = ( *cost.rbegin() )[j];
 				}
 			}
 			for (int j=0; j< (1<<m); j++) {
-				cost[p+1][j] -= t_min;
+				( *cost.rbegin() )[j] -= t_min;
 			}
 			
 		}
 		
 		
-		// go through trellis
+		// go through trellis(last time)
 		int state = 0;
 		list<unsigned int> out_temp;
-		for (int i = preState.size() - 1; i>0; i--) {
-			out_temp.push_front(preIn[i][state]);
-			state = preState[i][state];
+		for (list< vector<unsigned int> >::reverse_iterator 
+				iState = preState.rbegin(), 
+				iStatePre = preState.rbegin(), 
+				iIn = preIn.rbegin()
+				; ++iStatePre != preState.rend(); iState++, iIn++) {
+			
+			out_temp.push_front((*iIn)[state]);
+			state = (*iState)[state];
 		}
+		
 		
 		for (; !out_temp.empty(); out_temp.pop_front()) {
 			intToArray(o, out_temp.front(), k);

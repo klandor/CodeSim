@@ -12,7 +12,7 @@
 #include "LTCode.h"
 #include "randomc.h"
 #include<time.h>
-#define L 10000000
+#define L 1000000
 
 using namespace std;
 using namespace CodeSim;
@@ -33,9 +33,9 @@ int main(){
 //		cout << a[i].toString();
 //	}
 //	cout << '\n';
-	
+	cout << "encoding...";
 	Codeword<Bit> b = cc.encode(a);
-	cout << "encode: ";
+	
 	for (int i = 0; i<b.size(); i++) {
 		if (r.Random() < 0.1) {
 			b[i].setErased(true);
@@ -46,11 +46,11 @@ int main(){
 	
 	
 	
-	
+	cout << "decoding...";
 	Codeword<Bit> b2 = cc.decode(b);
 	int sum[2] = {0,0};
 	
-	cout << "decode: ";
+	
 	for (int i = 0; i<b2.size(); i++) {
 		if (b2[i].getValue() != a[i].getValue()) {
 			sum[i%2]++;
