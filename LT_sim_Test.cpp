@@ -1,12 +1,13 @@
 #include <iostream>
 #include <limits>
+#include <ctime>
 #include "LT.h"
 using namespace std;
 using namespace CodeSim;
 int main (int argc, char * const argv[]) {
     
 	//LT_sim sim;
-	CRandomMersenne r(123245);
+	CRandomMersenne r(time(0));
 	
 	
 	int Degree_of_Edge[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};

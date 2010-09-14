@@ -4,7 +4,9 @@
  *
  *  Created by 刁培倫 on 2010/9/2.
  *  Copyright 2010 __MyCompanyName__. All rights reserved.
- *
+ *	
+ *	for a input codeword of length 3000000 would cost about 
+ *	500MB of memory
  */
 
 //#include "CodeSim.h"
@@ -39,8 +41,8 @@ namespace CodeSim {
 			//Rnd.RandomInit(seed);
 			coders.clear();
 		}
-		Codeword<S> encode(Codeword<S> a);
-		Codeword<S> decode(Codeword<S> a);
+		Codeword<S> encode(Codeword<S>& a);
+		Codeword<S> decode(Codeword<S>& a);
 	private:
 		
 		int k, max_n, tag_size, *tags;
@@ -51,7 +53,7 @@ namespace CodeSim {
 	};
 	
 	template<class S>
-	Codeword<S> LTCode<S>::encode(Codeword<S> a){
+	Codeword<S> LTCode<S>::encode(Codeword<S>& a){
 		Codeword<S> output;
 		CRandomMersenne Rnd(seed);
 		reset();
@@ -78,7 +80,7 @@ namespace CodeSim {
 	}
 	
 	template<class S>
-	Codeword<S> LTCode<S>::decode(Codeword<S> a){
+	Codeword<S> LTCode<S>::decode(Codeword<S>& a){
 		Codeword<S> output;
 		//reset();
 		stack<int> s = a.getMessageStack();

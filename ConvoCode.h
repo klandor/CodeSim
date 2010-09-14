@@ -49,7 +49,7 @@ namespace CodeSim {
 		ConvoCode(string filename);
 		void showInfo();
 		Codeword<Bit> encode(Codeword<Bit> a);
-		Codeword<Bit> decode(Codeword<Bit> a);
+		Codeword<Bit> decode(Codeword<Bit> & a);
 	protected:
 		void generateTrellis();
 	private:

@@ -12,12 +12,13 @@
 #include "LTCode.h"
 #include "randomc.h"
 #include<time.h>
-#define L 1000000
+#define L 10000000
 
 using namespace std;
 using namespace CodeSim;
 int main(){
 	CRandomMersenne r(time(0));
+	int startTime = time(0);
 	cout << octToDec(19) << "\n";
 	ConvoCode cc("convo.txt");
 	cc.showInfo();
@@ -33,7 +34,7 @@ int main(){
 //		cout << a[i].toString();
 //	}
 //	cout << '\n';
-	cout << "encoding...";
+	cout << "encoding...\n";
 	Codeword<Bit> b = cc.encode(a);
 	
 	for (int i = 0; i<b.size(); i++) {
@@ -42,11 +43,9 @@ int main(){
 		}
 		//cout << b[i].toString();
 	}
-	cout << '\n';
 	
 	
-	
-	cout << "decoding...";
+	cout << "decoding...\n";
 	Codeword<Bit> b2 = cc.decode(b);
 	int sum[2] = {0,0};
 	
@@ -59,6 +58,6 @@ int main(){
 	cout << '\n';
 	
 	cout << sum[0] / (double)L << ' ' << sum[1] / (double)L << '\n';
-	
+	cout << "Time: " << time(0) - startTime << '\n';
 	return 0;
 }

@@ -31,8 +31,8 @@ namespace CodeSim{
 		void decode();
 		bool isDecoded(int t);
 		double run();
-		Codeword<S> encode(Codeword<S> a);
-		Codeword<S> decode(Codeword<S> a);
+		Codeword<S> encode(Codeword<S>& a);
+		Codeword<S> decode(Codeword<S>& a);
 		void reset();
 	private:
 		void codeGen(int t);
@@ -201,7 +201,7 @@ namespace CodeSim{
 	}
 	
 	template<class S>
-	Codeword<S> LT_sim<S>::encode(Codeword<S> a){
+	Codeword<S> LT_sim<S>::encode(Codeword<S>& a){
 		reset();
 		Codeword<S> output;
 		output.assign(Num_of_Output,0);
@@ -217,7 +217,7 @@ namespace CodeSim{
 	}
 	
 	template<class S>
-	Codeword<S> LT_sim<S>::decode(Codeword<S> a){
+	Codeword<S> LT_sim<S>::decode(Codeword<S>& a){
 		stack<int> s = a.getMessageStack();
 		if (s.size() != 0 && s.top() != seed) {
 			seed = s.top();
