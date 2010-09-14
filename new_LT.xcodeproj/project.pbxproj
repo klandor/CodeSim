@@ -45,6 +45,7 @@
 		85BD043D122A86A800EFCF85 /* PermutatorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PermutatorTest.cpp; sourceTree = "<group>"; };
 		85D061A4122FA19F0094829A /* LTTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LTTest.cpp; sourceTree = "<group>"; };
 		85D061AA122FAC2F0094829A /* LTCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCode.h; sourceTree = "<group>"; };
+		85E02006123FD347001ED159 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		85F4E8C712151B0900DA56AC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		85F4E8D812152AD300DA56AC /* Code.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Code.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* new_LT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = new_LT; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +133,7 @@
 			children = (
 				C6859E8B029090EE04C91782 /* new_LT.1 */,
 				85F4E8C712151B0900DA56AC /* README */,
+				85E02006123FD347001ED159 /* Makefile */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
