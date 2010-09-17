@@ -1,4 +1,4 @@
-CPPFLAGS = -O3
+CPPFLAGS = -O3 -fopenmp
 
 all: CodeSim randomc cmaes
 

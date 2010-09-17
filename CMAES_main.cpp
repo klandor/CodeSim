@@ -9,10 +9,12 @@
 #include "cmaes_interface.h"
 #include "randomc.h"
 #include "LT.h"
+#include <omp.h>
+
 // =================================================================
 #define K 1000			// K size
 #define MaxN 1050		// set Max code word number (set 2*K ,but we only use 1.2*K)
-#define Run 100			// how many simulations per fitness 
+#define Run 1000			// how many simulations per fitness 
 #define MAXFEC 10000		// set Max function evaluations in CMAES  
 #define Lambda 10		// set parameter lambda in CMAES
 #define INFO 1			// 1 : show the info during evolution , 0 : don't display
@@ -79,17 +81,23 @@ void Parameter_init(){
 
 
 double fitfun(double* Indiv , int dim, bool &needResample){
-	int i;		
+	//int i;		
 	double n=0;
 	
 	normolize(Indiv);
-	for(i=0;i<Dsize;i++) D[i] = Indiv[i];
-	// SD = 累計機率	
-	SD[0] = D[0];	
-	for(i=1;i<Dsize;i++)	SD[i] = SD[i-1]+D[i];
+//	for(i=0;i<Dsize;i++) D[i] = Indiv[i];
+//	// SD = 累計機率	
+//	SD[0] = D[0];	
+//	for(i=1;i<Dsize;i++)	SD[i] = SD[i-1]+D[i];
+	int seed[Run];
+	for (int i=0; i<Run; i++) {
+		seed[i] = Rnd->BRandom();
+	}
 	
-	for(i=0;i<Run;i++){
-		LT_sim<Bit> lt(K, MaxN, Dsize, Set_tags, Indiv, Rnd->BRandom());
+	
+	#pragma omp parallel for num_threads(4) reduction(+:n)
+	for(int i=0;i<Run;i++){
+		LT_sim<Bit> lt(K, MaxN, Dsize, Set_tags, Indiv, seed[i]);
 		lt.reset();
 		lt.seqReceive(MaxN);
 		lt.decode();
