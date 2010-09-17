@@ -99,7 +99,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	for(int i=0;i<Run;i++){
 		LT_sim<Bit> lt(K, MaxN, Dsize, Set_tags, Indiv, seed[i]);
 		lt.reset();
-		lt.seqReceive(MaxN);
+		lt.seqReceive(MaxN-1);
 		lt.decode();
 		//cout << "Run "<< i+1 << endl;
 		n += lt.falureRate();
