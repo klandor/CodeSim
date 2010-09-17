@@ -30,7 +30,7 @@ namespace CodeSim{
 		void receive(int t);
 		void decode();
 		bool isDecoded(int t);
-		double run();
+		double falureRate();
 		Codeword<S> encode(Codeword<S>& a);
 		Codeword<S> decode(Codeword<S>& a);
 		void reset();
@@ -270,12 +270,12 @@ namespace CodeSim{
 		receivedMask.assign(Num_of_Output, 0);
 		
 		Result.assign(Num_of_Input, -1);
-		Mid_Output.clear();
+		Mid_Output.assign(Num_of_Output, 0);
 		
 	}
 	
 	template<class S>
-	double LT_sim<S>::run(){
+	double LT_sim<S>::falureRate(){
 		
 		return 1-(Num_of_Decoding/(double)Num_of_Input);//failure rate
 		

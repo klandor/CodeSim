@@ -245,17 +245,17 @@
 	};
 	8565BD1D120C0A0D0081A319 /* LT.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {717, 3601}}";
-			sepNavSelRange = "{3879, 0}";
-			sepNavVisRange = "{3714, 443}";
+			sepNavIntBoundsRect = "{{0, 0}, {719, 3822}}";
+			sepNavSelRange = "{3196, 0}";
+			sepNavVisRange = "{2141, 530}";
 			sepNavWindowFrame = "{{36, 16}, {1071, 746}}";
 		};
 	};
 	8565BD1E120C0A0D0081A319 /* LT.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {712, 5707}}";
+			sepNavIntBoundsRect = "{{0, 0}, {712, 5759}}";
 			sepNavSelRange = "{10045, 0}";
-			sepNavVisRange = "{7704, 474}";
+			sepNavVisRange = "{339, 618}";
 			sepNavWindowFrame = "{{15, 0}, {950, 778}}";
 		};
 	};
@@ -358,11 +358,18 @@
 			sepNavVisRange = "{0, 960}";
 		};
 	};
-	8597159B124325A900BD7FC2 /* cmaes.c */ = {
+	8597159B124325A900BD7FC2 /* cmaes.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {700, 38467}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 1238}";
+		};
+	};
+	8597159E124325BC00BD7FC2 /* CMAES_RUN.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1118, 4108}}";
+			sepNavSelRange = "{6841, 5}";
+			sepNavVisRange = "{8889, 701}";
 		};
 	};
 	85B60A531234900700842D09 /* ConvoCode.h */ = {
@@ -500,7 +507,7 @@
 		fRef = 8565BD1D120C0A0D0081A319 /* LT.h */;
 		name = "LT.h: 35";
 		rLen = 0;
-		rLoc = 717;
+		rLoc = 724;
 		rType = 0;
 		vrLen = 699;
 		vrLoc = 143;
@@ -545,6 +552,13 @@
 		vrLen = 1347;
 		vrLoc = 5082;
 	};
+	85E02006123FD347001ED159 /* Makefile */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {700, 352}}";
+			sepNavSelRange = "{119, 10}";
+			sepNavVisRange = "{0, 221}";
+		};
+	};
 	85F10D6512369A040013425B /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 85F10D6612369A040013425B /* stl_uninitialized.h */;
@@ -574,7 +588,7 @@
 	};
 	85F4E8C712151B0900DA56AC /* README */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {519, 228}}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 352}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 0}";
 		};
