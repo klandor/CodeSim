@@ -5,6 +5,7 @@
 		activeExecutable = 8565BD19120C09F60081A319 /* new_LT */;
 		activeTarget = 8DD76F620486A84900D96B5E /* new_LT */;
 		addToTargets = (
+			8DD76F620486A84900D96B5E /* new_LT */,
 		);
 		breakpoints = (
 			85D06325123330F10094829A /* LT_sim_Test.cpp:71 */,
@@ -38,6 +39,20 @@
 					PBXBreakpointsDataSource_ContinueID,
 				);
 			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXBookmarksDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBookmarksDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					200,
+					331.58349609375,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBookmarksDataSource_LocationID,
+					PBXBookmarksDataSource_NameID,
+					PBXBookmarksDataSource_CommentsID,
+				);
+			};
 			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
 				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
@@ -60,8 +75,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 306172641;
-			PBXWorkspaceStateSaveDate = 306172641;
+			PBXPerProjectTemplateStateSaveDate = 306390385;
+			PBXWorkspaceStateSaveDate = 306390385;
 		};
 		perUserProjectItems = {
 			854065CE1233996000C37CE3 = 854065CE1233996000C37CE3 /* PBXTextBookmark */;
@@ -335,6 +350,20 @@
 		rType = 0;
 		vrLen = 1347;
 		vrLoc = 5082;
+	};
+	8597159A124325A900BD7FC2 /* cmaes_interface.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {700, 897}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 960}";
+		};
+	};
+	8597159B124325A900BD7FC2 /* cmaes.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {700, 38467}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1238}";
+		};
 	};
 	85B60A531234900700842D09 /* ConvoCode.h */ = {
 		uiCtxt = {
