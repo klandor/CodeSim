@@ -30,7 +30,7 @@ namespace CodeSim{
 		void receive(int t);
 		void decode();
 		bool isDecoded(int t);
-		double falureRate();
+		double failureRate();
 		Codeword<S> encode(Codeword<S>& a);
 		Codeword<S> decode(Codeword<S>& a);
 		void reset();
@@ -65,26 +65,29 @@ namespace CodeSim{
 		Num_of_Output= max_n;
 		Num_of_Degree = tag_size;
 		
-		d.assign(max_n,0);
-		edge.assign(max_n,0);
-		R_M.assign(max_n,0);
+//		d.assign(max_n,0);
+//		edge.assign(max_n,0);
+//		R_M.assign(max_n,0);
 		//erasure.assign(max_n,0);
-		
-//		DE.assign(k,0);
 		this->seed = seed;
-		Rnd.RandomInit(seed);
 		Degree_of_Edge.assign(tags, tags+tag_size);
 		Omega.assign(omega, omega+tag_size);
 		for(int i=1; i<Num_of_Degree; i++)  
 			Omega[i] = Omega[i-1]+Omega[i];
+
 		
-		Num_of_Decoding = 0;
-		ReceivedSize = 0;
-		generatedCode = 0;
+		reset();
+//		DE.assign(k,0);
+		
+//		Rnd.RandomInit(seed);
+		
+//		Num_of_Decoding = 0;
+//		ReceivedSize = 0;
+//		generatedCode = 0;
 		//codeGen(max_n);
 		
-		Result.assign(k,-1);
-		receivedMask.assign(max_n, 0);
+//		Result.assign(k,-1);
+//		receivedMask.assign(max_n, 0);
 	}
 	
 	template<class S>
@@ -94,8 +97,8 @@ namespace CodeSim{
 	
 	template<class S>
 	void LT_sim<S>::codeGen(int t){
-		if (t>= generatedCode){
-			for(int i=generatedCode; i<t; i++){
+		if (generatedCode < t+1){
+			for(int i=generatedCode; i<=t; i++){
 				// decide degree
 				double rando = Rnd.Random();
 				int s, flag;
@@ -140,13 +143,13 @@ namespace CodeSim{
 				
 			}
 			
-			generatedCode = t;
+			generatedCode = t+1;
 		}
 	}
 	
 	template<class S>
 	inline void LT_sim<S>::receive(int t){
-		
+		codeGen(t);
 		if(receivedMask[t]==0)
 		{
 			R_M[ReceivedSize]=t;
@@ -203,6 +206,8 @@ namespace CodeSim{
 	template<class S>
 	Codeword<S> LT_sim<S>::encode(Codeword<S>& a){
 		reset();
+		codeGen(Num_of_Output-1);
+		
 		Codeword<S> output;
 		output.assign(Num_of_Output,0);
 		
@@ -222,10 +227,11 @@ namespace CodeSim{
 		if (s.size() != 0 && s.top() != seed) {
 			seed = s.top();
 			reset();
+			codeGen(Num_of_Output-1);
 			Mid_Output = a;
 		}
 		
-		if (Mid_Output.empty()) {
+		if (ReceivedSize == 0) {
 			Mid_Output = a;
 		}
 		
@@ -238,12 +244,6 @@ namespace CodeSim{
 		
 		decode();
 		
-//		Codeword<S> t = DE;
-//		for (int i=0; i< t.size(); i++) {
-//			if (t[i] == 0) {
-//				t[i] = -1;
-//			}
-//		}
 		return Result;
 	}
 	
@@ -265,7 +265,7 @@ namespace CodeSim{
 		Num_of_Decoding = 0;
 		ReceivedSize = 0;
 		generatedCode = 0;
-		codeGen(Num_of_Output);
+		//codeGen(Num_of_Output);
 		
 		receivedMask.assign(Num_of_Output, 0);
 		
@@ -275,7 +275,7 @@ namespace CodeSim{
 	}
 	
 	template<class S>
-	double LT_sim<S>::falureRate(){
+	double LT_sim<S>::failureRate(){
 		
 		return 1-(Num_of_Decoding/(double)Num_of_Input);//failure rate
 		
