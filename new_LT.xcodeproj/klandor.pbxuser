@@ -160,6 +160,7 @@
 			85F8C37112464BA200AE3CFC /* PBXTextBookmark */ = 85F8C37112464BA200AE3CFC /* PBXTextBookmark */;
 			85F8C37212464BA700AE3CFC /* PBXTextBookmark */ = 85F8C37212464BA700AE3CFC /* PBXTextBookmark */;
 			85F8C37512464BB400AE3CFC /* PBXTextBookmark */ = 85F8C37512464BB400AE3CFC /* PBXTextBookmark */;
+			85F8C37C1246500400AE3CFC /* PBXTextBookmark */ = 85F8C37C1246500400AE3CFC /* PBXTextBookmark */;
 		};
 		sourceControlManager = 8565BD20120C0A0D0081A319 /* Source Control */;
 		userBuildSettings = {
@@ -492,9 +493,9 @@
 		path = /Users/klandor/Dropbox/Lab/Programs/CodeSim/CMAES_main.cpp;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1118, 7722}}";
-			sepNavSelRange = "{15771, 0}";
-			sepNavVisRange = "{15299, 472}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 4082}}";
+			sepNavSelRange = "{2523, 0}";
+			sepNavVisRange = "{4356, 451}";
 		};
 	};
 	85B60A531234900700842D09 /* ConvoCode.h */ = {
@@ -834,7 +835,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 502;
+		rLoc = 204;
 		rType = 1;
 	};
 	85F8C36D12464B5400AE3CFC /* PBXTextBookmark */ = {
@@ -842,7 +843,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 514";
 		rLen = 0;
-		rLoc = 12624;
+		rLoc = 4358;
 		rType = 0;
 		vrLen = 711;
 		vrLoc = 12647;
@@ -862,7 +863,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 507";
 		rLen = 0;
-		rLoc = 12624;
+		rLoc = 4358;
 		rType = 0;
 		vrLen = 573;
 		vrLoc = 12756;
@@ -872,7 +873,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 507";
 		rLen = 0;
-		rLoc = 12624;
+		rLoc = 4358;
 		rType = 0;
 		vrLen = 573;
 		vrLoc = 12756;
@@ -882,7 +883,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 514";
 		rLen = 0;
-		rLoc = 12624;
+		rLoc = 4358;
 		rType = 0;
 		vrLen = 711;
 		vrLoc = 12647;
@@ -892,7 +893,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 608";
 		rLen = 0;
-		rLoc = 15771;
+		rLoc = 7505;
 		rType = 0;
 		vrLen = 472;
 		vrLoc = 15299;
@@ -902,10 +903,20 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 608";
 		rLen = 0;
-		rLoc = 15771;
+		rLoc = 7505;
 		rType = 0;
 		vrLen = 472;
 		vrLoc = 15299;
+	};
+	85F8C37C1246500400AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 104";
+		rLen = 0;
+		rLoc = 2523;
+		rType = 0;
+		vrLen = 451;
+		vrLoc = 4356;
 	};
 	8DD76F620486A84900D96B5E /* new_LT */ = {
 		activeExec = 0;
