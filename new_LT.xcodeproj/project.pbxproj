@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		852CBF271243ACE300ECC703 /* LT_sim_Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */; };
 		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
+		85F7DD341245219700F6BE6B /* CMAES_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F7DD331245219700F6BE6B /* CMAES_main.cpp */; };
 		8DD76F6A0486A84900D96B5E /* new_LT.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* new_LT.1 */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +42,6 @@
 		8597159A124325A900BD7FC2 /* cmaes_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmaes_interface.h; sourceTree = "<group>"; };
 		8597159B124325A900BD7FC2 /* cmaes.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = cmaes.cpp; sourceTree = "<group>"; };
 		8597159C124325A900BD7FC2 /* cmaes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmaes.h; sourceTree = "<group>"; };
-		8597159E124325BC00BD7FC2 /* CMAES_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMAES_main.cpp; sourceTree = "<group>"; };
 		85B60A531234900700842D09 /* ConvoCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvoCode.h; sourceTree = "<group>"; };
 		85B60A561234903000842D09 /* ConvoCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvoCodeTest.cpp; sourceTree = "<group>"; };
 		85BD043D122A86A800EFCF85 /* PermutatorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PermutatorTest.cpp; sourceTree = "<group>"; };
@@ -50,6 +49,7 @@
 		85D061AA122FAC2F0094829A /* LTCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCode.h; sourceTree = "<group>"; };
 		85E02006123FD347001ED159 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		85F4E8C712151B0900DA56AC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		85F7DD331245219700F6BE6B /* CMAES_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMAES_main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* new_LT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = new_LT; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* new_LT.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = new_LT.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +78,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				8597159E124325BC00BD7FC2 /* CMAES_main.cpp */,
+				85F7DD331245219700F6BE6B /* CMAES_main.cpp */,
 				852554B1122A500600EFDDAF /* CodeSim */,
 				8544522E1226A25300BA9182 /* Tests */,
 				85BD042C122A860E00EFCF85 /* Random */,
@@ -198,7 +198,7 @@
 				8544527512279DDD00BA9182 /* Bit.cpp in Sources */,
 				853626611235E65E00476D16 /* ConvoCode.cpp in Sources */,
 				8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */,
-				852CBF271243ACE300ECC703 /* LT_sim_Test.cpp in Sources */,
+				85F7DD341245219700F6BE6B /* CMAES_main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,6 +34,7 @@ namespace CodeSim{
 		Codeword<S> encode(Codeword<S>& a);
 		Codeword<S> decode(Codeword<S>& a);
 		void reset();
+		Codeword<S> getResult();
 	private:
 		void codeGen(int t);
 		
@@ -279,6 +280,10 @@ namespace CodeSim{
 		
 		return 1-(Num_of_Decoding/(double)Num_of_Input);//failure rate
 		
+	}
+	template<class S>
+	Codeword<S> LT_sim<S>::getResult(){
+		return Result;
 	}
 }
 
