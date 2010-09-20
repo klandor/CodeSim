@@ -2,8 +2,8 @@ CPPFLAGS = -O3 -fopenmp
 
 all: CodeSim randomc cmaes
 
-CMAES_main: all CMAES_main.cpp
-	$(CXX) $(CPPFLAGS) CMAES_main.cpp mersenne.o userintf.o cmaes.o Bit.o -o CMAES_main.out
+CMAES_main.out: all CMAES_main.cpp
+	$(CXX) $(CPPFLAGS) CMAES_main.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
 
 
 cmaes: cmaes.o cmaes.h cmaes_interface.h

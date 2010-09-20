@@ -161,6 +161,15 @@
 			85F8C37212464BA700AE3CFC /* PBXTextBookmark */ = 85F8C37212464BA700AE3CFC /* PBXTextBookmark */;
 			85F8C37512464BB400AE3CFC /* PBXTextBookmark */ = 85F8C37512464BB400AE3CFC /* PBXTextBookmark */;
 			85F8C37C1246500400AE3CFC /* PBXTextBookmark */ = 85F8C37C1246500400AE3CFC /* PBXTextBookmark */;
+			85F8C38712467A5E00AE3CFC /* PBXTextBookmark */ = 85F8C38712467A5E00AE3CFC /* PBXTextBookmark */;
+			85F8C38812467A5E00AE3CFC /* PBXTextBookmark */ = 85F8C38812467A5E00AE3CFC /* PBXTextBookmark */;
+			85F8C38F124773A700AE3CFC /* PBXTextBookmark */ = 85F8C38F124773A700AE3CFC /* PBXTextBookmark */;
+			85F8C390124773A700AE3CFC /* PBXTextBookmark */ = 85F8C390124773A700AE3CFC /* PBXTextBookmark */;
+			85F8C391124773A700AE3CFC /* PBXTextBookmark */ = 85F8C391124773A700AE3CFC /* PBXTextBookmark */;
+			85F8C392124773A700AE3CFC /* PBXTextBookmark */ = 85F8C392124773A700AE3CFC /* PBXTextBookmark */;
+			85F8C393124773A700AE3CFC /* PBXTextBookmark */ = 85F8C393124773A700AE3CFC /* PBXTextBookmark */;
+			85F8C394124773A700AE3CFC /* PBXTextBookmark */ = 85F8C394124773A700AE3CFC /* PBXTextBookmark */;
+			85F8C395124773A700AE3CFC /* PBXTextBookmark */ = 85F8C395124773A700AE3CFC /* PBXTextBookmark */;
 		};
 		sourceControlManager = 8565BD20120C0A0D0081A319 /* Source Control */;
 		userBuildSettings = {
@@ -181,9 +190,9 @@
 		path = /Users/klandor/Dropbox/Lab/Programs/CodeSim/LT.h;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 3835}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 357}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 3978}}";
+			sepNavSelRange = "{3549, 0}";
+			sepNavVisRange = "{3346, 399}";
 		};
 	};
 	852CBF281243AD2B00ECC703 /* PBXTextBookmark */ = {
@@ -473,16 +482,23 @@
 	};
 	8597159A124325A900BD7FC2 /* cmaes_interface.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 897}}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 819}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 960}";
+			sepNavVisRange = "{475, 671}";
 		};
 	};
 	8597159B124325A900BD7FC2 /* cmaes.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 38467}}";
+			sepNavIntBoundsRect = "{{0, 0}, {929, 37180}}";
+			sepNavSelRange = "{4889, 9}";
+			sepNavVisRange = "{42974, 782}";
+		};
+	};
+	8597159C124325A900BD7FC2 /* cmaes.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {700, 2249}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 1238}";
+			sepNavVisRange = "{3859, 458}";
 		};
 	};
 	8597159E124325BC00BD7FC2 /* CMAES_main.cpp */ = {
@@ -493,9 +509,9 @@
 		path = /Users/klandor/Dropbox/Lab/Programs/CodeSim/CMAES_main.cpp;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 4082}}";
-			sepNavSelRange = "{2523, 0}";
-			sepNavVisRange = "{4356, 451}";
+			sepNavIntBoundsRect = "{{0, 0}, {803, 4225}}";
+			sepNavSelRange = "{3000, 0}";
+			sepNavVisRange = "{2766, 615}";
 		};
 	};
 	85B60A531234900700842D09 /* ConvoCode.h */ = {
@@ -613,9 +629,9 @@
 	};
 	85E02006123FD347001ED159 /* Makefile */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 344}}";
-			sepNavSelRange = "{23, 0}";
-			sepNavVisRange = "{0, 346}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 263}}";
+			sepNavSelRange = "{53, 14}";
+			sepNavVisRange = "{0, 338}";
 		};
 	};
 	85F10D6512369A040013425B /* PBXTextBookmark */ = {
@@ -893,7 +909,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 608";
 		rLen = 0;
-		rLoc = 7505;
+		rLoc = 7539;
 		rType = 0;
 		vrLen = 472;
 		vrLoc = 15299;
@@ -903,7 +919,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 608";
 		rLen = 0;
-		rLoc = 7505;
+		rLoc = 7539;
 		rType = 0;
 		vrLen = 472;
 		vrLoc = 15299;
@@ -917,6 +933,96 @@
 		rType = 0;
 		vrLen = 451;
 		vrLoc = 4356;
+	};
+	85F8C38712467A5E00AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 104";
+		rLen = 0;
+		rLoc = 2523;
+		rType = 0;
+		vrLen = 481;
+		vrLoc = 2602;
+	};
+	85F8C38812467A5E00AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 272";
+		rLen = 0;
+		rLoc = 6319;
+		rType = 0;
+		vrLen = 995;
+		vrLoc = 5783;
+	};
+	85F8C38F124773A700AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159A124325A900BD7FC2 /* cmaes_interface.h */;
+		name = "cmaes_interface.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 671;
+		vrLoc = 475;
+	};
+	85F8C390124773A700AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159C124325A900BD7FC2 /* cmaes.h */;
+		name = "cmaes.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 458;
+		vrLoc = 3859;
+	};
+	85F8C391124773A700AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */;
+		name = "cmaes.cpp: 96";
+		rLen = 9;
+		rLoc = 4889;
+		rType = 0;
+		vrLen = 782;
+		vrLoc = 42974;
+	};
+	85F8C392124773A700AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85E02006123FD347001ED159 /* Makefile */;
+		name = "Makefile: 5";
+		rLen = 14;
+		rLoc = 53;
+		rType = 0;
+		vrLen = 338;
+		vrLoc = 0;
+	};
+	85F8C393124773A700AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 852CBF141243916100ECC703 /* LT.h */;
+		name = "LT.h: 173";
+		rLen = 0;
+		rLoc = 3549;
+		rType = 0;
+		vrLen = 399;
+		vrLoc = 3346;
+	};
+	85F8C394124773A700AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 272";
+		rLen = 0;
+		rLoc = 6319;
+		rType = 0;
+		vrLen = 856;
+		vrLoc = 6189;
+	};
+	85F8C395124773A700AE3CFC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 127";
+		rLen = 0;
+		rLoc = 3000;
+		rType = 0;
+		vrLen = 615;
+		vrLoc = 2766;
 	};
 	8DD76F620486A84900D96B5E /* new_LT */ = {
 		activeExec = 0;

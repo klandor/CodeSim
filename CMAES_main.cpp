@@ -123,7 +123,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	}
 	
 	
-	#pragma omp parallel for num_threads(4) reduction(+:fit)
+	#pragma omp parallel for num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		//cout << "Run "<< i+1 << endl;
 		Codeword<Bit> decodePattern[epsilonIndex];
@@ -266,8 +266,10 @@ int main(int argn, char **args) {
 				pop = cmaes_ReSampleSingle(evo, i);
 				i--;
 				cout << "R";
+				cout.flush();
 			}
 		}
+		cout << '\n';
 		/* update the search distribution used for cmaes_SampleDistribution() */
 		cmaes_UpdateDistribution(evo, arFunvals);  
 		/* read instructions for printing output or changing termination conditions */ 
