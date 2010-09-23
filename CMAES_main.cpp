@@ -47,22 +47,29 @@ int		Set_tags[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
 // =================================================================
 
 int*	Tags;
-double D[] = {7.9379E-02,4.0129E-01,1.0121E-01,2.1679E-01,5.0996E-02,
-	5.8338E-05,3.9740E-02,7.7470E-02,2.1520E-02,1.1547E-02};
+double D[] = {5.5866E-03, 5.0000E-01, 1.6667E-01, 8.3333E-02, 5.0000E-02,
+	2.3810E-02, 1.3889E-02, 2.6316E-03, 2.9200E-04, 1.5379E-01};
 double* SD;
 double* Std;
 
 
-#define epsilonIndex 5
-double epsilons[epsilonIndex] = {0.05, 0.07, 0.098, 0.1372, 0.1921},//{0.05, 0.06,0.08, 0.12,0.20},
-errorRateBound[epsilonIndex]={4,4,4,4,4},
-epsilonBurstBound[epsilonIndex] = {0.5,0.4,0.3,0.2,0.1},
-errorDensityBound[epsilonIndex] = {0.33333, 0.26666, 0.2, 0.166666, 0.133333},
-areaWeight[epsilonIndex] = {0, 500, 1000, 2000, 4000};
+#define epsilonIndex 16
+double epsilons[epsilonIndex] = {0.05, 0.06, 0.07, 0.08, 0.09, 
+	0.1, 0.11, 0.12, 0.13, 0.14, 
+	0.15, 0.16, 0.17, 0.18, 0.19,
+	0.2},//{0.05, 0.06,0.08, 0.12,0.20},
+targetErrorRate[epsilonIndex] = {9.37260000E-02, 
+	6.22770000E-02, 4.60890000E-02, 3.29500000E-02, 2.35270000E-02, 1.97890000E-02, 
+	1.64560000E-02, 1.52720000E-02, 1.40240000E-02, 1.29450000E-02, 1.18000000E-02, 
+	1.12520000E-02, 1.02680000E-02, 9.39000000E-03, 8.94700000E-03, 8.03900000E-03};
+//errorRateBound[epsilonIndex]={4,4,4,4,4},
+//epsilonBurstBound[epsilonIndex] = {0.5,0.4,0.3,0.2,0.1},
+//errorDensityBound[epsilonIndex] = {0.33333, 0.26666, 0.2, 0.166666, 0.133333},
+//areaWeight[epsilonIndex] = {0, 500, 1000, 2000, 4000};
 
-int winSize[epsilonIndex] = {30, 30, 30, 30, 30};
-//double failurePenalty[epsilonIndex] = {20, 40, 60, 80, 100};
-
+//int winSize[epsilonIndex] = {30, 30, 30, 30, 30};
+//double failurePenalty[epsilonIndex] = {20, 40, 60, 80, 100}
+;
 
 
 
@@ -126,7 +133,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	#pragma omp parallel for num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		//cout << "Run "<< i+1 << endl;
-		Codeword<Bit> decodePattern[epsilonIndex];
+//		Codeword<Bit> decodePattern[epsilonIndex];
 		
 		for (int j=0; j<100; j++) {
 			LT_sim<Bit> sim(K, (int) (K*(1+epsilons[epsilonIndex-1])), Dsize, Set_tags, Indiv, RanGen.BRandom());
@@ -138,70 +145,70 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 				#pragma omp atomic
 				err[i] += temp;
 				
-				if (temp > epsilonBurstBound[i]) {
-					#pragma omp atomic
-					failureCount[i] += 1;
-				}
-				Codeword<Bit> t = sim.getResult();
-				
-				decodePattern[i].insert(decodePattern[i].end(), t.begin(), t.end());
+//				if (temp > epsilonBurstBound[i]) {
+//					#pragma omp atomic
+//					failureCount[i] += 1;
+//				}
+//				Codeword<Bit> t = sim.getResult();
+//				
+//				decodePattern[i].insert(decodePattern[i].end(), t.begin(), t.end());
 				
 			}
 		}
 		
 		
-		for (int i=0; i<epsilonIndex; i++) {
-			
-			int errNO=0, errLen=0;
-			for (int p=0; p<winSize[i]; p++) {
-				if (decodePattern[i][p].isErased()) {
-					errNO ++;
-				}
-			}
-			if(errNO/(double)winSize[i] > errorDensityBound[i])
-				errLen=1;
-			
-			for (int p=winSize[i]; p< 100*K; p++) {
-				if (decodePattern[i][p].isErased()) {
-					errNO++;
-				}
-				if (decodePattern[i][p-winSize[i]].isErased()) {
-					errNO --;
-				}
-				
-				if(errNO/(double)winSize[i] > errorDensityBound[i])
-				{
-					errLen ++;
-				}
-				else {
-					if (errLen > 750) {
-						//fit +=failurePenalty[i];
-						#pragma omp atomic
-						failureCount[i] += errLen / 750.0;
-					}
-					errLen = 0;
-				}
-				
-				
-			}	
-			
-			
-		}
-		
+//		for (int i=0; i<epsilonIndex; i++) {
+//			
+//			int errNO=0, errLen=0;
+//			for (int p=0; p<winSize[i]; p++) {
+//				if (decodePattern[i][p].isErased()) {
+//					errNO ++;
+//				}
+//			}
+//			if(errNO/(double)winSize[i] > errorDensityBound[i])
+//				errLen=1;
+//			
+//			for (int p=winSize[i]; p< 100*K; p++) {
+//				if (decodePattern[i][p].isErased()) {
+//					errNO++;
+//				}
+//				if (decodePattern[i][p-winSize[i]].isErased()) {
+//					errNO --;
+//				}
+//				
+//				if(errNO/(double)winSize[i] > errorDensityBound[i])
+//				{
+//					errLen ++;
+//				}
+//				else {
+//					if (errLen > 750) {
+//						//fit +=failurePenalty[i];
+//						#pragma omp atomic
+//						failureCount[i] += errLen / 750.0;
+//					}
+//					errLen = 0;
+//				}
+//				
+//				
+//			}	
+//			
+//			
+//		}
+//		
 	}
 	
 	
 	
 	for (int i=1; i<epsilonIndex; i++) {
-		if (failureCount[i] > 80) {
-			//fit +=	200;
-			needResample = true;
-		}
+//		if (failureCount[i] > 80) {
+//			//fit +=	200;
+//			needResample = true;
+//		}
 		if (err[i] > 0) {
 			err[i] /= Run*100;
 			err[i] = log10(err[i])+4;
 			//err[i] += exceed_penalty(err[i], errorRateBound[i], 1000);
-			fit += (err[i]+err[i-1]) * (epsilons[i]-epsilons[i-1]) /2 * areaWeight[i];
+			fit += abs (err[i] - targetErrorRate[i]);
 		}
 	}
 	
@@ -244,6 +251,10 @@ int main(int argn, char **args) {
 	for(i=0;i<Dsize;i++) fs<<Tags[i]<<"\t";
 	fs<<"\nInitial distribution \n";
 	for(i=0;i<Dsize;i++) fs<<D[i]<<"\t";
+	fs<<"\nEpsilons \n";
+	for(i=0;i<epsilonIndex;i++) fs<<epsilons[i]<<"\t";
+	fs<<"\nTarget Error Rate \n";
+	for(i=0;i<epsilonIndex;i++) fs<<targetErrorRate[i]<<"\t";
 	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest\n";
 	
 	evo = new cmaes_t();
