@@ -128,6 +128,10 @@
 			855EEDE7124BAA5C00D1D91C /* PBXBookmark */ = 855EEDE7124BAA5C00D1D91C /* PBXBookmark */;
 			855EEDF2124BABC000D1D91C /* PBXTextBookmark */ = 855EEDF2124BABC000D1D91C /* PBXTextBookmark */;
 			855EEDF5124BABC000D1D91C /* PBXTextBookmark */ = 855EEDF5124BABC000D1D91C /* PBXTextBookmark */;
+			855EEDFF124BADFD00D1D91C /* PBXTextBookmark */ = 855EEDFF124BADFD00D1D91C /* PBXTextBookmark */;
+			855EEE00124BADFD00D1D91C /* PBXTextBookmark */ = 855EEE00124BADFD00D1D91C /* PBXTextBookmark */;
+			855EEE03124BAE4300D1D91C /* PBXTextBookmark */ = 855EEE03124BAE4300D1D91C /* PBXTextBookmark */;
+			855EEE04124BAE4300D1D91C /* PBXTextBookmark */ = 855EEE04124BAE4300D1D91C /* PBXTextBookmark */;
 			858040971237CB890082A9CE = 858040971237CB890082A9CE /* PBXTextBookmark */;
 			8580419B12392B1F0082A9CE = 8580419B12392B1F0082A9CE /* PBXTextBookmark */;
 			85B60B8E1235293000842D09 = 85B60B8E1235293000842D09 /* PBXTextBookmark */;
@@ -350,10 +354,50 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 275";
 		rLen = 0;
-		rLoc = 6798;
+		rLoc = 6810;
 		rType = 0;
 		vrLen = 1741;
 		vrLoc = 5623;
+	};
+	855EEDFF124BADFD00D1D91C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 134";
+		rLen = 1;
+		rLoc = 3378;
+		rType = 0;
+		vrLen = 581;
+		vrLoc = 3494;
+	};
+	855EEE00124BADFD00D1D91C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 211";
+		rLen = 0;
+		rLoc = 5141;
+		rType = 0;
+		vrLen = 1461;
+		vrLoc = 1012;
+	};
+	855EEE03124BAE4300D1D91C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 134";
+		rLen = 1;
+		rLoc = 3378;
+		rType = 0;
+		vrLen = 581;
+		vrLoc = 3494;
+	};
+	855EEE04124BAE4300D1D91C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
+		name = "CMAES_main.cpp: 211";
+		rLen = 0;
+		rLoc = 5106;
+		rType = 0;
+		vrLen = 941;
+		vrLoc = 4031;
 	};
 	8565BD19120C09F60081A319 /* new_LT */ = {
 		isa = PBXExecutable;
@@ -511,9 +555,9 @@
 		path = /Users/klandor/Dropbox/Lab/Programs/CodeSim/CMAES_main.cpp;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1161, 4238}}";
-			sepNavSelRange = "{6798, 0}";
-			sepNavVisRange = "{5623, 1741}";
+			sepNavIntBoundsRect = "{{0, 0}, {1161, 4576}}";
+			sepNavSelRange = "{5106, 0}";
+			sepNavVisRange = "{4031, 941}";
 		};
 	};
 	85B60A531234900700842D09 /* ConvoCode.h */ = {
@@ -712,7 +756,7 @@
 		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
 		name = "CMAES_main.cpp: 272";
 		rLen = 0;
-		rLoc = 6929;
+		rLoc = 6941;
 		rType = 0;
 		vrLen = 856;
 		vrLoc = 6189;

@@ -206,9 +206,9 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 //		}
 		if (err[i] > 0) {
 			err[i] /= Run*100;
-			err[i] = log10(err[i])+4;
+			err[i] = log10(err[i]);//+4;
 			//err[i] += exceed_penalty(err[i], errorRateBound[i], 1000);
-			fit += abs (err[i] - targetErrorRate[i]);
+			fit += abs ( err[i] - log10(targetErrorRate[i]) );
 		}
 	}
 	
