@@ -64,9 +64,11 @@ targetErrorRate[epsilonIndex] = {9.37260000E-02,
 	1.12520000E-02, 1.02680000E-02, 9.39000000E-03, 8.94700000E-03, 8.03900000E-03};
 //errorRateBound[epsilonIndex]={4,4,4,4,4},
 //epsilonBurstBound[epsilonIndex] = {0.5,0.4,0.3,0.2,0.1},
+double epsilonBurstBound = 0.5,
+errorDensityBound = 0.33333;
 //errorDensityBound[epsilonIndex] = {0.33333, 0.26666, 0.2, 0.166666, 0.133333},
 //areaWeight[epsilonIndex] = {0, 500, 1000, 2000, 4000};
-
+int winSize = 30;
 //int winSize[epsilonIndex] = {30, 30, 30, 30, 30};
 //double failurePenalty[epsilonIndex] = {20, 40, 60, 80, 100}
 ;
@@ -133,7 +135,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	#pragma omp parallel for num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		//cout << "Run "<< i+1 << endl;
-//		Codeword<Bit> decodePattern[epsilonIndex];
+		Codeword<Bit> decodePattern[epsilonIndex];
 		
 		for (int j=0; j<100; j++) {
 			LT_sim<Bit> sim(K, (int) (K*(1+epsilons[epsilonIndex-1])), Dsize, Set_tags, Indiv, RanGen.BRandom());
@@ -145,65 +147,65 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 				#pragma omp atomic
 				err[i] += temp;
 				
-//				if (temp > epsilonBurstBound[i]) {
-//					#pragma omp atomic
-//					failureCount[i] += 1;
-//				}
-//				Codeword<Bit> t = sim.getResult();
-//				
-//				decodePattern[i].insert(decodePattern[i].end(), t.begin(), t.end());
+				if (temp > epsilonBurstBound) {
+					#pragma omp atomic
+					failureCount[i] += 1;
+				}
+				Codeword<Bit> t = sim.getResult();
+				
+				decodePattern[i].insert(decodePattern[i].end(), t.begin(), t.end());
 				
 			}
 		}
 		
 		
-//		for (int i=0; i<epsilonIndex; i++) {
-//			
-//			int errNO=0, errLen=0;
-//			for (int p=0; p<winSize[i]; p++) {
-//				if (decodePattern[i][p].isErased()) {
-//					errNO ++;
-//				}
-//			}
-//			if(errNO/(double)winSize[i] > errorDensityBound[i])
-//				errLen=1;
-//			
-//			for (int p=winSize[i]; p< 100*K; p++) {
-//				if (decodePattern[i][p].isErased()) {
-//					errNO++;
-//				}
-//				if (decodePattern[i][p-winSize[i]].isErased()) {
-//					errNO --;
-//				}
-//				
-//				if(errNO/(double)winSize[i] > errorDensityBound[i])
-//				{
-//					errLen ++;
-//				}
-//				else {
-//					if (errLen > 750) {
-//						//fit +=failurePenalty[i];
-//						#pragma omp atomic
-//						failureCount[i] += errLen / 750.0;
-//					}
-//					errLen = 0;
-//				}
-//				
-//				
-//			}	
-//			
-//			
-//		}
-//		
+		for (int i=0; i<epsilonIndex; i++) {
+			
+			int errNO=0, errLen=0;
+			for (int p=0; p<winSize; p++) {
+				if (decodePattern[i][p].isErased()) {
+					errNO ++;
+				}
+			}
+			if(errNO/(double)winSize > errorDensityBound)
+				errLen=1;
+			
+			for (int p=winSize; p< 100*K; p++) {
+				if (decodePattern[i][p].isErased()) {
+					errNO++;
+				}
+				if (decodePattern[i][p-winSize].isErased()) {
+					errNO --;
+				}
+				
+				if(errNO/(double)winSize > errorDensityBound)
+				{
+					errLen ++;
+				}
+				else {
+					if (errLen > 750) {
+						//fit +=failurePenalty[i];
+						#pragma omp atomic
+						failureCount[i] += errLen / 750.0;
+					}
+					errLen = 0;
+				}
+				
+				
+			}	
+			
+			
+		}
+		
 	}
 	
 	
 	
 	for (int i=1; i<epsilonIndex; i++) {
-//		if (failureCount[i] > 80) {
-//			//fit +=	200;
-//			needResample = true;
-//		}
+		if (failureCount[i] > 80) {
+			//fit +=	200;
+			needResample = true;
+		}
 		if (err[i] > 0) {
 			err[i] /= Run*100;
 			err[i] = log10(err[i]);//+4;
