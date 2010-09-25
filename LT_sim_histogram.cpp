@@ -109,7 +109,7 @@ int main(){
 		cout<<"Histogram:\n";
 		for (int i = 0; i<16; i++) {
 			for(int j = 0; j< 16; j++)
-				cout <<  ErrorCount[j][i]<< ' ';
+				cout <<  ErrorCount[j][i] / (double)Run<< ' ';
 			cout << '\n';
 		}
 		cout << "BER:\n";
