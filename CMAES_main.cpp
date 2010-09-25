@@ -279,8 +279,12 @@ int main(int argn, char **args) {
 				pop = cmaes_ReSampleSingle(evo, i);
 				i--;
 				cout << "R";
-				cout.flush();
 			}
+			else {
+				cout << "E";
+			}
+			cout.flush();
+
 		}
 		cout << '\n';
 		/* update the search distribution used for cmaes_SampleDistribution() */
