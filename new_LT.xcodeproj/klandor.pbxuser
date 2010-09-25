@@ -465,6 +465,13 @@
 		vrLen = 1696;
 		vrLoc = 5690;
 	};
+	855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {700, 8684}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 423}";
+		};
+	};
 	8565BD19120C09F60081A319 /* new_LT */ = {
 		isa = PBXExecutable;
 		activeArgIndices = (
