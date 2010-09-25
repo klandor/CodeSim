@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
-		855EEE2E124DCEA700D1D91C /* LT_sim_histogram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */; };
+		855EEE52124DF5D900D1D91C /* CMAES_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F7DD331245219700F6BE6B /* CMAES_main.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
@@ -79,8 +79,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */,
-				85F7DD331245219700F6BE6B /* CMAES_main.cpp */,
+				855EEE51124DF5CE00D1D91C /* Programs */,
 				852554B1122A500600EFDDAF /* CodeSim */,
 				8544522E1226A25300BA9182 /* Tests */,
 				85BD042C122A860E00EFCF85 /* Random */,
@@ -120,6 +119,15 @@
 				85B60A561234903000842D09 /* ConvoCodeTest.cpp */,
 			);
 			name = Tests;
+			sourceTree = "<group>";
+		};
+		855EEE51124DF5CE00D1D91C /* Programs */ = {
+			isa = PBXGroup;
+			children = (
+				855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */,
+				85F7DD331245219700F6BE6B /* CMAES_main.cpp */,
+			);
+			name = Programs;
 			sourceTree = "<group>";
 		};
 		859715991243258100BD7FC2 /* CMA-ES */ = {
@@ -200,7 +208,7 @@
 				8544527512279DDD00BA9182 /* Bit.cpp in Sources */,
 				853626611235E65E00476D16 /* ConvoCode.cpp in Sources */,
 				8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */,
-				855EEE2E124DCEA700D1D91C /* LT_sim_histogram.cpp in Sources */,
+				855EEE52124DF5D900D1D91C /* CMAES_main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
