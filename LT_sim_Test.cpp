@@ -101,7 +101,7 @@ int main (int argc, char * const argv[]) {
 			
 			
 						sim.seqReceive(K*(1.05+0.01*i) -1);
-						sim.decode();
+						//sim.decode();
 			
 			
 			

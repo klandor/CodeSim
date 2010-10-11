@@ -28,7 +28,7 @@ namespace CodeSim{
 		void init(int k, int max_n, int tag_size, int *tags, double * omega, int seed);
 		void seqReceive(int t);
 		void receive(int t);
-		void decode();
+		
 		bool isDecoded(int t);
 		double failureRate();
 		Codeword<S> encode(Codeword<S>& a);
@@ -37,7 +37,8 @@ namespace CodeSim{
 		Codeword<S> getResult();
 	private:
 		void codeGen(int t);
-		
+		void receive(int t, S s);
+		void decode();
 		int Num_of_Input, Num_of_Output, Num_of_Degree, Num_of_Decoding, 
 				ReceivedSize, generatedCode;
 		int seed;
@@ -168,6 +169,19 @@ namespace CodeSim{
 	}
 	
 	template<class S>
+	inline void LT_sim<S>::receive(int t, S s){
+		codeGen(t);
+		if(receivedMask[t]==0)
+		{
+			R_M[ReceivedSize]=t;
+			ReceivedSize++;
+			receivedMask[t]=1;
+			Mid_Output[t] = s;
+		}
+		
+	}
+	
+	template<class S>
 	void LT_sim<S>::decode(){
 		int flag=1;
 		while( Num_of_Decoding < Num_of_Input && flag==1)
@@ -232,19 +246,22 @@ namespace CodeSim{
 			Mid_Output = a;
 		}
 		
-		if (ReceivedSize == 0) {
-			Mid_Output = a;
-		}
+//		if (ReceivedSize == 0) {
+//			Mid_Output = a;
+//		}
 		
 		for (int i =0; i< a.size() && i< Num_of_Output; i++) {
 			if (!a[i].isErased() ) {
-				receive(i);
+				receive(i, a[i]);
 			}
 		}
 		
 		
 		decode();
-		
+		if (s.size()>0) {
+			s.pop();
+			Result.setMessageStack(s);
+		}
 		return Result;
 	}
 	
@@ -277,12 +294,13 @@ namespace CodeSim{
 	
 	template<class S>
 	double LT_sim<S>::failureRate(){
-		
+		decode();
 		return 1-(Num_of_Decoding/(double)Num_of_Input);//failure rate
 		
 	}
 	template<class S>
 	Codeword<S> LT_sim<S>::getResult(){
+		decode();
 		return Result;
 	}
 }

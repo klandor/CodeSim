@@ -27,8 +27,10 @@ namespace CodeSim {
 		if (t == -1) {
 			setErased(true);
 		}
-		else
+		else{
 			value = t;
+			setErased(false);
+		}
 	}
 		
 //	template<class T>

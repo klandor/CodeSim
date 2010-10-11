@@ -20,7 +20,7 @@ using namespace std;
 
 namespace CodeSim {
 	
-	template<class T>
+	template<class T, int W>
 	class Symbol{
 	public:
 		Symbol(){
@@ -45,14 +45,14 @@ namespace CodeSim {
 		}
 		
 	protected:
-		T value;
+		T value:W;
 	private:
-		bool erased;
+		bool erased:1;
 	};
 	
 	
 	
-	class Bit : public Symbol<bool>{
+	class Bit : public Symbol<bool,1>{
 	public:
 		Bit();
 		

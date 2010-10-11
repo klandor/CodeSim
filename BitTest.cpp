@@ -15,7 +15,7 @@ using namespace CodeSim;
 
 int main(){
 	Bit a = 3, b = 0;
-	
+	cout << "Size of Bit: " << sizeof(Bit) << endl;
 	cout << "a+b = " << (a+b).toString() << endl;
 	cout << "a*b = " << (a*b).toString() << endl;
 	cout << "a+a = " << (a+a).toString() << endl;
