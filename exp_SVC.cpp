@@ -18,7 +18,7 @@
 
 #define K 60000
 #define LT_K 1000
-#define RUN 100
+#define RUN 1
 using namespace std;
 using namespace CodeSim;
 
@@ -81,7 +81,7 @@ int main(){
 	cout << "BER:\n";
 	for (int i=0; i<3; i++) {
 		for (int j=0; j<21; j++) {
-			cout << ber[j][i] / (double) (K*RUN/3) << ' ';
+			cout << ber[j][i] / (K/3.0*RUN) << ' ';
 		}
 		cout << '\n';
 	}
