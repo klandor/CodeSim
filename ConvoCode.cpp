@@ -78,7 +78,7 @@ namespace CodeSim {
 				G[i][j] = octToDec(t);
 			}
 		}
-		
+		fin.close();
 		generateTrellis();
 		
 	}
@@ -151,7 +151,7 @@ namespace CodeSim {
 	
 	
 	
-	Codeword<Bit> ConvoCode::encode(Codeword<Bit> a){
+	Codeword<Bit> ConvoCode::encode(Codeword<Bit> a) const{
 		Codeword<Bit> output;
 		stack<int> s = a.getMessageStack();
 		s.push(a.size());
@@ -206,7 +206,7 @@ namespace CodeSim {
 		return output;
 	}
 	
-	Codeword<Bit> ConvoCode::decode(Codeword<Bit> & a){
+	Codeword<Bit> ConvoCode::decode(Codeword<Bit> & a) const{
 		Codeword<Bit> output;
 		stack<int> s = a.getMessageStack();
 		

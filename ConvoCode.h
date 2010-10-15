@@ -48,8 +48,8 @@ namespace CodeSim {
 		ConvoCode();
 		ConvoCode(string filename);
 		void showInfo();
-		Codeword<Bit> encode(Codeword<Bit> a);
-		Codeword<Bit> decode(Codeword<Bit> & a);
+		Codeword<Bit> encode(Codeword<Bit> a) const;
+		Codeword<Bit> decode(Codeword<Bit> & a) const;
 	protected:
 		void generateTrellis();
 	private:
