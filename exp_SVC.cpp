@@ -14,10 +14,11 @@
 #include "ConvoCode.h"
 #include "randomc.h"
 #include <ctime>
+#include <omp.h>
 
-#define K 9000
+#define K 60000
 #define LT_K 1000
-#define RUN 10
+#define RUN 100
 using namespace std;
 using namespace CodeSim;
 
@@ -36,6 +37,7 @@ int main(){
 		ber[0][i] = 0;
 	}
 	
+	#pragma omp parallel for num_threads(6)
 	for (int run = 0; run < RUN; run++) {
 		
 		Codeword<Bit> m(K,0);
@@ -68,6 +70,7 @@ int main(){
 			
 			for (int i=0; i<out.size(); i++) {
 				if ( !(out[i]==m[i]) ) {
+					#pragma omp atomic
 					ber[e][i%3]++;
 				}
 			}

@@ -333,7 +333,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>8517BF35126820F2003C1095</string>
+										<string>8517BF5512682883003C1095</string>
 										<key>history</key>
 										<array>
 											<string>85D0630F12323CC90094829A</string>
@@ -344,17 +344,20 @@
 											<string>85F8C390124773A700AE3CFC</string>
 											<string>85F8C391124773A700AE3CFC</string>
 											<string>855EEE55124DF5DF00D1D91C</string>
-											<string>855EEE56124DF5DF00D1D91C</string>
-											<string>8517BF1812681F9D003C1095</string>
 											<string>8517BF1912681F9D003C1095</string>
 											<string>8517BF1A12681F9D003C1095</string>
 											<string>8517BF1B12681F9D003C1095</string>
-											<string>8517BF1C12681F9D003C1095</string>
 											<string>8517BF1D12681F9D003C1095</string>
-											<string>8517BF1E12681F9D003C1095</string>
 											<string>8517BF1F12681F9D003C1095</string>
 											<string>8517BF2012681F9D003C1095</string>
-											<string>8517BF34126820F2003C1095</string>
+											<string>8517BF4D12682883003C1095</string>
+											<string>8517BF4E12682883003C1095</string>
+											<string>8517BF4F12682883003C1095</string>
+											<string>8517BF5012682883003C1095</string>
+											<string>8517BF5112682883003C1095</string>
+											<string>8517BF5212682883003C1095</string>
+											<string>8517BF5312682883003C1095</string>
+											<string>8517BF5412682883003C1095</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -552,13 +555,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>8517BF36126820F2003C1095</string>
 		<string>8517BF2312681F9D003C1095</string>
 		<string>8517BF2412681F9D003C1095</string>
-		<string>8565BD44120C19560081A319</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>8565BD44120C19560081A319</string>
 	</array>
 	<key>WindowString</key>
 	<string>225 129 969 649 0 0 1280 778 </string>
@@ -577,12 +579,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>exp_SVC.cpp</string>
+								<string>CodeSim.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -599,8 +603,6 @@
 							<string>404pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -653,7 +655,7 @@
 			<key>WindowToolGUID</key>
 			<string>8565BD44120C19560081A319</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -777,7 +779,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -899,18 +901,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {835, 645}}</string>
+								<string>{{0, 0}, {1146, 659}}</string>
 								<key>RubberWindowFrame</key>
-								<string>87 92 835 686 0 0 1280 778 </string>
+								<string>87 78 1146 700 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
 							<key>Proportion</key>
-							<string>645pt</string>
+							<string>659pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>645pt</string>
+					<string>659pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -930,7 +932,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>87 92 835 686 0 0 1280 778 </string>
+			<string>87 78 1146 700 0 0 1280 778 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
