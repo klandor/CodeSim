@@ -8,6 +8,8 @@ CMAES.out: all CMAES_main.cpp
 histogram.out: all LT_sim_histogram.cpp
 	$(CXX) $(CPPFLAGS) LT_sim_histogram.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
 
+exp_SVC.out : randomc CodeSim exp_SVC.cpp
+	$(CXX) $(CPPFLAGS) exp_SVC.cpp mersenne.o userintf.o ConvoCode.o Bit.o -o $@
 
 cmaes: cmaes.o cmaes.h cmaes_interface.h
 	
