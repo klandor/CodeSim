@@ -171,9 +171,9 @@ namespace CodeSim {
 				
 				output.insert(output.end(), temp.begin(), temp.end());
 			}
-			stack<int> s = c.getMessageSize();
+			stack<int> s = c.getMessageStack();
 			s.push(c.size());
-			output.setMessageSize(s);
+			output.setMessageStack(s);
 			return output;
 		}
 		
@@ -188,10 +188,10 @@ namespace CodeSim {
 				
 				output.insert(output.end(), temp.begin(), temp.end());
 			}
-			stack<int> s = c.getMessageSize();
+			stack<int> s = c.getMessageStack();
 			output.trim(s.top());
 			s.pop();
-			output.setMessageSize(s);
+			output.setMessageStack(s);
 			return output;
 		}
 		
