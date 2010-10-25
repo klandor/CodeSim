@@ -189,9 +189,11 @@ namespace CodeSim {
 				output.insert(output.end(), temp.begin(), temp.end());
 			}
 			stack<int> s = c.getMessageStack();
-			output.trim(s.top());
-			s.pop();
-			output.setMessageStack(s);
+			if (s.size()>0) {
+				output.trim(s.top());
+				s.pop();
+				output.setMessageStack(s);
+			}
 			return output;
 		}
 		
