@@ -38,7 +38,6 @@ namespace CodeSim {
 		}
 		
 		void reset(){
-			//Rnd.RandomInit(seed);
 			coders.clear();
 		}
 		Codeword<S> encode(Codeword<S>& a);
@@ -48,7 +47,6 @@ namespace CodeSim {
 		int k, max_n, tag_size, *tags;
 		double *omega;
 		int seed;
-		//CRandomMersenne Rnd;
 		vector< LT_sim<S> > coders;
 	};
 	
