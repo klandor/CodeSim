@@ -42,6 +42,7 @@ int main(){
 		l0a_max[i]=0;
 	}
 	
+	#pragma omp parallel for num_threads(6)
 	for (int run=0; run<RUN; run++) {
 		LTCode<Bit> lt(K, K*(1+EPS), tags, Degree, Omega, r.BRandom());
 		int l0 =0, l0h[1000];
@@ -63,7 +64,9 @@ int main(){
 //		if(errNO/(double)winSize > errorDensityBound)
 //			errLen=1;
 		//cout << errNO << '\n';
+		#pragma omp atomic
 		l0a[errNO]++;
+		#pragma omp atomic
 		l0h[errNO]++;
 		for (int p=WINDOW_SIZE; p< a.size(); p++) {
 			if (a[p].isErased()) {
@@ -85,7 +88,9 @@ int main(){
 //				}
 //				errLen = 0;
 //			}
+			#pragma omp atomic
 			l0a[errNO]++;
+			#pragma omp atomic
 			l0h[errNO]++;
 			//cout << errNO << '\n';
 		}
@@ -118,6 +123,7 @@ int main(){
 //		}
 //		
 		for (int i =0; i<WINDOW_SIZE+1; i++) {
+			#pragma omp critical
 			if (l0h[i] > l0a_max[i]) {
 				l0a_max[i] = l0h[i];
 			}
