@@ -162,6 +162,7 @@
 			85730ED81275B3A200609F2C /* PBXTextBookmark */ = 85730ED81275B3A200609F2C /* PBXTextBookmark */;
 			85730ED91275B3A200609F2C /* PBXTextBookmark */ = 85730ED91275B3A200609F2C /* PBXTextBookmark */;
 			85730EDC1275B42100609F2C /* PBXTextBookmark */ = 85730EDC1275B42100609F2C /* PBXTextBookmark */;
+			85730EE31275BFC000609F2C /* PBXTextBookmark */ = 85730EE31275BFC000609F2C /* PBXTextBookmark */;
 			858040971237CB890082A9CE = 858040971237CB890082A9CE /* PBXTextBookmark */;
 			85B60B8E1235293000842D09 = 85B60B8E1235293000842D09 /* PBXTextBookmark */;
 			85D0630F12323CC90094829A = 85D0630F12323CC90094829A /* PBXTextBookmark */;
@@ -569,9 +570,9 @@
 	};
 	85730E1E1274651800609F2C /* decoding_pattern_test.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 1989}}";
-			sepNavSelRange = "{2519, 0}";
-			sepNavVisRange = "{2364, 253}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 1794}}";
+			sepNavSelRange = "{1215, 0}";
+			sepNavVisRange = "{1442, 400}";
 		};
 	};
 	85730E731274980900609F2C /* ConvoCodeTest2.cpp */ = {
@@ -595,7 +596,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 47";
 		rLen = 0;
-		rLoc = 1103;
+		rLoc = 1150;
 		rType = 0;
 		vrLen = 710;
 		vrLoc = 224;
@@ -705,7 +706,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 63";
 		rLen = 0;
-		rLoc = 2029;
+		rLoc = 2059;
 		rType = 0;
 		vrLen = 272;
 		vrLoc = 1192;
@@ -715,7 +716,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 61";
 		rLen = 0;
-		rLoc = 2029;
+		rLoc = 2059;
 		rType = 0;
 		vrLen = 275;
 		vrLoc = 1080;
@@ -735,7 +736,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 51";
 		rLen = 0;
-		rLoc = 1200;
+		rLoc = 1273;
 		rType = 0;
 		vrLen = 452;
 		vrLoc = 855;
@@ -755,7 +756,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 51";
 		rLen = 0;
-		rLoc = 1200;
+		rLoc = 1273;
 		rType = 0;
 		vrLen = 452;
 		vrLoc = 855;
@@ -765,7 +766,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 84";
 		rLen = 0;
-		rLoc = 1991;
+		rLoc = 2021;
 		rType = 0;
 		vrLen = 397;
 		vrLoc = 1445;
@@ -775,7 +776,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 67";
 		rLen = 0;
-		rLoc = 1597;
+		rLoc = 1649;
 		rType = 0;
 		vrLen = 446;
 		vrLoc = 824;
@@ -785,7 +786,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 49";
 		rLen = 0;
-		rLoc = 1103;
+		rLoc = 1150;
 		rType = 0;
 		vrLen = 633;
 		vrLoc = 224;
@@ -805,7 +806,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 48";
 		rLen = 0;
-		rLoc = 1041;
+		rLoc = 1088;
 		rType = 0;
 		vrLen = 327;
 		vrLoc = 1928;
@@ -835,7 +836,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 45";
 		rLen = 0;
-		rLoc = 897;
+		rLoc = 944;
 		rType = 0;
 		vrLen = 472;
 		vrLoc = 824;
@@ -845,7 +846,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 69";
 		rLen = 0;
-		rLoc = 1468;
+		rLoc = 1520;
 		rType = 0;
 		vrLen = 417;
 		vrLoc = 1270;
@@ -855,10 +856,20 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 126";
 		rLen = 0;
-		rLoc = 2519;
+		rLoc = 2549;
 		rType = 0;
 		vrLen = 253;
 		vrLoc = 2364;
+	};
+	85730EE31275BFC000609F2C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
+		name = "decoding_pattern_test.cpp: 57";
+		rLen = 0;
+		rLoc = 1215;
+		rType = 0;
+		vrLen = 400;
+		vrLoc = 1442;
 	};
 	858040601237C4BE0082A9CE /* stl_iterator.h */ = {
 		isa = PBXFileReference;

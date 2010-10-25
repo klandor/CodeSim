@@ -36,6 +36,7 @@ double  Omega[10] = {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02,
 
 int main(){
 	CRandomMersenne r(time(0));
+	Permutator<Bit> per("Interleaver.txt", true);
 	int l0a[1000], l0a_max[1000], ber=0;
 	for (int i=0; i<1000; i++) {
 		l0a[i]=0;
@@ -53,6 +54,7 @@ int main(){
 		Codeword<Bit> a(K*LEN,0);
 		a = lt.encode(a);
 		a = lt.decode(a);
+		a = per.depermutate(a);
 		a.insert(a.end(), a.begin(), a.begin() + (WINDOW_SIZE-1));
 		
 		int errNO=0, errLen=0;
@@ -66,7 +68,6 @@ int main(){
 		//cout << errNO << '\n';
 		#pragma omp atomic
 		l0a[errNO]++;
-		#pragma omp atomic
 		l0h[errNO]++;
 		for (int p=WINDOW_SIZE; p< a.size(); p++) {
 			if (a[p].isErased()) {
@@ -90,7 +91,6 @@ int main(){
 //			}
 			#pragma omp atomic
 			l0a[errNO]++;
-			#pragma omp atomic
 			l0h[errNO]++;
 			//cout << errNO << '\n';
 		}
