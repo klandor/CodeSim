@@ -13,7 +13,7 @@
 
 #define K 1000
 #define MaxN 1200
-#define Run 10000
+#define Run 100000
 #define C 0.05
 #define Delta 0.1
 
@@ -96,7 +96,7 @@ int main(){
 			//#pragma omp parallel for
 			for (int i = 0; i< 16; i++) {
 				sim.seqReceive( K*(1.05+0.01*i) -1);
-				sim.decode();
+				//sim.decode();
 				double t = sim.failureRate();// = Encoder(K, K*(1.05+0.01*i), Dsize);
 				#pragma omp atomic
 				ErrorCount[i][(int)(t*16)]++;

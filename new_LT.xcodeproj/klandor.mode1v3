@@ -277,8 +277,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>6</integer>
-									<integer>2</integer>
+									<integer>9</integer>
+									<integer>7</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -321,7 +321,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>decoding_pattern_test.cpp</string>
+								<string>CodeSim.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,11 +329,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>decoding_pattern_test.cpp</string>
+										<string>CodeSim.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>85730EE31275BFC000609F2C</string>
+										<string>85730EEC1275E68A00609F2C</string>
 										<key>history</key>
 										<array>
 											<string>85D0630F12323CC90094829A</string>
@@ -347,7 +347,6 @@
 											<string>8517BF4D12682883003C1095</string>
 											<string>8517BF4E12682883003C1095</string>
 											<string>8517BF4F12682883003C1095</string>
-											<string>8517BF5012682883003C1095</string>
 											<string>8517BF5212682883003C1095</string>
 											<string>85730E9B1275596100609F2C</string>
 											<string>85730E9C1275596100609F2C</string>
@@ -360,7 +359,8 @@
 											<string>85730EBB127561C100609F2C</string>
 											<string>85730ED61275B3A200609F2C</string>
 											<string>85730ED71275B3A200609F2C</string>
-											<string>85730ED81275B3A200609F2C</string>
+											<string>85730EEA1275E68A00609F2C</string>
+											<string>85730EEB1275E68A00609F2C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -560,9 +560,9 @@
 	<array>
 		<string>85730EA91275596100609F2C</string>
 		<string>85730EAA1275596100609F2C</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>8565BD44120C19560081A319</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
