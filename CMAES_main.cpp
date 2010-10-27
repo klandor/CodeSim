@@ -100,8 +100,8 @@ void Parameter_init(){
 	Std    = new double[Dsize];
 	for(int i =0;i<Dsize;i++){
 		Tags[i] = Set_tags[i];
-		//D[i] = 1/(double)Dsize;
-		Std[i] 	 = 0.025;
+		D[i] = 1/(double)Dsize;
+		Std[i] 	 = 0.1;
 	}
 }
 
