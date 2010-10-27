@@ -21,8 +21,14 @@ randomc: randomc.h mersenne.o userintf.o
 
 CodeSim: CodeSim.h Bit.o ConvoCode.o LT.h LTCode.h 
 
-	
+commitall:
+	git commit -a
 
-.PHONY: clean
+push:
+	git push github master
+pull:
+	git pull github master
+
+.PHONY: clean commitall push pull
 clean: 
 	@rm *.o

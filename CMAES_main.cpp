@@ -142,7 +142,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 			
 			for (int i=0; i<epsilonIndex; i++) {
 				sim.seqReceive(K*(1+epsilons[i])-1);
-				sim.decode();
+				//sim.decode();
 				double temp = sim.failureRate();
 				#pragma omp atomic
 				err[i] += temp;
