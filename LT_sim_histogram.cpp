@@ -12,10 +12,12 @@
 
 
 #define K 1000
-#define MaxN 1200
+
 #define Run 100000
 #define C 0.05
-#define Delta 0.1
+#define Delta 0.01
+#define STEPS 51
+#define MaxN (K*(STEPS-1))
 
 using namespace std;
 using namespace CodeSim;
@@ -32,8 +34,8 @@ int S_code2sym[MaxN];
 int M_sym2code[K][MaxN];            // 記錄反向連結 - 每個symbol連到哪幾個 codeword
 int S_sym2code[K];                  // 反向連結的 size 
 
-unsigned long ErrorCount[16][16];
-double BER[16];
+unsigned long ErrorCount[STEPS][16];
+double BER[STEPS];
 int Dsize = 10;
 
 int		Degree[10] = //{1,2,3,4,5,8,9,19,65,66};
@@ -81,7 +83,7 @@ int main(){
 		for (int i =0; i<10; i++) {
 			cin >> D[i];
 		}
-		for (int i = 0; i<16; i++) {
+		for (int i = 0; i<STEPS; i++) {
 			BER[i] = 0;
 			for(int j = 0; j< 16; j++)
 			ErrorCount[i][j] = 0;
@@ -94,8 +96,8 @@ int main(){
 			LT_sim<Bit> sim(K, MaxN, Dsize, Degree, D, Rnd.BRandom());
 			//cout << "Run " << i <<'\n';
 			//#pragma omp parallel for
-			for (int i = 0; i< 16; i++) {
-				sim.seqReceive( K*(1.05+0.01*i) -1);
+			for (int i = 0; i< STEPS; i++) {
+				sim.seqReceive( K*(1+Delta*i) -1);
 				//sim.decode();
 				double t = sim.failureRate();// = Encoder(K, K*(1.05+0.01*i), Dsize);
 				#pragma omp atomic
