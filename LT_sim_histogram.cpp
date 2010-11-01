@@ -110,18 +110,17 @@ int main(){
 		}
 		cout<<"Histogram:\n";
 		for (int i = 0; i<16; i++) {
-			for(int j = 0; j< 16; j++)
+			for(int j = 0; j< STEPS; j++)
 				cout <<  ErrorCount[j][i] / (double)Run<< ' ';
 			cout << '\n';
 		}
 		cout << "BER:\n";
-		for (int i = 0; i<16; i++) {
-			
+		for (int i = 0; i<STEPS; i++) {
 			cout <<  BER[i]/Run<< ' ';
 					}
 		cout << '\n';	
 	}
-	//delete Rnd;	
+	
 	return 0;
 }
 

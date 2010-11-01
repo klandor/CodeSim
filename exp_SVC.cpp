@@ -37,6 +37,11 @@ int main(){
 		exit(1);
 	}
 	
+	cout << "Enter Interleaver filename: ";
+	getline(cin, s, '\n');
+	Permutator<Bit> permut(s, true);
+	
+	
 	cout << "Enter comment: ";
 	getline(cin, s, '\n');
 	fout << "Comment: " << s << endl;
@@ -47,7 +52,6 @@ int main(){
 	}
 	CRandomMersenne random(time(0));
 	ConvoCode convo("convo-4-6-10.txt");
-	Permutator<Bit> permut("result_s1_1000_s2_25.txt", true);
 	
 	long ber[RUN][21][3];
 	for (int i=0; i<21*3*RUN; i++) {
@@ -100,7 +104,7 @@ int main(){
 		fout << "Layer " << i << ":\n";
 		for (int run=0; run<RUN; run++) {
 			for (int j=0; j<21; j++) {
-				fout << ber[run][j][i] / (K/3.0*RUN) << ' ';
+				fout << ber[run][j][i] / (K/3.0) << ' ';
 			}
 			fout << '\n';
 			
