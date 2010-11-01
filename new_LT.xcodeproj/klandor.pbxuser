@@ -114,29 +114,19 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 309868485;
-			PBXWorkspaceStateSaveDate = 309868485;
+			PBXPerProjectTemplateStateSaveDate = 310280865;
+			PBXWorkspaceStateSaveDate = 310280865;
 		};
 		perUserProjectItems = {
-			8504D7441277424C00B07F5B = 8504D7441277424C00B07F5B /* PBXTextBookmark */;
-			8504D7451277424C00B07F5B = 8504D7451277424C00B07F5B /* PBXTextBookmark */;
-			8504D775127838D600B07F5B /* PBXTextBookmark */ = 8504D775127838D600B07F5B /* PBXTextBookmark */;
-			8504D776127838D600B07F5B /* PBXTextBookmark */ = 8504D776127838D600B07F5B /* PBXTextBookmark */;
-			8504D777127838D600B07F5B /* PBXTextBookmark */ = 8504D777127838D600B07F5B /* PBXTextBookmark */;
 			8517BF4D12682883003C1095 = 8517BF4D12682883003C1095 /* PBXTextBookmark */;
 			8517BF4E12682883003C1095 = 8517BF4E12682883003C1095 /* PBXTextBookmark */;
-			8517BF4F12682883003C1095 = 8517BF4F12682883003C1095 /* PBXTextBookmark */;
 			8517BF5212682883003C1095 = 8517BF5212682883003C1095 /* PBXTextBookmark */;
 			855EEE55124DF5DF00D1D91C = 855EEE55124DF5DF00D1D91C /* PBXTextBookmark */;
-			85730E9B1275596100609F2C = 85730E9B1275596100609F2C /* PBXTextBookmark */;
 			85730E9C1275596100609F2C = 85730E9C1275596100609F2C /* PBXTextBookmark */;
-			85730E9D1275596100609F2C = 85730E9D1275596100609F2C /* PBXTextBookmark */;
 			85730EA01275596100609F2C = 85730EA01275596100609F2C /* PBXTextBookmark */;
 			85730EA11275596100609F2C = 85730EA11275596100609F2C /* PBXTextBookmark */;
-			85730EA21275596100609F2C = 85730EA21275596100609F2C /* PBXTextBookmark */;
 			85730EA31275596100609F2C = 85730EA31275596100609F2C /* PBXTextBookmark */;
 			85730EA41275596100609F2C = 85730EA41275596100609F2C /* PBXTextBookmark */;
-			85730EBB127561C100609F2C = 85730EBB127561C100609F2C /* PBXTextBookmark */;
 			85730ED61275B3A200609F2C = 85730ED61275B3A200609F2C /* PBXTextBookmark */;
 			85730ED71275B3A200609F2C = 85730ED71275B3A200609F2C /* PBXTextBookmark */;
 			85730EEA1275E68A00609F2C = 85730EEA1275E68A00609F2C /* PBXTextBookmark */;
@@ -159,56 +149,6 @@
 			sepNavVisRange = "{2011, 424}";
 			sepNavWindowFrame = "{{301, 0}, {707, 679}}";
 		};
-	};
-	8504D7441277424C00B07F5B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 854BD8951225411B006CD78C /* CodeSim.h */;
-		name = "CodeSim.h: 192";
-		rLen = 0;
-		rLoc = 3529;
-		rType = 0;
-		vrLen = 238;
-		vrLoc = 290;
-	};
-	8504D7451277424C00B07F5B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
-		name = "LT_sim_histogram.cpp: 16";
-		rLen = 0;
-		rLoc = 282;
-		rType = 0;
-		vrLen = 322;
-		vrLoc = 21;
-	};
-	8504D775127838D600B07F5B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
-		name = "LT_sim_histogram.cpp: 16";
-		rLen = 0;
-		rLoc = 282;
-		rType = 0;
-		vrLen = 300;
-		vrLoc = 21;
-	};
-	8504D776127838D600B07F5B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
-		name = "CMAES_main.cpp: 164";
-		rLen = 628;
-		rLoc = 4046;
-		rType = 0;
-		vrLen = 179;
-		vrLoc = 4632;
-	};
-	8504D777127838D600B07F5B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
-		name = "CMAES_main.cpp: 145";
-		rLen = 0;
-		rLoc = 3671;
-		rType = 0;
-		vrLen = 360;
-		vrLoc = 4146;
 	};
 	8517BEC212676B6F003C1095 /* exp_SVC.cpp */ = {
 		uiCtxt = {
@@ -237,16 +177,6 @@
 		vrLen = 268;
 		vrLoc = 489;
 	};
-	8517BF4F12682883003C1095 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 85BD043D122A86A800EFCF85 /* PermutatorTest.cpp */;
-		name = "PermutatorTest.cpp: 17";
-		rLen = 18;
-		rLoc = 271;
-		rType = 0;
-		vrLen = 335;
-		vrLoc = 135;
-	};
 	8517BF5212682883003C1095 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 85B60A531234900700842D09 /* ConvoCode.h */;
@@ -256,13 +186,6 @@
 		rType = 0;
 		vrLen = 405;
 		vrLoc = 673;
-	};
-	852CBF141243916100ECC703 /* LT.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = LT.h;
-		path = /Users/klandor/Dropbox/Lab/Programs/CodeSim/LT.h;
-		sourceTree = "<absolute>";
 	};
 	852CBF3C1243C26800ECC703 /* LT_sim_Test.cpp:103 */ = {
 		isa = PBXFileBreakpoint;
@@ -494,16 +417,6 @@
 			sepNavVisRange = "{136, 350}";
 		};
 	};
-	85730E9B1275596100609F2C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */;
-		name = "LT_sim_Test.cpp: 120";
-		rLen = 0;
-		rLoc = 2503;
-		rType = 0;
-		vrLen = 424;
-		vrLoc = 2011;
-	};
 	85730E9C1275596100609F2C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 85D061A4122FA19F0094829A /* LTTest.cpp */;
@@ -513,16 +426,6 @@
 		rType = 0;
 		vrLen = 465;
 		vrLoc = 0;
-	};
-	85730E9D1275596100609F2C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
-		name = "LT_sim_histogram.cpp: 37";
-		rLen = 227;
-		rLoc = 963;
-		rType = 0;
-		vrLen = 580;
-		vrLoc = 710;
 	};
 	85730EA01275596100609F2C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -544,16 +447,6 @@
 		vrLen = 349;
 		vrLoc = 2169;
 	};
-	85730EA21275596100609F2C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 852CBF141243916100ECC703 /* LT.h */;
-		name = "LT.h: 269";
-		rLen = 7;
-		rLoc = 5440;
-		rType = 0;
-		vrLen = 457;
-		vrLoc = 5472;
-	};
 	85730EA31275596100609F2C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 85730E731274980900609F2C /* ConvoCodeTest2.cpp */;
@@ -574,16 +467,6 @@
 		vrLen = 937;
 		vrLoc = 6042;
 	};
-	85730EBB127561C100609F2C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 8597159E124325BC00BD7FC2 /* CMAES_main.cpp */;
-		name = "CMAES_main.cpp: 164";
-		rLen = 628;
-		rLoc = 4046;
-		rType = 0;
-		vrLen = 203;
-		vrLoc = 4632;
-	};
 	85730ED61275B3A200609F2C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 85E02006123FD347001ED159 /* Makefile */;
@@ -599,7 +482,7 @@
 		fRef = 8517BEC212676B6F003C1095 /* exp_SVC.cpp */;
 		name = "exp_SVC.cpp: 73";
 		rLen = 18;
-		rLoc = 1540;
+		rLoc = 1552;
 		rType = 0;
 		vrLen = 295;
 		vrLoc = 1307;
@@ -650,19 +533,6 @@
 			sepNavIntBoundsRect = "{{0, 0}, {700, 2249}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{3859, 458}";
-		};
-	};
-	8597159E124325BC00BD7FC2 /* CMAES_main.cpp */ = {
-		isa = PBXFileReference;
-		fileEncoding = 4;
-		lastKnownFileType = sourcecode.cpp.cpp;
-		name = CMAES_main.cpp;
-		path = /Users/klandor/Dropbox/Lab/Programs/CodeSim/CMAES_main.cpp;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {803, 4537}}";
-			sepNavSelRange = "{3671, 0}";
-			sepNavVisRange = "{4146, 360}";
 		};
 	};
 	85B60A531234900700842D09 /* ConvoCode.h */ = {
