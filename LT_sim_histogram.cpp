@@ -16,7 +16,7 @@
 #define Run 100000
 #define C 0.05
 #define Delta 0.01
-#define STEPS 51
+#define STEPS 101
 #define MaxN (K*(STEPS-1))
 
 using namespace std;

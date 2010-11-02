@@ -123,6 +123,7 @@
 			85480253127EF7AF006A6369 /* PBXTextBookmark */ = 85480253127EF7AF006A6369 /* PBXTextBookmark */;
 			85480254127EF933006A6369 /* PBXTextBookmark */ = 85480254127EF933006A6369 /* PBXTextBookmark */;
 			85480255127EF945006A6369 /* PBXTextBookmark */ = 85480255127EF945006A6369 /* PBXTextBookmark */;
+			85480256127FB84E006A6369 /* PBXTextBookmark */ = 85480256127FB84E006A6369 /* PBXTextBookmark */;
 			855EEE55124DF5DF00D1D91C = 855EEE55124DF5DF00D1D91C /* PBXTextBookmark */;
 			85730E9C1275596100609F2C = 85730E9C1275596100609F2C /* PBXTextBookmark */;
 			85730EA01275596100609F2C = 85730EA01275596100609F2C /* PBXTextBookmark */;
@@ -269,7 +270,7 @@
 		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
 		name = "LT_sim_histogram.cpp: 123";
 		rLen = 0;
-		rLoc = 2739;
+		rLoc = 2740;
 		rType = 0;
 		vrLen = 420;
 		vrLoc = 2339;
@@ -279,7 +280,7 @@
 		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
 		name = "LT_sim_histogram.cpp: 117";
 		rLen = 0;
-		rLoc = 2618;
+		rLoc = 2619;
 		rType = 0;
 		vrLen = 422;
 		vrLoc = 2339;
@@ -289,7 +290,7 @@
 		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
 		name = "LT_sim_histogram.cpp: 122";
 		rLen = 0;
-		rLoc = 2714;
+		rLoc = 2715;
 		rType = 0;
 		vrLen = 424;
 		vrLoc = 2339;
@@ -299,10 +300,20 @@
 		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
 		name = "LT_sim_histogram.cpp: 122";
 		rLen = 0;
-		rLoc = 2714;
+		rLoc = 2715;
 		rType = 0;
 		vrLen = 421;
 		vrLoc = 2339;
+	};
+	85480256127FB84E006A6369 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
+		name = "LT_sim_histogram.cpp: 19";
+		rLen = 0;
+		rLoc = 319;
+		rType = 0;
+		vrLen = 773;
+		vrLoc = 207;
 	};
 	854BD8951225411B006CD78C /* CodeSim.h */ = {
 		uiCtxt = {
@@ -314,9 +325,9 @@
 	};
 	855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 1833}}";
-			sepNavSelRange = "{2714, 0}";
-			sepNavVisRange = "{2339, 421}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 1612}}";
+			sepNavSelRange = "{319, 0}";
+			sepNavVisRange = "{207, 773}";
 		};
 	};
 	855EEE55124DF5DF00D1D91C /* PBXTextBookmark */ = {
@@ -499,7 +510,7 @@
 		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
 		name = "LT_sim_histogram.cpp: 123";
 		rLen = 0;
-		rLoc = 2739;
+		rLoc = 2740;
 		rType = 0;
 		vrLen = 420;
 		vrLoc = 2339;
@@ -617,7 +628,7 @@
 		fRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */;
 		name = "LT_sim_histogram.cpp: 113";
 		rLen = 29;
-		rLoc = 2545;
+		rLoc = 2546;
 		rType = 0;
 		vrLen = 361;
 		vrLoc = 2398;
