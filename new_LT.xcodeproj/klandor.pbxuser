@@ -130,6 +130,7 @@
 			8559D4721285496E007878B4 /* PBXTextBookmark */ = 8559D4721285496E007878B4 /* PBXTextBookmark */;
 			8559D477128549CC007878B4 /* PBXTextBookmark */ = 8559D477128549CC007878B4 /* PBXTextBookmark */;
 			8559D48412854A89007878B4 /* PBXTextBookmark */ = 8559D48412854A89007878B4 /* PBXTextBookmark */;
+			8559D48712854AF2007878B4 /* PBXTextBookmark */ = 8559D48712854AF2007878B4 /* PBXTextBookmark */;
 			855EEE55124DF5DF00D1D91C = 855EEE55124DF5DF00D1D91C /* PBXTextBookmark */;
 			85730E9C1275596100609F2C = 85730E9C1275596100609F2C /* PBXTextBookmark */;
 			85730EA01275596100609F2C = 85730EA01275596100609F2C /* PBXTextBookmark */;
@@ -386,6 +387,16 @@
 		vrLen = 539;
 		vrLoc = 243;
 	};
+	8559D48712854AF2007878B4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
+		name = "decoding_pattern_test.cpp: 117";
+		rLen = 4;
+		rLoc = 2331;
+		rType = 0;
+		vrLen = 516;
+		vrLoc = 2246;
+	};
 	855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {700, 1612}}";
@@ -507,8 +518,8 @@
 	85730E1E1274651800609F2C /* decoding_pattern_test.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {700, 1807}}";
-			sepNavSelRange = "{488, 0}";
-			sepNavVisRange = "{243, 539}";
+			sepNavSelRange = "{2331, 4}";
+			sepNavVisRange = "{2246, 516}";
 		};
 	};
 	85730E731274980900609F2C /* ConvoCodeTest2.cpp */ = {

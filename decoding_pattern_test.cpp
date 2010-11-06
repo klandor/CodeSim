@@ -113,7 +113,7 @@ int main(){
 		
 		
 	}
-	cout.precision(10);
+	fout.precision(10);
 	//cout << "BER: "<<ber/(double)(K*RUN)<< endl;
 	fout << "Average:\n";
 	for (int s=0; s<STEPS; s++) {
