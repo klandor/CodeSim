@@ -24,9 +24,9 @@ using namespace CodeSim;
 #define K 1000
 #define LEN 100
 #define EPS 0.2
-#define RUN 100
+#define RUN 100000
 #define STEP_SIZE 0.03
-#define STEPS 5
+#define STEPS 6
 //#define WINDOW_SIZE 10
 
 int tags = 10, windowSize;
@@ -55,7 +55,7 @@ int main(){
 	}
 	CRandomMersenne r(time(0));
 	Permutator<Bit> per("Interleaver.txt", true);
-	int l0a[STEPS][1000], l0a_max[STEPS][1000], ber=0;
+	int l0a[STEPS][1000], l0a_max[STEPS][1000];
 	for (int i=0; i<1000*STEPS; i++) {
 		l0a[0][i]=0;
 		l0a_max[0][i]=0;
@@ -66,7 +66,7 @@ int main(){
 		LT_sim<Bit> lt(K, K*(1+STEPS*STEP_SIZE), tags, Degree, Omega, r.BRandom());
 		
 		for (int s=0; s<STEPS; s++) {
-			int l0 =0, l0h[1000];
+			int l0h[1000];
 			for (int i=0; i<1000; i++) {
 				l0h[i]=0;
 			}
@@ -74,16 +74,14 @@ int main(){
 			lt.seqReceive(K*(1+s*STEP_SIZE)-1);
 			//a.insert(a.end(), a.begin(), a.begin() + (windowSize-1));
 			Codeword<Bit> a = lt.getResult();
-			int errNO=0, errLen=0;
+			int errNO=0;
 			for (int p=0; p<windowSize; p++) {
 				if (a[p].isErased()) {
 					errNO ++;
 				}
 			}
-			//		if(errNO/(double)winSize > errorDensityBound)
-			//			errLen=1;
-			//cout << errNO << '\n';
-#pragma omp atomic
+			
+			#pragma omp atomic
 			l0a[s][errNO]++;
 			l0h[errNO]++;
 			for (int p=windowSize; p< a.size(); p++) {
@@ -94,18 +92,7 @@ int main(){
 					errNO --;
 				}
 				
-				//if(errNO/(double)winSize > errorDensityBound)
-				//			{
-				//				errLen ++;
-				//			}
-				//			else {
-				//				if (errLen > 750) {
-				//					//fit +=failurePenalty[i];
-				//#pragma omp atomic
-				//					failureCount[i] += errLen / 750.0;
-				//				}
-				//				errLen = 0;
-				//			}
+				
 				#pragma omp atomic
 				l0a[s][errNO]++;
 				l0h[errNO]++;
@@ -128,18 +115,19 @@ int main(){
 	}
 	cout.precision(10);
 	//cout << "BER: "<<ber/(double)(K*RUN)<< endl;
+	fout << "Average:\n";
 	for (int s=0; s<STEPS; s++) {
 		for (int i=0; i<windowSize+1; i++) {
-			cout << l0a[s][i] / (double)(RUN*K) << ' ' ;//<< l0a_max[i] << '\n';
+			fout << l0a[s][i] / (double)(RUN*(K-windowSize+1)) << ' ' ;//<< l0a_max[i] << '\n';
 		}
-		cout << '\n';
+		fout << '\n';
 	}
-	cout << '\n' << '\n';
+	fout << "\nMaximum:\n";
 	for (int s=0; s<STEPS; s++) {
 		for (int i=0; i<windowSize+1; i++) {
-			cout << l0a_max[s][i] / (double)(K)<< ' ' ;//<< l0a_max[i] << '\n';
+			fout << l0a_max[s][i] / (double)(K-windowSize+1)<< ' ' ;//<< l0a_max[i] << '\n';
 		}
-		cout << '\n';
+		fout << '\n';
 	}
 	
 }

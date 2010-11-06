@@ -127,6 +127,9 @@
 			8559D45712853DD9007878B4 /* PBXTextBookmark */ = 8559D45712853DD9007878B4 /* PBXTextBookmark */;
 			8559D45812853DD9007878B4 /* XCBuildMessageTextBookmark */ = 8559D45812853DD9007878B4 /* XCBuildMessageTextBookmark */;
 			8559D45912853DD9007878B4 /* PBXTextBookmark */ = 8559D45912853DD9007878B4 /* PBXTextBookmark */;
+			8559D4721285496E007878B4 /* PBXTextBookmark */ = 8559D4721285496E007878B4 /* PBXTextBookmark */;
+			8559D477128549CC007878B4 /* PBXTextBookmark */ = 8559D477128549CC007878B4 /* PBXTextBookmark */;
+			8559D48412854A89007878B4 /* PBXTextBookmark */ = 8559D48412854A89007878B4 /* PBXTextBookmark */;
 			855EEE55124DF5DF00D1D91C = 855EEE55124DF5DF00D1D91C /* PBXTextBookmark */;
 			85730E9C1275596100609F2C = 85730E9C1275596100609F2C /* PBXTextBookmark */;
 			85730EA01275596100609F2C = 85730EA01275596100609F2C /* PBXTextBookmark */;
@@ -299,7 +302,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 68";
 		rLen = 0;
-		rLoc = 1476;
+		rLoc = 1472;
 		rType = 0;
 		vrLen = 705;
 		vrLoc = 1093;
@@ -348,10 +351,40 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 76";
 		rLen = 0;
-		rLoc = 1707;
+		rLoc = 1696;
 		rType = 0;
 		vrLen = 610;
 		vrLoc = 1301;
+	};
+	8559D4721285496E007878B4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
+		name = "decoding_pattern_test.cpp: 27";
+		rLen = 0;
+		rLoc = 449;
+		rType = 0;
+		vrLen = 541;
+		vrLoc = 337;
+	};
+	8559D477128549CC007878B4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
+		name = "decoding_pattern_test.cpp: 140";
+		rLen = 0;
+		rLoc = 2724;
+		rType = 0;
+		vrLen = 469;
+		vrLoc = 2692;
+	};
+	8559D48412854A89007878B4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
+		name = "decoding_pattern_test.cpp: 29";
+		rLen = 0;
+		rLoc = 488;
+		rType = 0;
+		vrLen = 539;
+		vrLoc = 243;
 	};
 	855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */ = {
 		uiCtxt = {
@@ -473,9 +506,9 @@
 	};
 	85730E1E1274651800609F2C /* decoding_pattern_test.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 1690}}";
-			sepNavSelRange = "{1694, 0}";
-			sepNavVisRange = "{1301, 610}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 1807}}";
+			sepNavSelRange = "{488, 0}";
+			sepNavVisRange = "{243, 539}";
 		};
 	};
 	85730E731274980900609F2C /* ConvoCodeTest2.cpp */ = {
@@ -608,7 +641,7 @@
 		fRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */;
 		name = "decoding_pattern_test.cpp: 57";
 		rLen = 0;
-		rLoc = 2696;
+		rLoc = 2293;
 		rType = 0;
 		vrLen = 620;
 		vrLoc = 279;
