@@ -24,119 +24,122 @@ using namespace CodeSim;
 #define K 1000
 #define LEN 100
 #define EPS 0.2
-#define RUN 1000
-#define WINDOW_SIZE 10
+#define RUN 100
+#define STEP_SIZE 0.03
+#define STEPS 5
+//#define WINDOW_SIZE 10
 
-int tags = 10;
+int tags = 10, windowSize;
 
-int		Degree[10] = //{1,2,3,4,5,8,9,19,65,66};
-{1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
+int		Degree[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};//{1,2,3,4,5,8,9,19,65,66};
+
 double  Omega[10] = {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02, 
 	5.8338E-05, 3.9740E-02, 7.7470E-02, 2.1520E-02, 1.1547E-02};
 
 int main(){
+	string s;
+	cout << "Enter output filename: ";
+	getline(cin, s, '\n');
+	ofstream fout(s.c_str());
+	
+	cout << "Enter comment: ";
+	getline(cin, s, '\n');
+	fout << "Comment: " << s << endl;
+	
+	cout << "Enter Window Size(>0): ";
+	cin >> windowSize;
+	
+	cout << "Enter degree distribution: ";
+	for (int i=0; i<10; i++) {
+		cin >> Omega[i];
+	}
 	CRandomMersenne r(time(0));
 	Permutator<Bit> per("Interleaver.txt", true);
-	int l0a[1000], l0a_max[1000], ber=0;
-	for (int i=0; i<1000; i++) {
-		l0a[i]=0;
-		l0a_max[i]=0;
+	int l0a[STEPS][1000], l0a_max[STEPS][1000], ber=0;
+	for (int i=0; i<1000*STEPS; i++) {
+		l0a[0][i]=0;
+		l0a_max[0][i]=0;
 	}
 	
 	#pragma omp parallel for num_threads(6)
 	for (int run=0; run<RUN; run++) {
-		LTCode<Bit> lt(K, K*(1+EPS), tags, Degree, Omega, r.BRandom());
-		int l0 =0, l0h[1000];
-		for (int i=0; i<1000; i++) {
-			l0h[i]=0;
-			
-		}
-		Codeword<Bit> a(K*LEN,0);
-		a = lt.encode(a);
-		a = lt.decode(a);
-		a = per.depermutate(a);
-		a.insert(a.end(), a.begin(), a.begin() + (WINDOW_SIZE-1));
+		LT_sim<Bit> lt(K, K*(1+STEPS*STEP_SIZE), tags, Degree, Omega, r.BRandom());
 		
-		int errNO=0, errLen=0;
-		for (int p=0; p<WINDOW_SIZE; p++) {
-			if (a[p].isErased()) {
-				errNO ++;
-			}
-		}
-//		if(errNO/(double)winSize > errorDensityBound)
-//			errLen=1;
-		//cout << errNO << '\n';
-		#pragma omp atomic
-		l0a[errNO]++;
-		l0h[errNO]++;
-		for (int p=WINDOW_SIZE; p< a.size(); p++) {
-			if (a[p].isErased()) {
-				errNO++;
-			}
-			if (a[p-WINDOW_SIZE].isErased()) {
-				errNO --;
+		for (int s=0; s<STEPS; s++) {
+			int l0 =0, l0h[1000];
+			for (int i=0; i<1000; i++) {
+				l0h[i]=0;
 			}
 			
-			//if(errNO/(double)winSize > errorDensityBound)
-//			{
-//				errLen ++;
-//			}
-//			else {
-//				if (errLen > 750) {
-//					//fit +=failurePenalty[i];
-//#pragma omp atomic
-//					failureCount[i] += errLen / 750.0;
-//				}
-//				errLen = 0;
-//			}
-			#pragma omp atomic
-			l0a[errNO]++;
-			l0h[errNO]++;
+			lt.seqReceive(K*(1+s*STEP_SIZE)-1);
+			//a.insert(a.end(), a.begin(), a.begin() + (windowSize-1));
+			Codeword<Bit> a = lt.getResult();
+			int errNO=0, errLen=0;
+			for (int p=0; p<windowSize; p++) {
+				if (a[p].isErased()) {
+					errNO ++;
+				}
+			}
+			//		if(errNO/(double)winSize > errorDensityBound)
+			//			errLen=1;
 			//cout << errNO << '\n';
-		}
-// counting consecutive 0 or 1		
-//		int l0 =0, l0h[1000];
-//		for (int i=0; i<1000; i++) {
-//			l0h[i]=0;
-//			
-//		}
-//		for (int i=0; i<a.size(); i++) {
-//			if (! a[i].isErased()) {
-//				l0++;
-//			}
-//			else {
-//				if (l0>10000) {
-//					cout << "l0: " <<l0<< endl;
-//				}
-//				else {
-//					ber++;
-//					l0a[l0/10]+=1;
-//					l0h[l0/10]+=1;
-//					l0 = 0;
-//				}
-//			}
-//
-//		}
-//		if (l0>0) {
-//			l0a[l0/10]+=1;
-//			l0h[l0/10]+=1;
-//		}
-//		
-		for (int i =0; i<WINDOW_SIZE+1; i++) {
-			#pragma omp critical
-			if (l0h[i] > l0a_max[i]) {
-				l0a_max[i] = l0h[i];
+#pragma omp atomic
+			l0a[s][errNO]++;
+			l0h[errNO]++;
+			for (int p=windowSize; p< a.size(); p++) {
+				if (a[p].isErased()) {
+					errNO++;
+				}
+				if (a[p-windowSize].isErased()) {
+					errNO --;
+				}
+				
+				//if(errNO/(double)winSize > errorDensityBound)
+				//			{
+				//				errLen ++;
+				//			}
+				//			else {
+				//				if (errLen > 750) {
+				//					//fit +=failurePenalty[i];
+				//#pragma omp atomic
+				//					failureCount[i] += errLen / 750.0;
+				//				}
+				//				errLen = 0;
+				//			}
+				#pragma omp atomic
+				l0a[s][errNO]++;
+				l0h[errNO]++;
+				//cout << errNO << '\n';
+			}
+	
+			for (int i =0; i<windowSize+1; i++) {
+				#pragma omp critical
+				if (l0h[i] > l0a_max[s][i]) {
+					l0a_max[s][i] = l0h[i];
+				}
 			}
 		}
+		
+
+
 		
 		
 		
 	}
 	cout.precision(10);
 	//cout << "BER: "<<ber/(double)(K*RUN)<< endl;
-	
-	for (int i=0; i<WINDOW_SIZE+1; i++) {
-		cout << l0a[i] / (double)RUN << ' ' << l0a_max[i] << '\n';
+	for (int s=0; s<STEPS; s++) {
+		for (int i=0; i<windowSize+1; i++) {
+			cout << l0a[s][i] / (double)(RUN*K) << ' ' ;//<< l0a_max[i] << '\n';
+		}
+		cout << '\n';
+	}
+	cout << '\n' << '\n';
+	for (int s=0; s<STEPS; s++) {
+		for (int i=0; i<windowSize+1; i++) {
+			cout << l0a_max[s][i] / (double)(K)<< ' ' ;//<< l0a_max[i] << '\n';
+		}
+		cout << '\n';
 	}
 	
 }
