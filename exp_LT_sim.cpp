@@ -23,7 +23,7 @@
 
 #define K 1000
 
-#define RUN 100000
+#define RUN 1000000
 #define C 0.05
 #define Delta 0.01
 #define STEPS 26
@@ -126,12 +126,12 @@ int main(){
 //		}
 //		
 //		cout << "BER:\n";
-		#pragma omp parallel for num_threads(6)
-		for (int i = 0; i<STEPS; i++) {
-			sort(BER[i], BER[i]+RUN);
-			//cout <<  BER[i][]<< ' ';
-			
-		}
+//		#pragma omp parallel for num_threads(6)
+//		for (int i = 0; i<STEPS; i++) {
+//			sort(BER[i], BER[i]+RUN);
+//			//cout <<  BER[i][]<< ' ';
+//			
+//		}
 		
 		for (int i=0; i<RUN; i++) {
 			for (int j=0; j<STEPS; j++) {
