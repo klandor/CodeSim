@@ -11,6 +11,9 @@ histogram.out: all LT_sim_histogram.cpp
 exp_SVC.out : randomc CodeSim exp_SVC.cpp
 	$(CXX) $(CPPFLAGS) exp_SVC.cpp mersenne.o userintf.o ConvoCode.o Bit.o -o $@
 
+exp_LT_sim.out : randomc CodeSim exp_LT_sim.cpp
+	$(CXX) $(CPPFLAGS) exp_LT_sim.cpp mersenne.o userintf.o ConvoCode.o Bit.o -o $@
+
 decoding_pattern_test.out: CodeSim decoding_pattern_test.cpp
 	$(CXX) $(CPPFLAGS) decoding_pattern_test.cpp mersenne.o userintf.o Bit.o -o $@
 
