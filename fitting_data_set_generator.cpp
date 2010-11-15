@@ -44,6 +44,7 @@ int main(){
 	for (vector< vector<double> >::iterator i=data.begin(); i!=data.end(); i++) {
 		
 		sort(i->begin(), i->end());
+		*i = vector<double>(i->rbegin(), i->rend());
 		
 		int size = i->size();
 		for (int s=0; s<100; s++) {
@@ -53,7 +54,12 @@ int main(){
 				sum += (*i)[x];
 				n++;
 			}
-			cout << sum/n << '\t';
+			if (sum > 0) 
+				cout << sum/n << '\t';
+			else {
+				cout << "1.00E-8\t";
+			}
+
 		}
 		cout << '\n';
 	}
