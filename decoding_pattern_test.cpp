@@ -24,7 +24,7 @@ using namespace CodeSim;
 #define K 1000
 #define LEN 100
 #define EPS 0.2
-#define RUN 10000
+#define RUN 1000000
 #define STEP_SIZE 0.05
 #define STEPS 6
 //#define MAX_WINDOW_SIZE 100

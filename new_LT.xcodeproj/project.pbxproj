@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
-		8558994C1290F1B10018251D /* decoding_pattern_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */; };
+		855899AD129119820018251D /* decoding_pattern_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85730E1E1274651800609F2C /* decoding_pattern_test.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
@@ -218,7 +218,7 @@
 				8544527512279DDD00BA9182 /* Bit.cpp in Sources */,
 				853626611235E65E00476D16 /* ConvoCode.cpp in Sources */,
 				8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */,
-				8558994C1290F1B10018251D /* decoding_pattern_test.cpp in Sources */,
+				855899AD129119820018251D /* decoding_pattern_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

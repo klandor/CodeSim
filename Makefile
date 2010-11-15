@@ -17,6 +17,8 @@ exp_LT_sim.out : randomc CodeSim exp_LT_sim.cpp
 decoding_pattern_test.out: CodeSim decoding_pattern_test.cpp
 	$(CXX) $(CPPFLAGS) decoding_pattern_test.cpp mersenne.o userintf.o Bit.o -o $@
 
+fitting_data_set_generator.out: fitting_data_set_generator.cpp
+	$(CXX) $(CPPFLAGS) fitting_data_set_generator.cpp -o $@
 
 cmaes: cmaes.o cmaes.h cmaes_interface.h
 	
