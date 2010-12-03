@@ -201,7 +201,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	
 	
 	
-	for (int i=1; i<epsilonIndex; i++) {
+	for (int i=0; i<epsilonIndex; i++) {
 		if (failureCount[i] > 80) {
 			//fit +=	200;
 			needResample = true;
