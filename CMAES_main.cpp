@@ -31,7 +31,7 @@
 #define MaxN 10500		// set Max code word number (set 2*K ,but we only use 1.2*K)
 #define Run 12			// how many simulations per fitness 
 #define MAXFEC 10000		// set Max function evaluations in CMAES  
-#define Lambda 10		// set parameter lambda in CMAES
+#define Lambda 20		// set parameter lambda in CMAES
 #define INFO 1			// 1 : show the info during evolution , 0 : don't display
 // =================================================================
 using namespace std;
@@ -53,12 +53,12 @@ double* SD;
 double* Std;
 
 
-#define epsilonIndex 1
-double epsilons[epsilonIndex] = {0},//{0.05, 0.06, 0.07, 0.08, 0.09, 
+#define epsilonIndex 2
+double epsilons[epsilonIndex] = {0, 0.1},//{0.05, 0.06, 0.07, 0.08, 0.09, 
 //	0.1, 0.11, 0.12, 0.13, 0.14, 
 //	0.15, 0.16, 0.17, 0.18, 0.19,
 //	0.2},//{0.05, 0.06,0.08, 0.12,0.20},
-targetErrorRate[epsilonIndex] = {0.0001};//{0.376629,
+targetErrorRate[epsilonIndex] = {0.1, 0.0001};//{0.376629,
 //	0.349958, 0.237445, 0.18919, 0.108815, 0.0701708,
 //	0.0347487, 0.01925, 0.0085005, 0.0044277, 0.0020448,
 //	0.0010388, 0.0004038, 0.0003112, 0.0002659, 0.0001987};
