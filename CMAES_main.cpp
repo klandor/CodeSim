@@ -53,15 +53,15 @@ double* SD;
 double* Std;
 
 
-#define epsilonIndex 16
-double epsilons[epsilonIndex] = {0.05, 0.06, 0.07, 0.08, 0.09, 
-	0.1, 0.11, 0.12, 0.13, 0.14, 
-	0.15, 0.16, 0.17, 0.18, 0.19,
-	0.2},//{0.05, 0.06,0.08, 0.12,0.20},
-targetErrorRate[epsilonIndex] = {0.376629,
-	0.349958, 0.237445, 0.18919, 0.108815, 0.0701708,
-	0.0347487, 0.01925, 0.0085005, 0.0044277, 0.0020448,
-	0.0010388, 0.0004038, 0.0003112, 0.0002659, 0.0001987};
+#define epsilonIndex 1
+double epsilons[epsilonIndex] = {0},//{0.05, 0.06, 0.07, 0.08, 0.09, 
+//	0.1, 0.11, 0.12, 0.13, 0.14, 
+//	0.15, 0.16, 0.17, 0.18, 0.19,
+//	0.2},//{0.05, 0.06,0.08, 0.12,0.20},
+targetErrorRate[epsilonIndex] = {0.0001};//{0.376629,
+//	0.349958, 0.237445, 0.18919, 0.108815, 0.0701708,
+//	0.0347487, 0.01925, 0.0085005, 0.0044277, 0.0020448,
+//	0.0010388, 0.0004038, 0.0003112, 0.0002659, 0.0001987};
 //errorRateBound[epsilonIndex]={4,4,4,4,4},
 //epsilonBurstBound[epsilonIndex] = {0.5,0.4,0.3,0.2,0.1},
 double epsilonBurstBound = 0.5,
@@ -135,7 +135,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	#pragma omp parallel for num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		//cout << "Run "<< i+1 << endl;
-		Codeword<Bit> decodePattern[epsilonIndex];
+		//Codeword<Bit> decodePattern[epsilonIndex];
 		
 		for (int j=0; j<100; j++) {
 			LT_sim<Bit> sim(K, (int) (K*(1+epsilons[epsilonIndex-1])), Dsize, Set_tags, Indiv, RanGen.BRandom());
@@ -147,55 +147,55 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 				#pragma omp atomic
 				err[i] += temp;
 				
-				if (temp > epsilonBurstBound) {
-					#pragma omp atomic
-					failureCount[i] += 1;
-				}
-				Codeword<Bit> t = sim.getResult();
-				
-				decodePattern[i].insert(decodePattern[i].end(), t.begin(), t.end());
+//				if (temp > epsilonBurstBound) {
+//					#pragma omp atomic
+//					failureCount[i] += 1;
+//				}
+//				Codeword<Bit> t = sim.getResult();
+//				
+//				decodePattern[i].insert(decodePattern[i].end(), t.begin(), t.end());
 				
 			}
 		}
 		
 		
-		for (int i=0; i<epsilonIndex; i++) {
-			
-			int errNO=0, errLen=0;
-			for (int p=0; p<winSize; p++) {
-				if (decodePattern[i][p].isErased()) {
-					errNO ++;
-				}
-			}
-			if(errNO/(double)winSize > errorDensityBound)
-				errLen=1;
-			
-			for (int p=winSize; p< 100*K; p++) {
-				if (decodePattern[i][p].isErased()) {
-					errNO++;
-				}
-				if (decodePattern[i][p-winSize].isErased()) {
-					errNO --;
-				}
-				
-				if(errNO/(double)winSize > errorDensityBound)
-				{
-					errLen ++;
-				}
-				else {
-					if (errLen > 750) {
-						//fit +=failurePenalty[i];
-						#pragma omp atomic
-						failureCount[i] += errLen / 750.0;
-					}
-					errLen = 0;
-				}
-				
-				
-			}	
-			
-			
-		}
+//		for (int i=0; i<epsilonIndex; i++) {
+//			
+//			int errNO=0, errLen=0;
+//			for (int p=0; p<winSize; p++) {
+//				if (decodePattern[i][p].isErased()) {
+//					errNO ++;
+//				}
+//			}
+//			if(errNO/(double)winSize > errorDensityBound)
+//				errLen=1;
+//			
+//			for (int p=winSize; p< 100*K; p++) {
+//				if (decodePattern[i][p].isErased()) {
+//					errNO++;
+//				}
+//				if (decodePattern[i][p-winSize].isErased()) {
+//					errNO --;
+//				}
+//				
+//				if(errNO/(double)winSize > errorDensityBound)
+//				{
+//					errLen ++;
+//				}
+//				else {
+//					if (errLen > 750) {
+//						//fit +=failurePenalty[i];
+//						#pragma omp atomic
+//						failureCount[i] += errLen / 750.0;
+//					}
+//					errLen = 0;
+//				}
+//				
+//				
+//			}	
+//			
+//			
+//		}
 		
 	}
 	
