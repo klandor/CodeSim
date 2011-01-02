@@ -13,10 +13,10 @@
 
 #define K 1000
 
-#define Run 100000
+#define Run 1000
 #define C 0.05
-#define Delta 0.001
-#define STEPS 1001
+#define Delta 0.01
+#define STEPS 101
 #define MaxN (K*(STEPS-1))
 
 using namespace std;
@@ -89,7 +89,7 @@ int main(){
 			ErrorCount[i][j] = 0;
 		}
 		
-		
+		int start_time = time(0);
 		//int n=0;
 		#pragma omp parallel for num_threads(6)
 		for(int i=0;i<Run;i++){
@@ -120,7 +120,9 @@ int main(){
 			cout <<  BER[i]/Run<< ' ';
 		}
 		
-		cout << '\n';	
+		cout << '\n';
+		
+		cout << "Time: " << time(0) - start_time<< endl;
 	}
 	
 	return 0;
