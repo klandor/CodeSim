@@ -8,7 +8,6 @@
  */
 
 #include <vector>
-#include <queue>
 #include "randomc.h"
 #include "CodeSim.h"
 using namespace std;
@@ -41,21 +40,18 @@ namespace CodeSim{
 		void receive(int t, S s);
 		void decode();
 		int Num_of_Input, Num_of_Output, Num_of_Degree, Num_of_Decoding, 
-				//ReceivedSize,
-				generatedCode;
+				ReceivedSize, generatedCode;
 		int seed;
 		CRandomMersenne Rnd;
 		vector<long int>	d;//(Num_of_Output, 0);
 		vector<vector<long int> >	edge;// = new vector<long int>[Num_of_Output];
-		//vector<long int>	R_M;//(Num_of_Output, 0);
+		vector<long int>	R_M;//(Num_of_Output, 0);
 		//vector<long int>	erasure;//(Num_of_Output, 0);
 		vector<char>	DE;//(Num_of_Input, 0);
 		vector<int>			Degree_of_Edge;
 		vector<double>		Omega;
 		vector<int>			receivedMask;
 		Codeword<S>			Result, Mid_Output;
-		queue<long int>		ripple;
-		vector< queue<long int> > input_edge; 
 	};
 	
 	template<class S>
@@ -71,6 +67,10 @@ namespace CodeSim{
 		Num_of_Output= max_n;
 		Num_of_Degree = tag_size;
 		
+//		d.assign(max_n,0);
+//		edge.assign(max_n,0);
+//		R_M.assign(max_n,0);
+		//erasure.assign(max_n,0);
 		this->seed = seed;
 		Degree_of_Edge.assign(tags, tags+tag_size);
 		Omega.assign(omega, omega+tag_size);
@@ -79,7 +79,17 @@ namespace CodeSim{
 
 		
 		reset();
-
+//		DE.assign(k,0);
+		
+//		Rnd.RandomInit(seed);
+		
+//		Num_of_Decoding = 0;
+//		ReceivedSize = 0;
+//		generatedCode = 0;
+		//codeGen(max_n);
+		
+//		Result.assign(k,-1);
+//		receivedMask.assign(max_n, 0);
 	}
 	
 	template<class S>
@@ -141,14 +151,14 @@ namespace CodeSim{
 	
 	template<class S>
 	inline void LT_sim<S>::receive(int t){
-//		codeGen(t);
-//		if(receivedMask[t]==0)
-//		{
-//			R_M[ReceivedSize]=t;
-//			ReceivedSize++;
-//			receivedMask[t]=1;
-//		}
-		receive(t, 0);
+		codeGen(t);
+		if(receivedMask[t]==0)
+		{
+			R_M[ReceivedSize]=t;
+			ReceivedSize++;
+			receivedMask[t]=1;
+		}
+		
 	}
 	template<class S>
 	void LT_sim<S>::seqReceive(int t){
@@ -163,35 +173,9 @@ namespace CodeSim{
 		codeGen(t);
 		if(receivedMask[t]==0)
 		{
+			R_M[ReceivedSize]=t;
+			ReceivedSize++;
 			receivedMask[t]=1;
-			for (int i=0; i<d[t]; i++) {
-				if (DE[ edge[t][i] ] == 1) {
-					s = s + Result[ edge[t][i] ];
-					d[t]--;
-					edge[t][i] = edge[t][d[t]];
-					i--;
-				}
-				else {
-					input_edge[ edge[t][i] ].push(t);
-				}
-
-			}
-			
-			if (d[t] == 0) {
-				return;
-			}
-			if (d[t] == 1) {
-				ripple.push(edge[t][0]);
-				DE[ edge[t][0] ] = 1;
-				Result[ edge[t][0] ] = s;
-				Num_of_Decoding++;
-				return;
-			}
-			
-			
-			//R_M[ReceivedSize]=t;
-			//ReceivedSize++;
-			
 			Mid_Output[t] = s;
 		}
 		
@@ -200,60 +184,37 @@ namespace CodeSim{
 	template<class S>
 	void LT_sim<S>::decode(){
 		int flag=1;
-		while( Num_of_Decoding < Num_of_Input && !ripple.empty())
+		while( Num_of_Decoding < Num_of_Input && flag==1)
 		{
-			long int r = ripple.front();
-			
-			while (!input_edge[r].empty()) {
-				long int t = input_edge[r].front();
-				for (int i=0; i<d[t]; i++) {
-					if(edge[t][i] == r){
-						Mid_Output[t] = Mid_Output[t] + Result[r];
-						d[t]--;
-						edge[t][i] = edge[t][d[t]];
-						break;
-					}
-				}
-				if (d[t] == 1 && DE[ edge[t][0] ] == 0) {
-					DE[ edge[t][0] ]=1;
-					ripple.push(edge[t][0]);
-					Result[ edge[t][0] ] = Mid_Output[t];
+			flag=0;
+			for(int i=0;i<ReceivedSize;i++)
+			{
+				if(d[R_M[i]]==1 && DE[ edge[ R_M[i] ][0] ]==0)
+				{
+					DE[ edge[ R_M[i] ][0] ]=1;
+					Result[ edge[R_M[i]][0] ] = Mid_Output[R_M[i]];
+					Result[ edge[ R_M[i] ][0] ].setErased(false);
 					Num_of_Decoding++;
+					ReceivedSize--;
+					R_M[i]=R_M[ReceivedSize];
+					i--;
+					flag=1;
 				}
-				input_edge[r].pop();
 			}
 			
-			
-			ripple.pop();
-//			flag=0;
-//			for(int i=0;i<ReceivedSize;i++)
-//			{
-//				if(d[R_M[i]]==1 && DE[ edge[ R_M[i] ][0] ]==0)
-//				{
-//					DE[ edge[ R_M[i] ][0] ]=1;
-//					Result[ edge[R_M[i]][0] ] = Mid_Output[R_M[i]];
-//					Result[ edge[ R_M[i] ][0] ].setErased(false);
-//					Num_of_Decoding++;
-//					ReceivedSize--;
-//					R_M[i]=R_M[ReceivedSize];
-//					i--;
-//					flag=1;
-//				}
-//			}
-//			
-//			for(int i=0;i<ReceivedSize;i++)
-//			{
-//				for(int j=0;j<d[R_M[i]];j++)
-//				{
-//					if(DE[ edge[ R_M[i] ][j] ]==1)
-//					{
-//						Mid_Output[R_M[i]] = Mid_Output[R_M[i]] + Result[edge[R_M[i]][j]];
-//						d[R_M[i]]--;
-//						edge[ R_M[i] ][j]=edge[ R_M[i] ][ d[R_M[i]] ];
-//						j--;
-//					}
-//				}
-//			}
+			for(int i=0;i<ReceivedSize;i++)
+			{
+				for(int j=0;j<d[R_M[i]];j++)
+				{
+					if(DE[ edge[ R_M[i] ][j] ]==1)
+					{
+						Mid_Output[R_M[i]] = Mid_Output[R_M[i]] + Result[edge[R_M[i]][j]];
+						d[R_M[i]]--;
+						edge[ R_M[i] ][j]=edge[ R_M[i] ][ d[R_M[i]] ];
+						j--;
+					}
+				}
+			}
 		} 
 	}
 	
@@ -312,7 +273,7 @@ namespace CodeSim{
 		
 		d.assign(Num_of_Output,0);
 		edge.assign(Num_of_Output,0);
-		//R_M.assign(Num_of_Output,0);
+		R_M.assign(Num_of_Output,0);
 		//erasure.assign(max_n,0);
 		
 		DE.assign(Num_of_Input,0);
@@ -320,7 +281,7 @@ namespace CodeSim{
 		
 		
 		Num_of_Decoding = 0;
-		//ReceivedSize = 0;
+		ReceivedSize = 0;
 		generatedCode = 0;
 		//codeGen(Num_of_Output);
 		
@@ -329,8 +290,6 @@ namespace CodeSim{
 		Result.assign(Num_of_Input, -1);
 		Mid_Output.assign(Num_of_Output, 0);
 		
-		ripple = queue<long int>();
-		input_edge.assign(Num_of_Input, queue<long int>());
 	}
 	
 	template<class S>

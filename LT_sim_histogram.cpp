@@ -13,11 +13,11 @@
 
 #define K 1000
 
-#define Run 1000
+#define Run 100000
 #define C 0.05
 #define Delta 0.01
 #define STEPS 101
-#define MaxN (K*(STEPS-1))
+#define MaxN (K*(1+Delta*(STEPS-1)))
 
 using namespace std;
 using namespace CodeSim;
@@ -40,8 +40,9 @@ int Dsize = 10;
 
 int		Degree[10] = //{1,2,3,4,5,8,9,19,65,66};
 		{1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
-double  Omega[10] = { 0.060728,0.493283,0.178695,0.033649,0.090168,
-						0.008898,0.011950,0.013815, 0.005120,0.103694};
+double  Omega[10] = {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02,
+				5.8338E-05, 3.9740E-02, 7.7470E-02, 2.1520E-02, 1.1547E-02
+};
 
 //uniformRandom *Rnd;
 int g_seed = (int)time(0);
