@@ -103,7 +103,7 @@ void Parameter_init(){
 	Std    = new double[Dsize];
 	for(int i =0;i<Dsize;i++){
 		Tags[i] = Set_tags[i];
-		D[i] = 1/(double)Dsize;
+		//D[i] = 1/(double)Dsize;
 		Std[i] 	 = 0.1;
 	}
 }
@@ -128,10 +128,12 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	normolize(Indiv);
 	
 	double fit=0, err[STEPS];
+	long	errorCount[STEPS];
 	double failureCount[STEPS];
 	for (int i=0; i<STEPS; i++) {
 		err[i]=0;
 		failureCount[i] = 0;
+		errorCount[i] = 0;
 	}
 	
 	
@@ -148,7 +150,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 				//sim.decode();
 				double temp = sim.failureRate();
 				#pragma omp atomic
-				err[i] += temp;
+				errorCount[i] += K*temp;
 				
 				//				if (temp > epsilonBurstBound) {
 				//					#pragma omp atomic
@@ -209,14 +211,14 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 			//fit +=	200;
 			needResample = true;
 		}
-		if (err[i] > 0) {
-			err[i] /= Run;
+		if (errorCount[i] > 0) {
+			err[i] = errorCount[i]/(double)(K*Run);
 			err[i] = log10(err[i]);//+4;
 			//err[i] += exceed_penalty(err[i], errorRateBound[i], 1000);
 			//fit += abs ( err[i] - log10(targetErrorRate[i]) );
 		}
 		else {
-			err[i] = -6;
+			err[i] = -4;
 		}
 
 	}
