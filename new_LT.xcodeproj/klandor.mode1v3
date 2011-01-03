@@ -197,7 +197,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>856E1A5912D1AD6C00B1EBC6</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>CMAES2.cpp</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>856E1A5A12D1AD6C00B1EBC6</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>CMAES2.cpp</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>856E1A6812D1F4E300B1EBC6</string>
+						<key>history</key>
+						<array>
+							<string>856E1A3912D1A80700B1EBC6</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1220, 654}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>15 78 1220 695 0 0 1280 778 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -277,7 +318,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>4</integer>
+									<integer>9</integer>
 									<integer>2</integer>
 									<integer>1</integer>
 									<integer>0</integer>
@@ -314,14 +355,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>LT_sim_histogram.cpp</string>
+								<string>CMAES2.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,11 +368,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>LT_sim_histogram.cpp</string>
+										<string>CMAES2.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>856E1A3112D0B2DE00B1EBC6</string>
+										<string>856E1A6712D1F4E300B1EBC6</string>
 										<key>history</key>
 										<array>
 											<string>85B60B8E1235293000842D09</string>
@@ -343,20 +382,26 @@
 											<string>85F8C390124773A700AE3CFC</string>
 											<string>85F8C391124773A700AE3CFC</string>
 											<string>855EEE55124DF5DF00D1D91C</string>
-											<string>85730EA01275596100609F2C</string>
-											<string>85730EA11275596100609F2C</string>
-											<string>85730EA31275596100609F2C</string>
 											<string>85730EA41275596100609F2C</string>
-											<string>85673CAF12C9DEB60059571D</string>
-											<string>852E52FC12D0777400FAE53A</string>
-											<string>852E532C12D07BBF00FAE53A</string>
-											<string>856E1A1212D0B14300B1EBC6</string>
-											<string>856E1A1312D0B14300B1EBC6</string>
-											<string>856E1A1412D0B14300B1EBC6</string>
-											<string>856E1A1512D0B14300B1EBC6</string>
-											<string>856E1A1612D0B14300B1EBC6</string>
-											<string>856E1A1712D0B14300B1EBC6</string>
-											<string>856E1A1812D0B14300B1EBC6</string>
+											<string>856E1A4512D1AD6C00B1EBC6</string>
+											<string>856E1A4612D1AD6C00B1EBC6</string>
+											<string>856E1A4712D1AD6C00B1EBC6</string>
+											<string>856E1A4812D1AD6C00B1EBC6</string>
+											<string>856E1A4912D1AD6C00B1EBC6</string>
+											<string>856E1A4A12D1AD6C00B1EBC6</string>
+											<string>856E1A4B12D1AD6C00B1EBC6</string>
+											<string>856E1A4C12D1AD6C00B1EBC6</string>
+											<string>856E1A4D12D1AD6C00B1EBC6</string>
+											<string>856E1A4E12D1AD6C00B1EBC6</string>
+											<string>856E1A4F12D1AD6C00B1EBC6</string>
+											<string>856E1A5012D1AD6C00B1EBC6</string>
+											<string>856E1A5112D1AD6C00B1EBC6</string>
+											<string>856E1A5212D1AD6C00B1EBC6</string>
+											<string>856E1A5312D1AD6C00B1EBC6</string>
+											<string>856E1A5412D1AD6C00B1EBC6</string>
+											<string>856E1A5512D1AD6C00B1EBC6</string>
+											<string>856E1A5612D1AD6C00B1EBC6</string>
+											<string>856E1A5712D1AD6C00B1EBC6</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -378,6 +423,8 @@
 							<string>417pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -556,10 +603,11 @@
 	<array>
 		<string>856E1A2112D0B14300B1EBC6</string>
 		<string>856E1A2212D0B14300B1EBC6</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>8565BD44120C19560081A319</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>856E1A5912D1AD6C00B1EBC6</string>
 	</array>
 	<key>WindowString</key>
 	<string>222 129 969 649 0 0 1280 778 </string>
@@ -776,7 +824,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

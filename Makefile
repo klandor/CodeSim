@@ -5,6 +5,9 @@ all: CodeSim randomc cmaes
 CMAES.out: all CMAES_main.cpp
 	$(CXX) $(CPPFLAGS) CMAES_main.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
 
+CMAES2.out: all CMAES2.cpp
+	$(CXX) $(CPPFLAGS) CMAES_main.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
+
 histogram.out: all LT_sim_histogram.cpp
 	$(CXX) $(CPPFLAGS) LT_sim_histogram.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
 
