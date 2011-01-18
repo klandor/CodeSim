@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>85F215D512E589E600F6E5EA</string>
+						<string>85F215DB12E58B2A00F6E5EA</string>
 						<key>history</key>
 						<array>
 							<string>856E1A8612D6123200B1EBC6</string>
@@ -270,8 +270,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -363,7 +361,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>NR_test.cpp</string>
+								<string>xlaguer.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -371,11 +369,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>NR_test.cpp</string>
+										<string>xlaguer.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>85F215D412E589E600F6E5EA</string>
+										<string>85F215DA12E58B2A00F6E5EA</string>
 										<key>history</key>
 										<array>
 											<string>85B60B8E1235293000842D09</string>
@@ -408,7 +406,8 @@
 											<string>85F215B912E587C300F6E5EA</string>
 											<string>85F215D112E589E600F6E5EA</string>
 											<string>85F215D212E589E600F6E5EA</string>
-											<string>85F215D312E589E600F6E5EA</string>
+											<string>85F215D812E58B2A00F6E5EA</string>
+											<string>85F215D912E58B2A00F6E5EA</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -430,6 +429,8 @@
 							<string>411pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

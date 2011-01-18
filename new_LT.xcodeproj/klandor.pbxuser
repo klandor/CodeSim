@@ -165,6 +165,10 @@
 			85F215D312E589E600F6E5EA /* PBXBookmark */ = 85F215D312E589E600F6E5EA /* PBXBookmark */;
 			85F215D412E589E600F6E5EA /* PBXTextBookmark */ = 85F215D412E589E600F6E5EA /* PBXTextBookmark */;
 			85F215D512E589E600F6E5EA /* PBXTextBookmark */ = 85F215D512E589E600F6E5EA /* PBXTextBookmark */;
+			85F215D812E58B2A00F6E5EA /* PBXTextBookmark */ = 85F215D812E58B2A00F6E5EA /* PBXTextBookmark */;
+			85F215D912E58B2A00F6E5EA /* PBXBookmark */ = 85F215D912E58B2A00F6E5EA /* PBXBookmark */;
+			85F215DA12E58B2A00F6E5EA /* PBXTextBookmark */ = 85F215DA12E58B2A00F6E5EA /* PBXTextBookmark */;
+			85F215DB12E58B2A00F6E5EA /* PBXTextBookmark */ = 85F215DB12E58B2A00F6E5EA /* PBXTextBookmark */;
 			85F8C38F124773A700AE3CFC = 85F8C38F124773A700AE3CFC /* PBXTextBookmark */;
 			85F8C390124773A700AE3CFC = 85F8C390124773A700AE3CFC /* PBXTextBookmark */;
 			85F8C391124773A700AE3CFC = 85F8C391124773A700AE3CFC /* PBXTextBookmark */;
@@ -1002,6 +1006,47 @@
 		vrLoc = 514;
 	};
 	85F215D512E589E600F6E5EA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 856E19F712D0ADCE00B1EBC6 /* CMAES2.cpp */;
+		name = "CMAES2.cpp: 42";
+		rLen = 0;
+		rLoc = 1092;
+		rType = 0;
+		vrLen = 913;
+		vrLoc = 4912;
+	};
+	85F215D612E58B1300F6E5EA /* xlaguer.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {700, 637}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{494, 914}";
+		};
+	};
+	85F215D812E58B2A00F6E5EA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85F215CB12E5898E00F6E5EA /* NR_test.cpp */;
+		name = "NR_test.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 832;
+		vrLoc = 514;
+	};
+	85F215D912E58B2A00F6E5EA /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 85F215D612E58B1300F6E5EA /* xlaguer.cpp */;
+	};
+	85F215DA12E58B2A00F6E5EA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85F215D612E58B1300F6E5EA /* xlaguer.cpp */;
+		name = "xlaguer.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 914;
+		vrLoc = 494;
+	};
+	85F215DB12E58B2A00F6E5EA /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 856E19F712D0ADCE00B1EBC6 /* CMAES2.cpp */;
 		name = "CMAES2.cpp: 42";

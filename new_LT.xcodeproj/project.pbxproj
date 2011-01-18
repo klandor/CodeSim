@@ -16,7 +16,8 @@
 		85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A412E5876300F6E5EA /* covsrt.cpp */; };
 		85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A512E5876300F6E5EA /* mrqcof.cpp */; };
 		85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215AE12E5879400F6E5EA /* gaussj.cpp */; };
-		85F215CC12E5898E00F6E5EA /* NR_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215CB12E5898E00F6E5EA /* NR_test.cpp */; };
+		85F215D712E58B1300F6E5EA /* xlaguer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215D612E58B1300F6E5EA /* xlaguer.cpp */; };
+		85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215DE12E58B6700F6E5EA /* laguer.cpp */; };
 		8DD76F6A0486A84900D96B5E /* new_LT.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* new_LT.1 */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,8 @@
 		85F215C312E5883900F6E5EA /* nrutil_nr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nrutil_nr.h; sourceTree = "<group>"; };
 		85F215C412E5883900F6E5EA /* nrutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nrutil.h; sourceTree = "<group>"; };
 		85F215CB12E5898E00F6E5EA /* NR_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NR_test.cpp; sourceTree = "<group>"; };
+		85F215D612E58B1300F6E5EA /* xlaguer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlaguer.cpp; sourceTree = "<group>"; };
+		85F215DE12E58B6700F6E5EA /* laguer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laguer.cpp; sourceTree = "<group>"; };
 		85F4E8C712151B0900DA56AC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		85F7DD331245219700F6BE6B /* CMAES_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMAES_main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* new_LT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = new_LT; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +186,7 @@
 		85F2159A12E586E800F6E5EA /* NR */ = {
 			isa = PBXGroup;
 			children = (
+				85F215DE12E58B6700F6E5EA /* laguer.cpp */,
 				85F215C012E5883900F6E5EA /* nr.h */,
 				85F215C112E5883900F6E5EA /* nrtypes_nr.h */,
 				85F215C212E5883900F6E5EA /* nrtypes.h */,
@@ -200,6 +204,7 @@
 		85F215CA12E5897600F6E5EA /* NR_test */ = {
 			isa = PBXGroup;
 			children = (
+				85F215D612E58B1300F6E5EA /* xlaguer.cpp */,
 				85F215CB12E5898E00F6E5EA /* NR_test.cpp */,
 				85F2159B12E5871100F6E5EA /* DynamicFitting_Test.cpp */,
 			);
@@ -275,7 +280,8 @@
 				85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */,
 				85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */,
 				85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */,
-				85F215CC12E5898E00F6E5EA /* NR_test.cpp in Sources */,
+				85F215D712E58B1300F6E5EA /* xlaguer.cpp in Sources */,
+				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
