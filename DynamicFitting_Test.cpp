@@ -15,8 +15,8 @@
 using namespace std;
 
 int main(){
-	const int NPT=26,MA=5;
-	const DP gues_d[MA]={3.749,-0.018,1,0.1314,-3.96};
+	const int NPT=26,MA=4;
+	const DP gues_d[MA]={0,0,0,0};
 	DP data_x[NPT] = {0.0000,0.0100,0.0200,0.0300,0.0400,0.0500,
 		0.0600,0.0700,0.0800,0.0900,0.1000,0.1100,0.1200,0.1300,
 		0.1400,0.1500,0.1600,0.1700,0.1800,0.1900,0.2000,0.2100,
@@ -29,11 +29,12 @@ int main(){
 	vector<double> x(data_x, data_x+NPT), y(data_y, data_y+NPT), a(gues_d, gues_d+MA);
 	double ss;
 	
-	while (cin >> a[0]) {
-		for (int i = 1; i<MA; i++) {
-			cin >> a[i];
-		}
-		int k = regression(x, y, a, sigmoid,ss);
+	//while (cin >> a[0]) 
+	{
+		//for (int i = 1; i<MA; i++) {
+//			cin >> a[i];
+//		}
+		int k = regression(x, y, a, cubic,ss);
 		
 		cout << ss;
 		for (int i=0; i<MA; i++) {

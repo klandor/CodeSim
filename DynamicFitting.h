@@ -17,10 +17,25 @@
 #ifndef DYNAMICFITTING_H
 #define DYNAMICFITTING_H
 
+
+
 void sigmoid(const DP x, Vec_I_DP &a, DP &y, Vec_O_DP &dyda);
 void sigmoidRange(vector<double> &x,
 				  vector<double> &y,
 				  vector< pair<double,double> >& a);
+void cubic(const DP x, Vec_I_DP &a, DP &y, Vec_O_DP &dyda);
+void cubicRange(vector<double> &x,
+				  vector<double> &y,
+				  vector< pair<double,double> >& a);
+
+double eval(const double x
+			, vector<double> &a
+			, void funcs(const DP, Vec_I_DP &, DP &, Vec_O_DP &));
+
+Vec_I_DP vector_STL_To_NR(vector<double> &a);
+
+vector<double> find_sol(vector<double> &a, double min, double max, int steps);
+
 int regression(vector<double> &data_x, vector<double> &data_y, vector<double> &guess_a
 			   ,void funcs(const DP, Vec_I_DP &, DP &, Vec_O_DP &) 
 			   ,double &ss);
@@ -40,8 +55,71 @@ double find_x(vector<double> &data_x, vector<double> &data_y, double target);
 double min(vector<double> &data);
 double max(vector<double> &data);
 
+Vec_I_DP vector_STL_To_NR(vector<double> &a){
+	DP* b = new DP[a.size()];
+	
+	for (int i =0; i<a.size(); i++) {
+		b[i] = a[i];
+	}
+	Vec_I_DP c(b, a.size());
+	delete [] b;
+	return c;
+	
+}
 
+vector<double> find_sol(vector<double> &a, double min, double max, int steps){
+	complex<DP> *a2 = new complex<DP>[a.size()];
+	for (int i=0; i<a.size(); i++) {
+		a2[i] = complex<DP>(a[i], 0);
+	}
+	const DP EPS=1.0e-6;
+	vector<double> sol;
+	
+	Vec_CPLX_DP a3(a2,a.size());
+	int its;
+	double d = (max-min)/(steps-1);
+	for (int i=0;i<steps;i++){
+		complex<DP> x=complex<DP>(i*d+min,0);
+		NR::laguer(a3,x,its);
+		
+		if (abs(x.imag()) < EPS && x.real() >= min && x.real() <= max) {
+			if (sol.size()== 0) {
+				sol.push_back(x.real());
+			}
+			else {
+				bool new_sol = true;
+				
+				for (int i=0; i<sol.size(); i++) {
+					if (abs(x.real() - sol[i]) < EPS) {
+						new_sol = false;
+					}
+				}
+				
+				if (new_sol) {
+					sol.push_back(x.real());
+				}
+			}
 
+		}
+	}
+
+	
+	delete [] a2;
+	
+	return sol;
+}
+
+double eval(const double x
+			, vector<double> &a
+			, void funcs(const DP, Vec_I_DP &, DP &, Vec_O_DP &))
+{
+	Vec_I_DP a2 = vector_STL_To_NR(a);
+	Vec_O_DP dyda(4);
+	double y;
+	funcs(x, a2, y, dyda);
+	
+	return y;
+}
 
 void sigmoid(const DP x, Vec_I_DP &a, DP &y, Vec_O_DP &dyda)
 {
@@ -59,45 +137,21 @@ void sigmoid(const DP x, Vec_I_DP &a, DP &y, Vec_O_DP &dyda)
 	dyda[4] = 1;
 }
 
-void sigmoidRange(vector<double> &x,
-				  vector<double> &y,
-				  vector< pair<double,double> >& a){
-
-
-	a.clear();
-	a.reserve(5);
-	pair<double,double>  t;
-	double y_min = min(y), y_max = max(y);
+void cubic(const DP x, Vec_I_DP &a, DP &y, Vec_O_DP &dyda)
+{
+	DP ex = 1;
+	y=0;
+	if(a.size()!=4)
+		cerr << "cubic: wrong # of parameters\n";
+	for (int i=0; i<4; i++) {
+		y += ex*a[i];
+		dyda[i] = ex;
+		ex *= x;
+	}
 	
-//	a = max(y)-min(y) ''Auto {{previous: 3.81787}}	
-	t.first = y_max-y_min;
-	t.second = -t.first;
-	t.first *= 3;
-	a.push_back(t);
-	
-//	b = xwtr(x,y-min(y),.5)/4 ''Auto {{previous: -0.0300599}}
-	t.first = find_x(x, y, y_min + (y_max-y_min)*0.75) 
-						- find_x(x, y, y_min + (y_max-y_min)*0.25);
-	t.first /= 4;
-	t.second = -t.first;
-	t.first *= 3;
-	a.push_back(t);
-//	c = 1 ' {{previous: 1.13287}}
-	t.first = 3;
-	t.second = 0;
-	a.push_back(t);
-//	x0 = x50(x,y-min(y),.5) ''Auto {{previous: 0.136189}}
-	t.first = find_x(x, y, (y_max + y_min)/2 );
-	
-	t.second = -t.first;
-	t.first *= 3;
-	a.push_back(t);
-//	y0 = min(y) ''Auto {{previous: -3.98481}}	
-	t.first = y_min;
-	t.second = -t.first;
-	t.first *= 3;
-	a.push_back(t);
 }
+
+
 
 int regression(vector<double> &data_x, vector<double> &data_y, vector<double> &guess_a
 			   ,void funcs(const DP, Vec_I_DP &, DP &, Vec_O_DP &) 
@@ -130,7 +184,7 @@ int regression(vector<double> &data_x, vector<double> &data_y, vector<double> &g
 	for (int i=0;i<MA;i++) a[i]=guess_a[i];
 	
 	alamda = -1;
-	NR::mrqmin(x,y,sig,a,ia,covar,alpha,chisq,sigmoid,alamda);
+	NR::mrqmin(x,y,sig,a,ia,covar,alpha,chisq,funcs,alamda);
 	int k=0;
 	int itst=0;
 	while (itst < 4 && k<200) {
@@ -145,7 +199,7 @@ int regression(vector<double> &data_x, vector<double> &data_y, vector<double> &g
 		//		cout << endl;
 		k++;
 		ochisq=chisq;
-		NR::mrqmin(x,y,sig,a,ia,covar,alpha,chisq,sigmoid,alamda);
+		NR::mrqmin(x,y,sig,a,ia,covar,alpha,chisq,funcs,alamda);
 		fabs(ochisq-chisq) < 0.0000000001 ? itst++ : itst=0;
 		//if (itst > 4 ||  ) continue;
 		

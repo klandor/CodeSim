@@ -16,8 +16,8 @@
 		85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A412E5876300F6E5EA /* covsrt.cpp */; };
 		85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A512E5876300F6E5EA /* mrqcof.cpp */; };
 		85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215AE12E5879400F6E5EA /* gaussj.cpp */; };
-		85F215D712E58B1300F6E5EA /* xlaguer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215D612E58B1300F6E5EA /* xlaguer.cpp */; };
 		85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215DE12E58B6700F6E5EA /* laguer.cpp */; };
+		85F2162E12E5EBA800F6E5EA /* CMAES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */; };
 		8DD76F6A0486A84900D96B5E /* new_LT.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* new_LT.1 */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +74,7 @@
 		85F215CB12E5898E00F6E5EA /* NR_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NR_test.cpp; sourceTree = "<group>"; };
 		85F215D612E58B1300F6E5EA /* xlaguer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlaguer.cpp; sourceTree = "<group>"; };
 		85F215DE12E58B6700F6E5EA /* laguer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laguer.cpp; sourceTree = "<group>"; };
+		85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMAES3.cpp; sourceTree = "<group>"; };
 		85F4E8C712151B0900DA56AC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		85F7DD331245219700F6BE6B /* CMAES_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMAES_main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* new_LT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = new_LT; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +160,7 @@
 				85730E1E1274651800609F2C /* decoding_pattern_test.cpp */,
 				85D0BC70128F9BD000A98351 /* fitting_data_set_generator.cpp */,
 				856E19F712D0ADCE00B1EBC6 /* CMAES2.cpp */,
+				85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */,
 			);
 			name = Programs;
 			sourceTree = "<group>";
@@ -280,8 +282,8 @@
 				85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */,
 				85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */,
 				85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */,
-				85F215D712E58B1300F6E5EA /* xlaguer.cpp in Sources */,
 				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
+				85F2162E12E5EBA800F6E5EA /* CMAES3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
