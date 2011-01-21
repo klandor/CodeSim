@@ -138,7 +138,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 	}
 	
 	
-#pragma omp parallel for num_threads(6) reduction(+:fit)
+	#pragma omp parallel for num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		//cout << "Run "<< i+1 << endl;
 		//Codeword<Bit> decodePattern[epsilonIndex];
@@ -150,7 +150,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 				sim.seqReceive(K*(1+Delta*(i))-1);
 				//sim.decode();
 				double temp = sim.failureRate();
-#pragma omp atomic
+				#pragma omp atomic
 				errorCount[i] += K*temp;
 				
 				//				if (temp > epsilonBurstBound) {
@@ -244,15 +244,15 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 		fit += eval(epsilons[i], a, cubic)+4;
 		
 		
-		
-		double min_diff=999;
-		int min_i;
-		for (int j=0; j<STEPS; j++) {
-			if ( abs(err[j]-log10(targetErrorRate[i])) < min_diff) {
-				min_diff = abs(err[j]-log10(targetErrorRate[i]));
-				min_i = j;
-			}
-		}
+//		
+//		double min_diff=999;
+//		int min_i;
+//		for (int j=0; j<STEPS; j++) {
+//			if ( abs(err[j]-log10(targetErrorRate[i])) < min_diff) {
+//				min_diff = abs(err[j]-log10(targetErrorRate[i]));
+//				min_i = j;
+//			}
+//		}
 		vector<double> a2 = a;
 		a2[0] -= log10(targetErrorRate[i]);
 		vector<double> sols = find_sol(a2, 0, (STEPS-1)*Delta, STEPS);

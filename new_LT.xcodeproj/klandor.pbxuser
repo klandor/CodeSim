@@ -308,7 +308,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -716,7 +716,7 @@
 		fRef = 85E02006123FD347001ED159 /* Makefile */;
 		name = "Makefile: 12";
 		rLen = 0;
-		rLoc = 322;
+		rLoc = 367;
 		rType = 0;
 		vrLen = 1072;
 		vrLoc = 0;
@@ -736,7 +736,7 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 256";
 		rLen = 0;
-		rLoc = 6424;
+		rLoc = 6447;
 		rType = 0;
 		vrLen = 491;
 		vrLoc = 2322;
@@ -746,7 +746,7 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 231";
 		rLen = 0;
-		rLoc = 5482;
+		rLoc = 5487;
 		rType = 0;
 		vrLen = 559;
 		vrLoc = 5138;
@@ -835,7 +835,7 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 231";
 		rLen = 0;
-		rLoc = 5482;
+		rLoc = 5487;
 		rType = 0;
 		vrLen = 412;
 		vrLoc = 5368;
@@ -845,7 +845,7 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 231";
 		rLen = 0;
-		rLoc = 5482;
+		rLoc = 5487;
 		rType = 0;
 		vrLen = 449;
 		vrLoc = 5370;
@@ -969,9 +969,9 @@
 	};
 	85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1161, 4901}}";
-			sepNavSelRange = "{698, 0}";
-			sepNavVisRange = "{421, 1762}";
+			sepNavIntBoundsRect = "{{0, 0}, {700, 5369}}";
+			sepNavSelRange = "{5482, 0}";
+			sepNavVisRange = "{5370, 449}";
 			sepNavWindowFrame = "{{38, 1}, {1220, 751}}";
 		};
 	};
@@ -1020,7 +1020,7 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 255";
 		rLen = 0;
-		rLoc = 6076;
+		rLoc = 6099;
 		rType = 0;
 		vrLen = 818;
 		vrLoc = 5371;
