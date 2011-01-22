@@ -35,8 +35,8 @@
 #define Lambda 10		// set parameter lambda in CMAES
 #define INFO 1			// 1 : show the info during evolution , 0 : don't display
 // =================================================================
-#define Delta 0.005
-#define STEPS 61
+//#define Delta 0.005
+//#define STEPS 61
 #define MaxEpsilon (Delta*(STEPS-1))
 #define MaxN (K*(1+MaxEpsilon))
 #define P_e_min 1E-8   // minimum of BER
@@ -45,7 +45,8 @@ using namespace CodeSim;
 
 int g_seed = (int)time(0);
 CRandomMersenne RanGen(g_seed);
-int K, cubic_fitting, error_exponent;
+int K, cubic_fitting, error_exponent, STEPS;
+double Delta;
 // =================================================================
 // 依照要跑的 degree 去設定 
 int 	Dsize = 10;
@@ -135,9 +136,9 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	
 	parameters.assign(epsilons.size()+targetErrorRate.size(),0);
 	
-	double fit=0, err[STEPS];
-	long	errorCount[STEPS];
-	double failureCount[STEPS];
+	double fit=0, *err = new double[STEPS];
+	unsigned long	*errorCount = new unsigned long[STEPS];
+	double *failureCount = new double[STEPS];
 	for (int i=0; i<STEPS; i++) {
 		err[i]=0;
 		failureCount[i] = 0;
@@ -257,7 +258,9 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	}
 
 	
-	//delete [] err;
+	delete [] err;
+	delete [] errorCount;
+	delete [] failureCount;
 	return fit;
 }
 
@@ -285,6 +288,15 @@ int main(int argn, char **args) {
 	if(mygetline(ifs,comm)){
 		istringstream iss(comm);
 		iss >> K;
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	// read STEPS and Delta
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		iss >> STEPS >> Delta;
 	}
 	else {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
@@ -337,6 +349,11 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	
+	if(epsilons.size() != epsilons_w.size()){
+		cerr << "Error: epsilons list size doesn't match to weighting list" << endl;
+		exit(1);
+	}
+	
 	// read targetErrorRate
 	if(mygetline(ifs,comm)){
 		istringstream iss(comm);
@@ -362,6 +379,12 @@ int main(int argn, char **args) {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
 		exit(1);
 	}
+	
+	if(targetErrorRate.size() != targetErrorRate_w.size()){
+		cerr << "Error: targetErrorRate list size doesn't match to weighting list" << endl;
+		exit(1);
+	}
+	
 	
 	int i; 
 	fstream fs;	
@@ -396,8 +419,12 @@ int main(int argn, char **args) {
 	for(i=0;i<Dsize;i++) fs<<D[i]<<"\t";
 	fs<<"\nEpsilons \n";
 	for(i=0;i<epsilons.size();i++) fs<<epsilons[i]<<"\t";
+	fs<<"\nEpsilons weighting\n";
+	for(i=0;i<epsilons_w.size();i++) fs<<epsilons_w[i]<<"\t";
 	fs<<"\nTarget Error Rate \n";
 	for(i=0;i<targetErrorRate.size();i++) fs<<targetErrorRate[i]<<"\t";
+	fs<<"\nTarget Error Rate weighting\n";
+	for(i=0;i<targetErrorRate_w.size();i++) fs<<targetErrorRate_w[i]<<"\t";
 	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest\n";
 	
 	evo = new cmaes_t();

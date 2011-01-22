@@ -1,6 +1,9 @@
 # lines start with # are comments
+# empty line is relevant
 # block size
 1000
+# STEPS and Delta
+61 0.01
 # cubic fitting: ON=1 OFF=0
 0
 # error exponent: ON=1 OFF=0
