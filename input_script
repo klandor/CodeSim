@@ -1,0 +1,15 @@
+# lines start with # are comments
+# block size
+1000
+# cubic fitting: ON=1 OFF=0
+0
+# error exponent: ON=1 OFF=0
+0
+# epsilons
+0.05 0.2
+# epsilon weighting
+7 7
+# targetErrorRate
+0.1 0.01
+# targetErrorRate weighting
+3 3

@@ -28,22 +28,24 @@
 #include "DynamicFitting.h"
 
 // =================================================================
-#define K 1000			// K size
+//#define K 1000			// K size
 //#define MaxN 10500		// set Max code word number (set 2*K ,but we only use 1.2*K)
 #define Run 10000			// how many simulations per fitness 
 #define MAXFEC 10000		// set Max function evaluations in CMAES  
 #define Lambda 10		// set parameter lambda in CMAES
 #define INFO 1			// 1 : show the info during evolution , 0 : don't display
 // =================================================================
-#define Delta 0.01
-#define STEPS 26
-#define MaxN (K*(1+Delta*(STEPS-1)))
+#define Delta 0.005
+#define STEPS 61
+#define MaxEpsilon (Delta*(STEPS-1))
+#define MaxN (K*(1+MaxEpsilon))
+#define P_e_min 1E-8   // minimum of BER
 using namespace std;
 using namespace CodeSim;
 
 int g_seed = (int)time(0);
 CRandomMersenne RanGen(g_seed);
-
+int K, cubic_fitting, error_exponent;
 // =================================================================
 // 依照要跑的 degree 去設定 
 int 	Dsize = 10;
@@ -57,12 +59,14 @@ double* SD;
 double* Std;
 
 
-#define epsilonIndex 2
-double epsilons[epsilonIndex] = {0.05, 0.15},//{0.05, 0.06, 0.07, 0.08, 0.09, 
+//#define epsilonIndex 2
+//double epsilons[epsilonIndex] = {0.05, 0.15},//{0.05, 0.06, 0.07, 0.08, 0.09, 
+
 //	0.1, 0.11, 0.12, 0.13, 0.14, 
 //	0.15, 0.16, 0.17, 0.18, 0.19,
 //	0.2},//{0.05, 0.06,0.08, 0.12,0.20},
-targetErrorRate[epsilonIndex] = {0.1, 0.01};//{0.376629,
+//targetErrorRate[epsilonIndex] = {0.1, 0.01};//{0.376629,
+vector<double> epsilons, epsilons_w, targetErrorRate, targetErrorRate_w;
 //	0.349958, 0.237445, 0.18919, 0.108815, 0.0701708,
 //	0.0347487, 0.01925, 0.0085005, 0.0044277, 0.0020448,
 //	0.0010388, 0.0004038, 0.0003112, 0.0002659, 0.0001987};
@@ -82,7 +86,8 @@ int winSize = 30;
 
 
 
-double e = 1.05;					
+
+istream& mygetline ( istream& is, string& str );
 
 double* normolize(double* d){
 	int i;
@@ -124,9 +129,11 @@ inline double exceed_penalty(double value, double base, double penalty_ratio)
 	return (value - base) * penalty_ratio;
 }
 
-double fitfun(double* Indiv , int dim, bool &needResample){
+double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &parameters){
 	
 	normolize(Indiv);
+	
+	parameters.assign(epsilons.size()+targetErrorRate.size(),0);
 	
 	double fit=0, err[STEPS];
 	long	errorCount[STEPS];
@@ -137,89 +144,40 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 		errorCount[i] = 0;
 	}
 	
-	
+	// run simulation
 	#pragma omp parallel for num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
-		//cout << "Run "<< i+1 << endl;
-		//Codeword<Bit> decodePattern[epsilonIndex];
 		
-		{
-			LT_sim<Bit> sim(K, (int) MaxN, Dsize, Set_tags, Indiv, RanGen.BRandom());
+		LT_sim<Bit> sim(K, (int) MaxN, Dsize, Set_tags, Indiv, RanGen.BRandom());
+		
+		for (int i=0; i<STEPS; i++) {
+			sim.seqReceive(K*(1+Delta*(i))-1);
+			//sim.decode();
+			double temp = sim.failureRate();
+			#pragma omp atomic
+			errorCount[i] += K*temp;
 			
-			for (int i=0; i<STEPS; i++) {
-				sim.seqReceive(K*(1+Delta*(i))-1);
-				//sim.decode();
-				double temp = sim.failureRate();
-				#pragma omp atomic
-				errorCount[i] += K*temp;
-				
-				//				if (temp > epsilonBurstBound) {
-				//					#pragma omp atomic
-				//					failureCount[i] += 1;
-				//				}
-				//				Codeword<Bit> t = sim.getResult();
-				//				
-				//				decodePattern[i].insert(decodePattern[i].end(), t.begin(), t.end());
-				
-			}
+			
 		}
 		
-		
-		//		for (int i=0; i<epsilonIndex; i++) {
-		//			
-		//			int errNO=0, errLen=0;
-		//			for (int p=0; p<winSize; p++) {
-		//				if (decodePattern[i][p].isErased()) {
-		//					errNO ++;
-		//				}
-		//			}
-		//			if(errNO/(double)winSize > errorDensityBound)
-		//				errLen=1;
-		//			
-		//			for (int p=winSize; p< 100*K; p++) {
-		//				if (decodePattern[i][p].isErased()) {
-		//					errNO++;
-		//				}
-		//				if (decodePattern[i][p-winSize].isErased()) {
-		//					errNO --;
-		//				}
-		//				
-		//				if(errNO/(double)winSize > errorDensityBound)
-		//				{
-		//					errLen ++;
-		//				}
-		//				else {
-		//					if (errLen > 750) {
-		//						//fit +=failurePenalty[i];
-		//						#pragma omp atomic
-		//						failureCount[i] += errLen / 750.0;
-		//					}
-		//					errLen = 0;
-		//				}
-		//				
-		//				
-		//			}	
-		//			
-		//			
-		//		}
-		
-	}
+	}//for
 	
 	vector<double> x(STEPS, 0.0);
 	
 	for (int i=0; i<STEPS; i++) {
-		if (failureCount[i] > 80) {
-			//fit +=	200;
-			//needResample = true;
-		}
+//		if (failureCount[i] > 80) {
+//			//fit +=	200;
+//			//needResample = true;
+//		}
 		if (errorCount[i] > 0) {
 			err[i] = errorCount[i]/(double)(K*Run);
-			err[i] = log10(err[i]);//+4;
-			//err[i] += exceed_penalty(err[i], errorRateBound[i], 1000);
-			//fit += abs ( err[i] - log10(targetErrorRate[i]) );
+			err[i] = log10(err[i]);
+			
+			if(error_exponent)
+				err[i] /= 1+i*Delta;
 		}
 		else {
-			err[i] = -4;
+			err[i] = log10(P_e_min);
 		}
 		
 		// prepare x
@@ -227,63 +185,77 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 		
 	}
 	
-	// start regression
-	vector<double> a(4, 0.0), y(err, err+STEPS);
-	double ss;
-	
-	regression(x, y, a, cubic, ss);
-	
+	if(cubic_fitting){
+		// start regression
+		vector<double> a(4, 0.0), y(err, err+STEPS);
+		double ss;
+		
+		regression(x, y, a, cubic, ss);
+		
 
-	
-	for (int i=0; i<epsilonIndex; i++) {
-//		if(err[(int)(epsilons[i] / Delta)] > log10(targetErrorRate[i]))
-//			needResample = true;
 		
-		
-		//eval(epsilons[i], a2, cubic);
-		fit += eval(epsilons[i], a, cubic)+4;
-		
-		
-//		
-//		double min_diff=999;
-//		int min_i;
-//		for (int j=0; j<STEPS; j++) {
-//			if ( abs(err[j]-log10(targetErrorRate[i])) < min_diff) {
-//				min_diff = abs(err[j]-log10(targetErrorRate[i]));
-//				min_i = j;
-//			}
-//		}
-		vector<double> a2 = a;
-		a2[0] -= log10(targetErrorRate[i]);
-		vector<double> sols = find_sol(a2, 0, (STEPS-1)*Delta, STEPS);
-		double solution;
-		switch (sols.size()) {
-			case 0:
-				if (eval(0, a, cubic) < log10(targetErrorRate[i])) {
-					solution = 0;
-				}
-				else {
-					solution = (STEPS-1)*Delta;
-				}
 
-				break;
-			case 1:
-				solution = sols[0];
-				break;
+
 			
+		for (int i=0; i<epsilons.size(); i++) {
+			fit += (eval(epsilons[i], a, cubic)-log10(P_e_min)) / abs(log10(P_e_min)) * epsilons_w[i];
+			parameters[i] = (eval(epsilons[i], a, cubic)-log10(P_e_min)) / abs(log10(P_e_min));
+		}
+			
+		for (int i=0; i<targetErrorRate.size(); i++) {	
+			
+			vector<double> a2 = a;
+			a2[0] -= log10(targetErrorRate[i]);
+			vector<double> sols = find_sol(a2, 0, (STEPS-1)*Delta, STEPS);
+			double solution;
+			switch (sols.size()) {
+				case 0:
+					if (eval(0, a, cubic) < log10(targetErrorRate[i])) {
+						solution = 0;
+					}
+					else {
+						solution = (STEPS-1)*Delta;
+					}
+					break;
+				case 1:
+					solution = sols[0];
+					break;
+				
 
-			default:
-				solution = *sols.rbegin();
-				break;
+				default:
+					solution = *sols.rbegin();
+					break;
+			}
+			
+			fit += solution/(Delta*(STEPS-1)) * targetErrorRate_w[i];
+			parameters[epsilons.size()+i] = solution/(Delta*(STEPS-1));
 		}
 		
-//		if (min_i*Delta > epsilons[i]) {
-//			needResample = true;
-//		}
-		fit += solution*5;
 	}
 	
-	
+	else {
+		for (int i=0; i<epsilons.size(); i++) {
+			fit += (err[(int)(epsilons[i]/Delta)]-log10(P_e_min))  / abs(log10(P_e_min)) * epsilons_w[i];
+			parameters[i] = (err[(int)(epsilons[i]/Delta)]-log10(P_e_min))  / abs(log10(P_e_min));
+		}
+		
+		for (int i=0; i<targetErrorRate.size(); i++) {	
+			
+			double min_diff=999;
+			int min_i;
+			for (int j=0; j<STEPS; j++) {
+				if ( abs(err[j]-log10(targetErrorRate[i])) < min_diff) {
+					min_diff = abs(err[j]-log10(targetErrorRate[i]));
+					min_i = j;
+				}
+			}
+			
+
+			fit += min_i/(double)(STEPS-1) * targetErrorRate_w[i];
+			parameters[epsilons.size()+i] = min_i/(double)(STEPS-1);
+		}
+	}
+
 	
 	//delete [] err;
 	return fit;
@@ -291,6 +263,105 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 
 /* the optimization loop */
 int main(int argn, char **args) {	
+	ifstream ifs;
+	string filename;
+	if (argn == 1) {
+		cerr << "Usage: CMAES3.out <filename>" << endl;
+		//exit(1);
+		filename = "input_script";
+		ifs.open(filename.c_str());
+	}
+	else {
+		ifs.open(args[1]);
+		filename = args[1];
+		if(ifs.fail()){
+			cerr << "Error: can not open file \"" << args[1] << '\"' << endl;
+			exit(1);
+		}
+	}
+	string comm;
+	
+	// read K
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		iss >> K;
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	
+	// read cubic fitting
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		iss >> cubic_fitting;
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}	
+	
+	// read error exponent
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		iss >> error_exponent;
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}	
+	
+	// read epsilons
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		double t;
+		while (iss >> t) {
+			epsilons.push_back(t);
+		}
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	
+	// read epsilons weighting
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		double t;
+		while (iss >> t) {
+			epsilons_w.push_back(t);
+		}
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	
+	// read targetErrorRate
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		double t;
+		while (iss >> t) {
+			targetErrorRate.push_back(t);
+		}
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	
+	// read targetErrorRate weighting
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		double t;
+		while (iss >> t) {
+			targetErrorRate_w.push_back(t);
+		}
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
 	
 	int i; 
 	fstream fs;	
@@ -302,9 +373,10 @@ int main(int argn, char **args) {
 	double *arFunvals, *const*pop, *xbest;
 	
 	// open file
-	cout << "Enter filename: ";
-	string comm;
-	getline(cin, comm);
+	//cout << "Enter filename: ";
+	comm = "result_";
+	comm += filename;
+	//getline(cin, comm);
 	fs.open(comm.c_str(),fstream::out);
 	
 	// recored start time 
@@ -312,8 +384,8 @@ int main(int argn, char **args) {
 	timeinfo=localtime( &rawtime );
 	fs<<"Start time : "<<asctime(timeinfo)<<endl;	
 	
-	cout << "Enter Comment: ";
-	getline(cin, comm);
+//	cout << "Enter Comment: ";
+//	getline(cin, comm);
 	
 	Parameter_init();
 	// write Tags and init distribtuion into file
@@ -323,9 +395,9 @@ int main(int argn, char **args) {
 	fs<<"\nInitial distribution \n";
 	for(i=0;i<Dsize;i++) fs<<D[i]<<"\t";
 	fs<<"\nEpsilons \n";
-	for(i=0;i<epsilonIndex;i++) fs<<epsilons[i]<<"\t";
+	for(i=0;i<epsilons.size();i++) fs<<epsilons[i]<<"\t";
 	fs<<"\nTarget Error Rate \n";
-	for(i=0;i<epsilonIndex;i++) fs<<targetErrorRate[i]<<"\t";
+	for(i=0;i<targetErrorRate.size();i++) fs<<targetErrorRate[i]<<"\t";
 	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest\n";
 	
 	evo = new cmaes_t();
@@ -338,12 +410,16 @@ int main(int argn, char **args) {
 	/* Iterate until stop criterion holds */
 	while(!cmaes_TestForTermination(evo))
 	{ 						
+		vector<double> xbest_parameters;
+		double min_fit = 9999;
 		/* generate lambda new search points, sample population */
 		pop = cmaes_SamplePopulation(evo); /* do not change content of pop */
 		/* evaluate the new search points using fitfun from above */ 
 		for (i = 0; i < Lambda; ++i) {
 			bool needResample = false;
-			arFunvals[i] = fitfun(pop[i], Dsize, needResample);
+			vector<double> t_parameters;
+			arFunvals[i] = fitfun(pop[i], Dsize, needResample, t_parameters);
+			
 			if (needResample) {
 				pop = cmaes_ReSampleSingle(evo, i);
 				i--;
@@ -353,7 +429,10 @@ int main(int argn, char **args) {
 				cout << "E";
 			}
 			cout.flush();
-			
+			if(min_fit > arFunvals[i]){
+				min_fit = arFunvals[i];
+				xbest_parameters = t_parameters;
+			}
 		}
 		cout << '\n';
 		/* update the search distribution used for cmaes_SampleDistribution() */
@@ -363,8 +442,15 @@ int main(int argn, char **args) {
 		fs<<cmaes_Get(evo, "iteration")<<"\t"<<cmaes_Get(evo, "eval")<<"\t"<<cmaes_Get(evo, "fitness")<<"\t"<<cmaes_Get(evo, "fbestever")<<"\t";
 		fs.setf(ios::fixed);
 		fs.precision(6);
+		fs << "dist.\t";
 		for(i=0;i<Dsize;i++) 
 			fs<<setw(8)<<xbest[i]<<"\t";
+		
+		fs << "para.\t";
+		for (int i=0; i<xbest_parameters.size(); i++) {
+			fs<<setw(8)<<xbest_parameters[i]<<"\t";
+		}
+		
 		fs.unsetf(ios::fixed);
 		fs<<endl;
 		
@@ -394,4 +480,14 @@ int main(int argn, char **args) {
 	return 0;
 }
 
-
+istream& mygetline ( istream& is, string& str ){
+	string s;
+	while(getline(is, s)){
+		if (s.size() == 0 || s[0] != '#') {
+			str = s;
+			break;
+		}
+	}
+	
+	return is;
+}
