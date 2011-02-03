@@ -3,16 +3,16 @@
 # block size
 1000
 # STEPS and Delta
-61 0.01
+61 0.005
 # cubic fitting: ON=1 OFF=0
 0
 # error exponent: ON=1 OFF=0
 0
-# epsilons
+# BER at target epsilons
 0.05 0.2
-# epsilon weighting
-7 7
-# targetErrorRate
+# weighting of BER at target epsilons
+1 1
+# Epsilon at target BER
 0.1 0.01
-# targetErrorRate weighting
-3 3
+# weighting Epsilon at target BER
+10 10

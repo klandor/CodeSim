@@ -11,13 +11,13 @@
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
+		856728B512EBD00A0068035C /* CMAES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
 		85F215A112E5874600F6E5EA /* mrqmin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A012E5874600F6E5EA /* mrqmin.cpp */; };
 		85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A412E5876300F6E5EA /* covsrt.cpp */; };
 		85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A512E5876300F6E5EA /* mrqcof.cpp */; };
 		85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215AE12E5879400F6E5EA /* gaussj.cpp */; };
 		85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215DE12E58B6700F6E5EA /* laguer.cpp */; };
-		85F2162E12E5EBA800F6E5EA /* CMAES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */; };
 		8DD76F6A0486A84900D96B5E /* new_LT.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* new_LT.1 */; };
 /* End PBXBuildFile section */
 
@@ -283,7 +283,7 @@
 				85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */,
 				85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */,
 				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
-				85F2162E12E5EBA800F6E5EA /* CMAES3.cpp in Sources */,
+				856728B512EBD00A0068035C /* CMAES3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
