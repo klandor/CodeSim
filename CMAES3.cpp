@@ -252,8 +252,8 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 			}
 			
 
-			fit += min_i * targetErrorRate_w[i];
-			parameters[epsilons.size()+i] = min_i;
+			fit += min_i * Delta * targetErrorRate_w[i];
+			parameters[epsilons.size()+i] = min_i * Delta;
 		}
 	}
 

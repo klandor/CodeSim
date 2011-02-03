@@ -124,6 +124,10 @@
 			854764FC12FA716A00F0528A /* PBXTextBookmark */ = 854764FC12FA716A00F0528A /* PBXTextBookmark */;
 			854764FD12FA716A00F0528A /* PBXTextBookmark */ = 854764FD12FA716A00F0528A /* PBXTextBookmark */;
 			8547650012FA716A00F0528A /* PBXTextBookmark */ = 8547650012FA716A00F0528A /* PBXTextBookmark */;
+			8547650E12FAD68200F0528A /* PBXTextBookmark */ = 8547650E12FAD68200F0528A /* PBXTextBookmark */;
+			8547650F12FAD68200F0528A /* PBXTextBookmark */ = 8547650F12FAD68200F0528A /* PBXTextBookmark */;
+			8547651212FAD70100F0528A /* PBXTextBookmark */ = 8547651212FAD70100F0528A /* PBXTextBookmark */;
+			8547651312FAD70100F0528A /* PBXTextBookmark */ = 8547651312FAD70100F0528A /* PBXTextBookmark */;
 			855EEE55124DF5DF00D1D91C = 855EEE55124DF5DF00D1D91C /* PBXTextBookmark */;
 			856728BC12EC91F20068035C = 856728BC12EC91F20068035C /* PBXTextBookmark */;
 			856728BD12EC91F20068035C = 856728BD12EC91F20068035C /* PBXTextBookmark */;
@@ -297,10 +301,50 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 419";
 		rLen = 0;
-		rLoc = 9373;
+		rLoc = 9389;
 		rType = 0;
 		vrLen = 1645;
 		vrLoc = 9133;
+	};
+	8547650E12FAD68200F0528A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
+		name = "CMAES3.cpp: 256";
+		rLen = 0;
+		rLoc = 6156;
+		rType = 0;
+		vrLen = 489;
+		vrLoc = 5787;
+	};
+	8547650F12FAD68200F0528A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
+		name = "CMAES3.cpp: 419";
+		rLen = 0;
+		rLoc = 9389;
+		rType = 0;
+		vrLen = 1577;
+		vrLoc = 9158;
+	};
+	8547651212FAD70100F0528A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
+		name = "CMAES3.cpp: 256";
+		rLen = 0;
+		rLoc = 6156;
+		rType = 0;
+		vrLen = 489;
+		vrLoc = 5787;
+	};
+	8547651312FAD70100F0528A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
+		name = "CMAES3.cpp: 419";
+		rLen = 0;
+		rLoc = 9389;
+		rType = 0;
+		vrLen = 1577;
+		vrLoc = 9158;
 	};
 	854BD8951225411B006CD78C /* CodeSim.h */ = {
 		uiCtxt = {
@@ -484,7 +528,7 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 419";
 		rLen = 0;
-		rLoc = 9373;
+		rLoc = 9389;
 		rType = 0;
 		vrLen = 1650;
 		vrLoc = 9133;
@@ -524,7 +568,7 @@
 		fRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */;
 		name = "CMAES3.cpp: 419";
 		rLen = 0;
-		rLoc = 9373;
+		rLoc = 9389;
 		rType = 0;
 		vrLen = 1645;
 		vrLoc = 9133;
@@ -985,9 +1029,9 @@
 	};
 	85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1161, 6773}}";
-			sepNavSelRange = "{9517, 0}";
-			sepNavVisRange = "{9133, 1645}";
+			sepNavIntBoundsRect = "{{0, 0}, {1161, 6656}}";
+			sepNavSelRange = "{9389, 0}";
+			sepNavVisRange = "{9158, 1577}";
 			sepNavWindowFrame = "{{31, 20}, {1220, 751}}";
 		};
 	};
