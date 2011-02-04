@@ -8,15 +8,16 @@
 //#include "yp_random.h"
 #include "randomc.h"
 #include "LT.h"
+#include "statistics.h"
 #include <omp.h>
-
+#include <algorithm>
 
 #define K 1000
 
-#define Run 100000
+#define Run 10000000
 #define C 0.05
-#define Delta 0.01
-#define STEPS 101
+#define Delta 0.03
+#define STEPS 16
 #define MaxN (K*(1+Delta*(STEPS-1)))
 
 using namespace std;
@@ -35,7 +36,8 @@ using namespace CodeSim;
 //int S_sym2code[K];                  // 反向連結的 size 
 
 unsigned long ErrorCount[STEPS][16];
-double BER[STEPS];
+//double BER[STEPS];
+vector< vector<double> > BER;
 int Dsize = 10;
 
 int		Degree[10] = //{1,2,3,4,5,8,9,19,65,66};
@@ -75,25 +77,37 @@ int main(){
 	
 	//cout << "haha";
 	
+
+	
 	D = &Omega[0];
 	
 	SD = new double[Dsize];
 		
+	BER.assign(STEPS, 0);
+	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
+					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
 	//while (cin >> D[0])
 	{
+		cout << "distribution\t";
 		for (int i =0; i<10; i++) {
 			cin >> D[i];
+			cout << D[i] << '\t';
+			
 		}
+		cout << "\nEpsilons\t";
 		for (int i = 0; i<STEPS; i++) {
-			BER[i] = 0;
+			cout << i*Delta << '\t';
+			//BER[i] = 0;
+			BER[i].assign(Run,0);
 			for(int j = 0; j< 16; j++)
 			ErrorCount[i][j] = 0;
 		}
+		cout << '\n';
 		
 		int start_time = time(0);
 		//int n=0;
 		#pragma omp parallel for num_threads(6)
-		for(int i=0;i<Run;i++){
+		for(int run=0;run<Run;run++){
 			LT_sim<Bit> sim(K, MaxN, Dsize, Degree, D, Rnd.BRandom());
 			//cout << "Run " << i <<'\n';
 			//#pragma omp parallel for
@@ -103,27 +117,71 @@ int main(){
 				double t = sim.failureRate();// = Encoder(K, K*(1.05+0.01*i), Dsize);
 				#pragma omp atomic
 				ErrorCount[i][(int)(t*16)]++;
-				#pragma omp atomic
-				BER[i]+=t;
+				
+				BER[i][run]=t;
+				if (t>0) {
+					FER[i]++;
+				}
 			}
 			
 			//cout << '\n';
 		}
-		cout<<"Histogram:\n";
+		//cout<<"Histogram";
 		for (int i = 0; i<16; i++) {
+			cout << (i+1)/16.0<<'\t';
 			for(int j = 0; j< STEPS; j++)
-				cout <<  ErrorCount[j][i] / (double)Run<< ' ';
+				cout <<  ErrorCount[j][i] / (double)Run<< '\t';
 			cout << '\n';
 		}
 		
-		cout << "BER:\n";
+		#pragma omp parallel for num_threads(6)
 		for (int i = 0; i<STEPS; i++) {
-			cout <<  BER[i]/Run<< ' ';
+			computeStats(BER[i].begin( ), BER[i].end( ), sum[i], mean[i], var[i], dev[i], skew[i], kurt[i]);
+			sort(BER[i].begin( ), BER[i].end( ));
 		}
 		
+		cout << "BER\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  mean[i]<< '\t';
+		}
+		cout << '\n';
+		cout << "BER 90%\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  BER[i][Run/10*9]-mean[i]<< '\t';
+		}
+		cout << '\n';
+		cout << "BER 10%\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  mean[i]-BER[i][Run/10]<< '\t';
+		}
+		cout << '\n';
+		cout << "FER\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  FER[i]/Run<< '\t';
+		}
+		cout << '\n';
+		cout << "Variance\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  var[i]<< '\t';
+		}
+		cout << '\n';
+		cout << "standard deviation\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  dev[i]<< '\t';
+		}
+		cout << '\n';
+		cout << "Skewness\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  skew[i]<< '\t';
+		}
+		cout << '\n';
+		cout << "kurtosis\t";
+		for (int i = 0; i<STEPS; i++) {
+			cout <<  kurt[i]<< '\t';
+		}
 		cout << '\n';
 		
-		cout << "Time: " << time(0) - start_time<< endl;
+		cout << "Time\t" << time(0) - start_time<< endl;
 	}
 	
 	return 0;

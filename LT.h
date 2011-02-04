@@ -199,7 +199,7 @@ namespace CodeSim{
 	
 	template<class S>
 	void LT_sim<S>::decode(){
-		int flag=1;
+		//int flag=1;
 		while( Num_of_Decoding < Num_of_Input && !ripple.empty())
 		{
 			long int r = ripple.front();

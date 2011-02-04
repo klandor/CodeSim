@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>8547651312FAD70100F0528A</string>
+						<string>8547662A12FC4F7D00F0528A</string>
 						<key>history</key>
 						<array>
 							<string>8567291212F2F47F0068035C</string>
@@ -320,7 +320,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>26</integer>
+									<integer>20</integer>
 									<integer>18</integer>
 									<integer>1</integer>
 									<integer>0</integer>
@@ -364,7 +364,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CMAES3.cpp</string>
+								<string>LT_sim_histogram.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -372,11 +372,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CMAES3.cpp</string>
+										<string>LT_sim_histogram.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>8547651212FAD70100F0528A</string>
+										<string>8547662912FC4F7D00F0528A</string>
 										<key>history</key>
 										<array>
 											<string>85B60B8E1235293000842D09</string>
@@ -407,12 +407,14 @@
 											<string>85DCD1D212EB5CBA00912CDD</string>
 											<string>85DCD1D312EB5CBA00912CDD</string>
 											<string>856728BC12EC91F20068035C</string>
-											<string>856728BD12EC91F20068035C</string>
 											<string>856728BF12EC91F20068035C</string>
 											<string>856728C012EC91F20068035C</string>
 											<string>8567290412ED1ECE0068035C</string>
 											<string>8567290512ED1ECE0068035C</string>
-											<string>854764FC12FA716A00F0528A</string>
+											<string>854765A512FC2B5C00F0528A</string>
+											<string>8547662712FC4F7D00F0528A</string>
+											<string>8547662812FC4F7D00F0528A</string>
+											<string>8547662312FC4F1800F0528A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -610,9 +612,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>854765AE12FC2B5C00F0528A</string>
+		<string>854765AF12FC2B5C00F0528A</string>
 		<string>8565BD44120C19560081A319</string>
-		<string>85F2166C12E5F5A300F6E5EA</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>85F2166C12E5F5A300F6E5EA</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -637,7 +642,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>LT.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -654,6 +659,8 @@
 							<string>404pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -977,7 +984,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>856728CD12EC91F20068035C</string>
+				<string>854765A012FC2AE700F0528A</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
