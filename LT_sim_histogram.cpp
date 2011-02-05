@@ -181,7 +181,7 @@ int main(){
 		}
 		cout << '\n';
 		
-		cout << "Time\t" << time(0) - start_time<< endl;
+		cout << "Time\t" << time(0) - start_time<< "\tRun\t"<< Run <<endl;
 	}
 	
 	return 0;

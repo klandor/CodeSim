@@ -425,7 +425,7 @@ int main(int argn, char **args) {
 	for(i=0;i<targetErrorRate.size();i++) fs<<targetErrorRate[i]<<"\t";
 	fs<<"\nTarget Error Rate weighting\n";
 	for(i=0;i<targetErrorRate_w.size();i++) fs<<targetErrorRate_w[i]<<"\t";
-	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest\n";
+	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest"<<endl;
 	
 	evo = new cmaes_t();
 	

@@ -23,26 +23,26 @@
 
 #define K 1000
 
-#define RUN 1000000
+#define RUN 1000
 #define C 0.05
-#define Delta 0.01
-#define STEPS 26
-#define MaxN (K*(STEPS-1))
+#define Delta 0.02
+#define STEPS 16
+#define MaxN (K*(1+Delta*(STEPS-1)))
 
 using namespace std;
 using namespace CodeSim;
 
-int M_encode[MaxN][K];				// 記錄 完整的 matrix 
-int V_recover[K];					// 記錄 哪些 symbols 已經被 recover
-int S_recover = K;					// 記錄 有幾個 bit 已解碼  = sum(V_recover);
-int V_degree[MaxN];					// 記錄 M_encode 每個 code word 還有多少 degrees
-int V_ripp[K];						// 記錄 還沒被使用的 degree one symbol    
-int S_ripp = 0;						// 記錄 V_ripp 的個數 = nnz(V_ripp);    
-
-int M_code2sym[MaxN][K];			// 記錄每個 code 哪些 bit 有值
-int S_code2sym[MaxN];
-int M_sym2code[K][MaxN];            // 記錄反向連結 - 每個symbol連到哪幾個 codeword
-int S_sym2code[K];                  // 反向連結的 size 
+//int M_encode[MaxN][K];				// 記錄 完整的 matrix 
+//int V_recover[K];					// 記錄 哪些 symbols 已經被 recover
+//int S_recover = K;					// 記錄 有幾個 bit 已解碼  = sum(V_recover);
+//int V_degree[MaxN];					// 記錄 M_encode 每個 code word 還有多少 degrees
+//int V_ripp[K];						// 記錄 還沒被使用的 degree one symbol    
+//int S_ripp = 0;						// 記錄 V_ripp 的個數 = nnz(V_ripp);    
+//
+//int M_code2sym[MaxN][K];			// 記錄每個 code 哪些 bit 有值
+//int S_code2sym[MaxN];
+//int M_sym2code[K][MaxN];            // 記錄反向連結 - 每個symbol連到哪幾個 codeword
+//int S_sym2code[K];                  // 反向連結的 size 
 
 //unsigned long ErrorCount[STEPS][16];
 double BER[STEPS][RUN];
