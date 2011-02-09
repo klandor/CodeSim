@@ -15,4 +15,4 @@
 # Epsilon at target BER
 0.1 0.01
 # weighting of Epsilon at target BER
-10 10
+1 1

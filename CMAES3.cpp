@@ -199,8 +199,8 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 
 			
 		for (int i=0; i<epsilons.size(); i++) {
-			fit += (eval(epsilons[i], a, cubic)-log10(P_e_min))  * epsilons_w[i];
-			parameters[i] = (eval(epsilons[i], a, cubic)-log10(P_e_min)) ;
+			fit += (eval(epsilons[i], a, cubic)-log10(P_e_min)) / abs(log10(P_e_min)) * epsilons_w[i];
+			parameters[i] = (eval(epsilons[i], a, cubic)-log10(P_e_min)) / abs(log10(P_e_min));
 		}
 			
 		for (int i=0; i<targetErrorRate.size(); i++) {	
@@ -228,16 +228,16 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 					break;
 			}
 			
-			fit += solution * targetErrorRate_w[i];
-			parameters[epsilons.size()+i] = solution;
+			fit += solution/(Delta*(STEPS-1)) * targetErrorRate_w[i];
+			parameters[epsilons.size()+i] = solution/(Delta*(STEPS-1));
 		}
 		
 	}
 	
 	else {
 		for (int i=0; i<epsilons.size(); i++) {
-			fit += (err[(int)(epsilons[i]/Delta)]-log10(P_e_min)) * epsilons_w[i];
-			parameters[i] = (err[(int)(epsilons[i]/Delta)]-log10(P_e_min)) ;
+			fit += (err[(int)(epsilons[i]/Delta)]-log10(P_e_min))  / abs(log10(P_e_min)) * epsilons_w[i];
+			parameters[i] = (err[(int)(epsilons[i]/Delta)]-log10(P_e_min))  / abs(log10(P_e_min));
 		}
 		
 		for (int i=0; i<targetErrorRate.size(); i++) {	
@@ -252,8 +252,8 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 			}
 			
 
-			fit += min_i * Delta * targetErrorRate_w[i];
-			parameters[epsilons.size()+i] = min_i * Delta;
+			fit += min_i/(double)(STEPS-1) * targetErrorRate_w[i];
+			parameters[epsilons.size()+i] = min_i/(double)(STEPS-1);
 		}
 	}
 
