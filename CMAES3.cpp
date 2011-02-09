@@ -484,6 +484,11 @@ int main(int argn, char **args) {
 		if(INFO==1) cout<<cmaes_Get(evo, "iteration")<<"\t"<<cmaes_Get(evo, "eval")<<"\t"<<cmaes_Get(evo, "fitness")<<"\t"<<cmaes_Get(evo, "fbestever")<<endl;
 		//fflush(stdout); /* useful in MinGW */
 		
+		string dist = "dist_"+filename;
+		ofstream dd(dist.c_str());
+		for(int i=0;i<Dsize;i++) 
+			dd<<setw(8)<<xbest[i]<<"\t";
+		dd.close();
 		delete [] xbest;
 	}
 	
@@ -497,13 +502,20 @@ int main(int argn, char **args) {
 	fs.close();	
 	
 	cmaes_exit(evo); /* release memory */ 		
-	delete Tags;
-	//delete D;
-	delete SD;
-	delete Std;	
-	delete(evo);
-	//delete(Rnd);
-	system("pause");
+	delete [] Tags;
+	
+	delete [] SD;
+	delete [] Std;	
+	delete (evo);
+	
+	
+	cout << "Running histogram...";
+	cout.flush();
+	string cmd = "~/CodeSim/histogramE7.out < dist_" + filename 
+										+ " > histo_" + filename;
+	
+	system(cmd.c_str() );
+	cout << "done!" << endl;
 	return 0;
 }
 
