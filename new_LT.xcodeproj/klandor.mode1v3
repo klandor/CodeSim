@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>8547663212FC6D9700F0528A</string>
+						<string>854766491302CFA300F0528A</string>
 						<key>history</key>
 						<array>
-							<string>8567291212F2F47F0068035C</string>
+							<string>854766481302CFA300F0528A</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -320,14 +320,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>20</integer>
 									<integer>18</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 172}, {186, 590}}</string>
+							<string>{{0, 0}, {186, 590}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -346,7 +345,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>202 126 969 649 0 0 1280 778 </string>
+						<string>201 129 969 649 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -357,14 +356,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>LT_sim_histogram.cpp</string>
+								<string>CMAES3.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -372,11 +369,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>LT_sim_histogram.cpp</string>
+										<string>CMAES3.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>8547663112FC6D9700F0528A</string>
+										<string>854766471302CFA300F0528A</string>
 										<key>history</key>
 										<array>
 											<string>85B60B8E1235293000842D09</string>
@@ -393,28 +390,32 @@
 											<string>856E1A5212D1AD6C00B1EBC6</string>
 											<string>856E1A5312D1AD6C00B1EBC6</string>
 											<string>856E1A5412D1AD6C00B1EBC6</string>
-											<string>85F215B712E587C300F6E5EA</string>
-											<string>85F215B912E587C300F6E5EA</string>
 											<string>85F2165F12E5F54D00F6E5EA</string>
 											<string>85F2168B12E6EDA100F6E5EA</string>
 											<string>85F216B312E6F17F00F6E5EA</string>
 											<string>85C6F66012E727DB0046ADDB</string>
-											<string>85DCD1CC12EB5CBA00912CDD</string>
-											<string>85DCD1CD12EB5CBA00912CDD</string>
-											<string>85DCD1CE12EB5CBA00912CDD</string>
 											<string>85DCD1CF12EB5CBA00912CDD</string>
 											<string>85DCD1D112EB5CBA00912CDD</string>
 											<string>85DCD1D212EB5CBA00912CDD</string>
 											<string>85DCD1D312EB5CBA00912CDD</string>
-											<string>856728BC12EC91F20068035C</string>
 											<string>856728BF12EC91F20068035C</string>
 											<string>856728C012EC91F20068035C</string>
 											<string>8567290412ED1ECE0068035C</string>
 											<string>8567290512ED1ECE0068035C</string>
-											<string>854765A512FC2B5C00F0528A</string>
 											<string>8547662812FC4F7D00F0528A</string>
 											<string>8547662F12FC6D9700F0528A</string>
-											<string>8547663012FC6D9700F0528A</string>
+											<string>8547663B1302CFA300F0528A</string>
+											<string>8547663C1302CFA300F0528A</string>
+											<string>8547663D1302CFA300F0528A</string>
+											<string>8547663E1302CFA300F0528A</string>
+											<string>8547663F1302CFA300F0528A</string>
+											<string>854766401302CFA300F0528A</string>
+											<string>854766411302CFA300F0528A</string>
+											<string>854766421302CFA300F0528A</string>
+											<string>854766431302CFA300F0528A</string>
+											<string>854766441302CFA300F0528A</string>
+											<string>854766451302CFA300F0528A</string>
+											<string>854766461302CFA300F0528A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -428,7 +429,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {761, 367}}</string>
 								<key>RubberWindowFrame</key>
-								<string>202 126 969 649 0 0 1280 778 </string>
+								<string>201 129 969 649 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -436,6 +437,8 @@
 							<string>367pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -448,7 +451,7 @@
 								<key>Frame</key>
 								<string>{{0, 372}, {761, 236}}</string>
 								<key>RubberWindowFrame</key>
-								<string>202 126 969 649 0 0 1280 778 </string>
+								<string>201 129 969 649 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -616,12 +619,12 @@
 		<string>854765AF12FC2B5C00F0528A</string>
 		<string>8565BD44120C19560081A319</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>85F2166C12E5F5A300F6E5EA</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>85F2166C12E5F5A300F6E5EA</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>202 126 969 649 0 0 1280 778 </string>
+	<string>201 129 969 649 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
