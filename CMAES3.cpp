@@ -425,7 +425,12 @@ int main(int argn, char **args) {
 	for(i=0;i<targetErrorRate.size();i++) fs<<targetErrorRate[i]<<"\t";
 	fs<<"\nTarget Error Rate weighting\n";
 	for(i=0;i<targetErrorRate_w.size();i++) fs<<targetErrorRate_w[i]<<"\t";
-	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest"<<endl;
+	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest dist.\t";
+	for(i=0;i<Dsize;i++) fs<< Tags[i] << '\t';
+	fs<< "para.\t";
+	for(i=0;i<epsilons.size();i++) fs<<"p@e="<<epsilons[i]<<"\t";
+	for(i=0;i<targetErrorRate.size();i++) fs<<"e@p="<<targetErrorRate[i]<<"\t";
+	fs<<endl;
 	
 	evo = new cmaes_t();
 	
