@@ -50,12 +50,13 @@ double Delta;
 // =================================================================
 // 依照要跑的 degree 去設定 
 int 	Dsize = 10;
-int		Set_tags[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
+//int		Set_tags[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
 // =================================================================
 
 int*	Tags;
-double D[] = {5.5866E-03, 5.0000E-01, 1.6667E-01, 8.3333E-02, 5.0000E-02,
-	2.3810E-02, 1.3889E-02, 2.6316E-03, 2.9200E-04, 1.5379E-01};
+double *D;
+//[] = {5.5866E-03, 5.0000E-01, 1.6667E-01, 8.3333E-02, 5.0000E-02,
+//	2.3810E-02, 1.3889E-02, 2.6316E-03, 2.9200E-04, 1.5379E-01};
 double* SD;
 double* Std;
 
@@ -103,14 +104,14 @@ double* normolize(double* d){
 
 //  初始化設定參數  從uniform distribution 開始  STD 設為 0.025 
 void Parameter_init(){
-	Tags = new int[Dsize];
-	//D  = new double[Dsize];
+	//Tags = new int[Dsize];
+	D  = new double[Dsize];
 	
 	SD  = new double[Dsize];
 	Std    = new double[Dsize];
 	for(int i =0;i<Dsize;i++){
-		Tags[i] = Set_tags[i];
-		//D[i] = 1/(double)Dsize;
+		//Tags[i] = Set_tags[i];
+		D[i] = 1/(double)Dsize;
 		Std[i] 	 = 0.1;
 	}
 }
@@ -149,7 +150,7 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	#pragma omp parallel for num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		
-		LT_sim<Bit> sim(K, (int) MaxN, Dsize, Set_tags, Indiv, RanGen.BRandom());
+		LT_sim<Bit> sim(K, (int) MaxN, Dsize, Tags, Indiv, RanGen.BRandom());
 		
 		for (int i=0; i<STEPS; i++) {
 			sim.seqReceive(K*(1+Delta*(i))-1);
@@ -293,6 +294,28 @@ int main(int argn, char **args) {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
 		exit(1);
 	}
+	// read Number of tags
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		iss >> Dsize;
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	Tags = new int[Dsize];
+	// read Tags
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		for (int i=0; i<Dsize; i++) {
+			iss >> Tags[i];
+		}
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	
 	// read STEPS and Delta
 	if(mygetline(ifs,comm)){
 		istringstream iss(comm);

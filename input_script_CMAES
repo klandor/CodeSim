@@ -2,6 +2,10 @@
 # empty line is relevant
 # block size
 1000
+# Number of tags
+10
+#Tags
+1 2 3 4 5 7 9 19 59 179
 # STEPS and Delta
 61 0.005
 # cubic fitting: ON=1 OFF=0
