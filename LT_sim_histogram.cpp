@@ -15,7 +15,7 @@
 #define K 1000
 
 #define Run 10000000
-#define C 0.05
+//#define C 0.05
 #define Delta 0.03
 #define STEPS 16
 #define MaxN (K*(1+Delta*(STEPS-1)))
@@ -38,13 +38,16 @@ using namespace CodeSim;
 unsigned long ErrorCount[STEPS][16];
 //double BER[STEPS];
 vector< vector<double> > BER;
-int Dsize = 10;
+int Dsize;
 
-int		Degree[10] = //{1,2,3,4,5,8,9,19,65,66};
-		{1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
-double  Omega[10] = {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02,
-				5.8338E-05, 3.9740E-02, 7.7470E-02, 2.1520E-02, 1.1547E-02
-};
+
+int* Degree;
+//double* Omega;
+//int		Degree[10] = //{1,2,3,4,5,8,9,19,65,66};
+//		{1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
+//double  Omega[10] = {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02,
+//				5.8338E-05, 3.9740E-02, 7.7470E-02, 2.1520E-02, 1.1547E-02
+//};
 
 //uniformRandom *Rnd;
 int g_seed = (int)time(0);
@@ -76,21 +79,25 @@ int main(){
 	//D = Robust_Soliton_Distribution(K,C,Delta);
 	
 	//cout << "haha";
-	
-
-	
-	D = &Omega[0];
-	
+	cin >> Dsize;
+	Degree = new int[Dsize];
+	D = new double[Dsize];
 	SD = new double[Dsize];
-		
+	for (int i=0; i<Dsize; i++) {
+		cin >> Degree[i];
+	}
+	for (int i=0; i<Dsize; i++) {
+		cin >> D[i];
+	}	
+	
 	BER.assign(STEPS, 0);
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
 	//while (cin >> D[0])
 	{
 		cout << "distribution\t";
-		for (int i =0; i<10; i++) {
-			cin >> D[i];
+		for (int i =0; i<Dsize; i++) {
+			//cin >> D[i];
 			cout << D[i] << '\t';
 			
 		}

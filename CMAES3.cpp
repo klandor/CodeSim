@@ -514,8 +514,13 @@ int main(int argn, char **args) {
 		
 		string dist = "dist_"+filename;
 		ofstream dd(dist.c_str());
+		dd << Dsize << endl;
+		for(int i=0;i<Dsize;i++) 
+			dd<<setw(8)<<Tags[i]<<"\t";
+		cout << endl;
 		for(int i=0;i<Dsize;i++) 
 			dd<<setw(8)<<xbest[i]<<"\t";
+		cout << endl;
 		dd.close();
 		delete [] xbest;
 	}
@@ -539,7 +544,7 @@ int main(int argn, char **args) {
 	
 	cout << "Running histogram...";
 	cout.flush();
-	string cmd = "~/CodeSim/histogramE7.out < dist_" + filename 
+	string cmd = "~/CodeSim/histogram.out < dist_" + filename 
 										+ " > histo_" + filename;
 	
 	system(cmd.c_str() );

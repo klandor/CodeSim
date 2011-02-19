@@ -8,7 +8,7 @@ CMAES.out: all CMAES_main.cpp
 CMAES2.out: all CMAES2.cpp
 	$(CXX) $(CPPFLAGS) CMAES2.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
 
-CMAES3.out: all CMAES3.cpp laguer.o mrqmin.o mrqcof.o gaussj.o covsrt.o
+CMAES3.out: all CMAES3.cpp laguer.o mrqmin.o mrqcof.o gaussj.o covsrt.o histogram.out
 	$(CXX) $(CPPFLAGS) CMAES3.cpp laguer.o mrqmin.o mrqcof.o gaussj.o covsrt.o mersenne.o userintf.o cmaes.o Bit.o -o $@
 	
 histogram.out: all LT_sim_histogram.cpp
