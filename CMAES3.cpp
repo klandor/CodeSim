@@ -105,13 +105,13 @@ double* normolize(double* d){
 //  初始化設定參數  從uniform distribution 開始  STD 設為 0.025 
 void Parameter_init(){
 	//Tags = new int[Dsize];
-	D  = new double[Dsize];
+	//D  = new double[Dsize];
 	
 	SD  = new double[Dsize];
 	Std    = new double[Dsize];
 	for(int i =0;i<Dsize;i++){
 		//Tags[i] = Set_tags[i];
-		D[i] = 1/(double)Dsize;
+		//D[i] = 1/(double)Dsize;
 		Std[i] 	 = 0.1;
 	}
 }
@@ -303,12 +303,28 @@ int main(int argn, char **args) {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
 		exit(1);
 	}
-	Tags = new int[Dsize];
+
+	
 	// read Tags
+	Tags = new int[Dsize];
 	if(mygetline(ifs,comm)){
 		istringstream iss(comm);
 		for (int i=0; i<Dsize; i++) {
 			iss >> Tags[i];
+		}
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
+	
+	
+	// read initial distribution
+	D  = new double[Dsize];
+	if(mygetline(ifs,comm)){
+		istringstream iss(comm);
+		for (int i=0; i<Dsize; i++) {
+			iss >> D[i];
 		}
 	}
 	else {
@@ -516,11 +532,11 @@ int main(int argn, char **args) {
 		ofstream dd(dist.c_str());
 		dd << Dsize << endl;
 		for(int i=0;i<Dsize;i++) 
-			dd<<setw(8)<<Tags[i]<<"\t";
-		cout << endl;
+			dd<<Tags[i]<<"\t";
+		dd << endl;
 		for(int i=0;i<Dsize;i++) 
-			dd<<setw(8)<<xbest[i]<<"\t";
-		cout << endl;
+			dd<<setw(12)<<xbest[i]<<"\t";
+		dd << endl;
 		dd.close();
 		delete [] xbest;
 	}

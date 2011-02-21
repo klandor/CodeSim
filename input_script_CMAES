@@ -6,6 +6,8 @@
 10
 #Tags
 1 2 3 4 5 7 9 19 59 179
+# initial distribution
+5.5866E-03	5.0000E-01	1.6667E-01	8.3333E-02	5.0000E-02	2.3810E-02	1.3889E-02	2.6316E-03	2.9200E-04	1.5379E-01
 # STEPS and Delta
 61 0.005
 # cubic fitting: ON=1 OFF=0
