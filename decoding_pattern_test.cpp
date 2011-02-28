@@ -29,11 +29,11 @@ using namespace CodeSim;
 #define STEPS 6
 //#define MAX_WINDOW_SIZE 100
 
-int tags = 10, windowSize;
+int tags = 10, windowSize=50;
 
-int		Degree[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};//{1,2,3,4,5,8,9,19,65,66};
+int		*Degree;//[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};//{1,2,3,4,5,8,9,19,65,66};
 
-double  Omega[10] ;//= {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02, 
+double  *Omega;//[10] ;//= {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02, 
 //	5.8338E-05, 3.9740E-02, 7.7470E-02, 2.1520E-02, 1.1547E-02};
 int *l0a[RUN][STEPS]; //, l0a_max[STEPS][1000];
 
@@ -47,11 +47,17 @@ int main(){
 //	getline(cin, s, '\n');
 //	fout << "Comment: " << s << endl;
 	
-	cerr << "Enter Window Size(>0): ";
-	cin >> windowSize;
+//	cerr << "Enter Window Size(>0): ";
+//	cin >> windowSize;
 	
-	cerr << "Enter degree distribution: ";
-	for (int i=0; i<10; i++) {
+//	cerr << "Enter degree distribution: ";
+	cin >> tags;
+	Degree = new int[tags];
+	Omega = new double[tags];
+	for (int i=0; i<tags; i++) {
+		cin >> Degree[i];
+	}
+	for (int i=0; i<tags; i++) {
 		cin >> Omega[i];
 	}
 	CRandomMersenne r(time(0));
