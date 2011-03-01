@@ -25,7 +25,8 @@ using namespace CodeSim;
 #define LEN 100
 #define EPS 0.2
 #define RUN 1000000
-#define STEP_SIZE 0.05
+#define BASE 1.20
+#define STEP_SIZE 0.01
 #define STEPS 6
 //#define MAX_WINDOW_SIZE 100
 
@@ -70,7 +71,7 @@ int main(){
 	
 	#pragma omp parallel for num_threads(6)
 	for (int run=0; run<RUN; run++) {
-		LT_sim<Bit> lt(K, K*(1+STEPS*STEP_SIZE), tags, Degree, Omega, r.BRandom());
+		LT_sim<Bit> lt(K, K*(BASE+STEPS*STEP_SIZE), tags, Degree, Omega, r.BRandom());
 		
 		for (int s=0; s<STEPS; s++) {
 //			int l0h[1000];
@@ -79,7 +80,7 @@ int main(){
 				l0a[run][s][i]=0;
 			}
 			
-			lt.seqReceive(K*(1+s*STEP_SIZE)-1);
+			lt.seqReceive(K*(BASE+s*STEP_SIZE)-1);
 			//a.insert(a.end(), a.begin(), a.begin() + (windowSize-1));
 			Codeword<Bit> a = lt.getResult();
 			int errNO=0;
