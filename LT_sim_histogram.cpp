@@ -122,9 +122,15 @@ int main(){
 				sim.seqReceive( K*(1+Delta*i) -1);
 				//sim.decode();
 				double t = sim.failureRate();// = Encoder(K, K*(1.05+0.01*i), Dsize);
-				#pragma omp atomic
-				ErrorCount[i][(int)(t*16)]++;
-				
+				if (t<1) {
+					#pragma omp atomic
+					ErrorCount[i][(int)(t*16)]++;
+				}
+				else {
+					#pragma omp atomic
+					ErrorCount[i][15]++;
+				}
+
 				BER[i][run]=t;
 				if (t>0) {
 					FER[i]++;
