@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		85291A28130F932300EDB441 /* LT_sim_histogram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */; };
 		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
 		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
+		85EC9A201357F29A002EF955 /* LT_BER.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85EC9A1F1357F29A002EF955 /* LT_BER.cpp */; };
 		85F215A112E5874600F6E5EA /* mrqmin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A012E5874600F6E5EA /* mrqmin.cpp */; };
 		85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A412E5876300F6E5EA /* covsrt.cpp */; };
 		85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A512E5876300F6E5EA /* mrqcof.cpp */; };
@@ -37,10 +37,12 @@
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_sim_Test.cpp; sourceTree = "<group>"; };
 		8517BEC212676B6F003C1095 /* exp_SVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exp_SVC.cpp; sourceTree = "<group>"; };
+		852D9C6E135962D1001D8E0E /* NES_fit.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = NES_fit.py; sourceTree = "<group>"; };
 		853626601235E65E00476D16 /* ConvoCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvoCode.cpp; sourceTree = "<group>"; };
 		8544522B1226A22100BA9182 /* BitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitTest.cpp; sourceTree = "<group>"; };
 		8544527412279DDD00BA9182 /* Bit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bit.cpp; sourceTree = "<group>"; };
 		8547658212FC25FB00F0528A /* statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statistics.h; sourceTree = "<group>"; };
+		85497768131F6E140043C89E /* Binomial_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binomial_test.cpp; sourceTree = "<group>"; };
 		854BD8951225411B006CD78C /* CodeSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSim.h; sourceTree = "<group>"; };
 		855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_sim_histogram.cpp; sourceTree = "<group>"; };
 		8565BD1D120C0A0D0081A319 /* LT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LT.h; sourceTree = "<group>"; };
@@ -53,14 +55,18 @@
 		8597159A124325A900BD7FC2 /* cmaes_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmaes_interface.h; sourceTree = "<group>"; };
 		8597159B124325A900BD7FC2 /* cmaes.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = cmaes.cpp; sourceTree = "<group>"; };
 		8597159C124325A900BD7FC2 /* cmaes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmaes.h; sourceTree = "<group>"; };
+		85992B0A132A6B7E0021CC49 /* LT_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_graph.cpp; sourceTree = "<group>"; };
 		85B60A531234900700842D09 /* ConvoCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvoCode.h; sourceTree = "<group>"; };
 		85B60A561234903000842D09 /* ConvoCodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvoCodeTest.cpp; sourceTree = "<group>"; };
 		85B94451128F857D00F0883C /* exp_LT_sim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exp_LT_sim.cpp; sourceTree = "<group>"; };
+		85BA1FF31333575400394FF3 /* LDPC_to_bipartite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDPC_to_bipartite.cpp; sourceTree = "<group>"; };
+		85BA200B1334A34C00394FF3 /* LDPC_H_matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDPC_H_matrix.cpp; sourceTree = "<group>"; };
 		85BD043D122A86A800EFCF85 /* PermutatorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PermutatorTest.cpp; sourceTree = "<group>"; };
 		85D061A4122FA19F0094829A /* LTTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LTTest.cpp; sourceTree = "<group>"; };
 		85D061AA122FAC2F0094829A /* LTCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCode.h; sourceTree = "<group>"; };
 		85D0BC70128F9BD000A98351 /* fitting_data_set_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fitting_data_set_generator.cpp; sourceTree = "<group>"; };
 		85E02006123FD347001ED159 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		85EC9A1F1357F29A002EF955 /* LT_BER.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_BER.cpp; sourceTree = "<group>"; };
 		85F2159B12E5871100F6E5EA /* DynamicFitting_Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicFitting_Test.cpp; sourceTree = "<group>"; };
 		85F2159C12E5871100F6E5EA /* DynamicFitting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicFitting.h; sourceTree = "<group>"; };
 		85F215A012E5874600F6E5EA /* mrqmin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mrqmin.cpp; sourceTree = "<group>"; };
@@ -155,6 +161,7 @@
 		855EEE51124DF5CE00D1D91C /* Programs */ = {
 			isa = PBXGroup;
 			children = (
+				852D9C6E135962D1001D8E0E /* NES_fit.py */,
 				85B94451128F857D00F0883C /* exp_LT_sim.cpp */,
 				855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */,
 				85F7DD331245219700F6BE6B /* CMAES_main.cpp */,
@@ -163,6 +170,11 @@
 				85D0BC70128F9BD000A98351 /* fitting_data_set_generator.cpp */,
 				856E19F712D0ADCE00B1EBC6 /* CMAES2.cpp */,
 				85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */,
+				85EC9A1F1357F29A002EF955 /* LT_BER.cpp */,
+				85497768131F6E140043C89E /* Binomial_test.cpp */,
+				85992B0A132A6B7E0021CC49 /* LT_graph.cpp */,
+				85BA1FF31333575400394FF3 /* LDPC_to_bipartite.cpp */,
+				85BA200B1334A34C00394FF3 /* LDPC_H_matrix.cpp */,
 			);
 			name = Programs;
 			sourceTree = "<group>";
@@ -285,7 +297,7 @@
 				85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */,
 				85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */,
 				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
-				85291A28130F932300EDB441 /* LT_sim_histogram.cpp in Sources */,
+				85EC9A201357F29A002EF955 /* LT_BER.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

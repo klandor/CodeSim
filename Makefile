@@ -26,6 +26,9 @@ decoding_pattern_test.out: CodeSim decoding_pattern_test.cpp
 fitting_data_set_generator.out: fitting_data_set_generator.cpp
 	$(CXX) $(CPPFLAGS) fitting_data_set_generator.cpp -o $@
 
+LT_BER.out: LT_BER.cpp CodeSim randomc
+	$(CXX) $(CPPFLAGS) LT_BER.cpp mersenne.o userintf.o Bit.o -o $@
+
 cmaes: cmaes.o cmaes.h cmaes_interface.h
 	
 randomc: randomc.h mersenne.o userintf.o
