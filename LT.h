@@ -36,8 +36,12 @@ namespace CodeSim{
 		Codeword<S> decode(Codeword<S>& a);
 		void reset();
 		Codeword<S> getResult();
-	private:
 		void codeGen(int t);
+		void printGraph(ostream &os);
+		void printDecodingSequence(ostream &os);
+		
+	private:
+		
 		void receive(int t, S s);
 		void decode();
 		int Num_of_Input, Num_of_Output, Num_of_Degree, Num_of_Decoding, 
@@ -46,6 +50,8 @@ namespace CodeSim{
 		int seed;
 		CRandomMersenne Rnd;
 		vector<long int>	d;//(Num_of_Output, 0);
+		vector<long int>	output_symbol_degree;
+		vector<long int>	decoding_degree_sequence;
 		vector<vector<long int> >	edge;// = new vector<long int>[Num_of_Output];
 		//vector<long int>	R_M;//(Num_of_Output, 0);
 		//vector<long int>	erasure;//(Num_of_Output, 0);
@@ -76,7 +82,9 @@ namespace CodeSim{
 		Omega.assign(omega, omega+tag_size);
 		for(int i=1; i<Num_of_Degree; i++)  
 			Omega[i] = Omega[i-1]+Omega[i];
-
+		//Normalize
+		for(int i=1; i<Num_of_Degree; i++)  
+			Omega[i] /= Omega[Num_of_Degree-1];
 		
 		reset();
 
@@ -111,7 +119,10 @@ namespace CodeSim{
 						}
 					}
 				}
-				
+				output_symbol_degree[i] = d[i];
+				if (d[i] == 0) {
+					cerr << "Error: node of degree 0.\n";
+				}
 				// decide connection
 				edge[i].assign( d[i], 0 );
 				for(int j=0;j<d[i];j++)
@@ -141,15 +152,9 @@ namespace CodeSim{
 	
 	template<class S>
 	inline void LT_sim<S>::receive(int t){
-//		codeGen(t);
-//		if(receivedMask[t]==0)
-//		{
-//			R_M[ReceivedSize]=t;
-//			ReceivedSize++;
-//			receivedMask[t]=1;
-//		}
 		receive(t, 0);
 	}
+	
 	template<class S>
 	void LT_sim<S>::seqReceive(int t){
 		for(int i=0; i <= t; i++)
@@ -181,6 +186,7 @@ namespace CodeSim{
 				return;
 			}
 			if (d[t] == 1) {
+				decoding_degree_sequence.push_back(output_symbol_degree[t]);
 				ripple.push(edge[t][0]);
 				DE[ edge[t][0] ] = 1;
 				Result[ edge[t][0] ] = s;
@@ -215,6 +221,7 @@ namespace CodeSim{
 					}
 				}
 				if (d[t] == 1 && DE[ edge[t][0] ] == 0) {
+					decoding_degree_sequence.push_back(output_symbol_degree[t]);
 					DE[ edge[t][0] ]=1;
 					ripple.push(edge[t][0]);
 					Result[ edge[t][0] ] = Mid_Output[t];
@@ -311,6 +318,8 @@ namespace CodeSim{
 		//	Num_of_Degree = tag_size;
 		
 		d.assign(Num_of_Output,0);
+		output_symbol_degree.assign(Num_of_Output,0);
+		decoding_degree_sequence.clear();
 		edge.assign(Num_of_Output,0);
 		//R_M.assign(Num_of_Output,0);
 		//erasure.assign(max_n,0);
@@ -343,6 +352,34 @@ namespace CodeSim{
 	Codeword<S> LT_sim<S>::getResult(){
 		decode();
 		return Result;
+	}
+	
+	template<class S>
+	void LT_sim<S>::printGraph(ostream &os){
+		os << "*Nodes\nid*int	label*string	symbol_type*string\n";
+		for (int i=0; i<Num_of_Input; i++) {
+			os << i+1 << "\t\"source_" << i+1 << "\"\t\"s\""  << '\n';
+		}
+		
+		for (int i=0; i<generatedCode; i++) {
+			os << Num_of_Input+i+1 << "\t\"encoding_" << i+1 << "\"\t\"e\"" << '\n';
+		}
+		
+		os << "*UndirectedEdges\nsource*int	target*int\n";
+		
+		for (int i=0; i<generatedCode; i++) {
+			for (int j=0; j<d[i]; j++) {
+				os << Num_of_Input+i+1 << '\t' << edge[i][j] +1 << '\n';
+			}
+		}
+	}
+	
+	template<class S>
+	void LT_sim<S>::printDecodingSequence(ostream &os){
+		for (int i=0; i<decoding_degree_sequence.size(); i++) {
+			os << decoding_degree_sequence[i] << '\t';
+		}
+		os << endl;
 	}
 }
 
