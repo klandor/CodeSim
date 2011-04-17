@@ -66,12 +66,12 @@ int main(){
 	for (int i=0; i<Dsize; i++) {
 		cin >> Degree[i];
 	}
-	for (int i=0; i<Dsize; i++) {
-		cin >> D[i];
-	}	
+//	for (int i=0; i<Dsize; i++) {
+//		cin >> D[i];
+//	}	
 	cin >> STEPS;
 	
-	BER.assign(STEPS, 0);
+	
 	vector<double> epsilons(STEPS, 0);
 	for (int i=0; i<STEPS; i++) {
 		cin >> epsilons[i];
@@ -79,14 +79,16 @@ int main(){
 	
 //	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 //	dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
-	//while (cin >> D[0])
+	while (cin >> D[0])
 	{
 //		cout << "distribution\t";
-//		for (int i =0; i<Dsize; i++) {
-//			//cin >> D[i];
+		for (int i =1; i<Dsize; i++) {
+			cin >> D[i];
 //			cout << D[i] << '\t';
-//			
-//		}
+			
+		}
+		
+		BER.assign(STEPS, 0);
 //		cout << "\nEpsilons\t";
 //		for (int i = 0; i<STEPS; i++) {
 //			cout << i*Delta << '\t';
@@ -104,7 +106,8 @@ int main(){
 			int seed;
 			#pragma omp critical
 			seed = Rnd.BRandom();
-			LT_sim<Bit> sim(K, MaxN, Dsize, Degree, D, seed);
+			
+			LT_sim<Bit> sim(K, K*(1+epsilons[STEPS-1]), Dsize, Degree, D, seed);
 			//cout << "Run " << i <<'\n';
 			//#pragma omp parallel for
 			for (int i = 0; i< STEPS; i++) {
