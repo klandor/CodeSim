@@ -30,7 +30,7 @@
 // =================================================================
 //#define K 1000			// K size
 //#define MaxN 10500		// set Max code word number (set 2*K ,but we only use 1.2*K)
-#define Run 10000			// how many simulations per fitness 
+//#define Run 10000			// how many simulations per fitness 
 #define MAXFEC 10000		// set Max function evaluations in CMAES  
 #define Lambda 10		// set parameter lambda in CMAES
 #define INFO 1			// 1 : show the info during evolution , 0 : don't display
@@ -45,7 +45,7 @@ using namespace CodeSim;
 
 int g_seed = (int)time(0);
 CRandomMersenne RanGen(g_seed);
-int K, cubic_fitting, error_exponent, STEPS;
+int K, cubic_fitting, error_exponent, STEPS, Run;
 double Delta;
 // =================================================================
 // 依照要跑的 degree 去設定 
@@ -288,7 +288,7 @@ int main(int argn, char **args) {
 	// read K
 	if(mygetline(ifs,comm)){
 		istringstream iss(comm);
-		iss >> K;
+		iss >> K >> Run;
 	}
 	else {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;

@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>8526F56E135A8793000E193B</string>
+						<string>85C50DD5135ECE030027F8AA</string>
 						<key>history</key>
 						<array>
-							<string>85A6262F135A8384000C015A</string>
+							<string>8526F575135B070B000E193B</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -256,10 +256,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>8526F56F135A8793000E193B</string>
+						<string>85C50DD6135ECE030027F8AA</string>
 						<key>history</key>
 						<array>
-							<string>85A62630135A8384000C015A</string>
+							<string>8526F576135B070B000E193B</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -360,14 +360,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>28</integer>
 									<integer>18</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 204}, {186, 664}}</string>
+							<string>{{0, 526}, {186, 664}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -404,7 +403,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>LT_BER.cpp</string>
+								<string>CMAES3.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -412,11 +411,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>LT_BER.cpp</string>
+										<string>CMAES3.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>8526F56D135A8793000E193B</string>
+										<string>85C50DD4135ECE030027F8AA</string>
 										<key>history</key>
 										<array>
 											<string>85B60B8E1235293000842D09</string>
@@ -462,10 +461,10 @@
 											<string>85B036561340EBAA000019EB</string>
 											<string>85B036571340EBAA000019EB</string>
 											<string>85EC9A4F1358004F002EF955</string>
-											<string>85EC9A511358004F002EF955</string>
 											<string>85A62609135A7E1F000C015A</string>
 											<string>8526F560135A86FC000E193B</string>
-											<string>8526F561135A86FC000E193B</string>
+											<string>8526F572135B070B000E193B</string>
+											<string>85C50DD0135ECD3B0027F8AA</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -477,14 +476,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {795, 387}}</string>
+								<string>{{0, 0}, {795, 378}}</string>
 								<key>RubberWindowFrame</key>
 								<string>265 55 1003 723 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>387pt</string>
+							<string>378pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -497,14 +496,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 392}, {795, 290}}</string>
+								<string>{{0, 383}, {795, 299}}</string>
 								<key>RubberWindowFrame</key>
 								<string>265 55 1003 723 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>290pt</string>
+							<string>299pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -523,9 +522,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>8526F553135A83E3000E193B</string>
+				<string>85C50DC0135DFBEA0027F8AA</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>8526F554135A83E3000E193B</string>
+				<string>85C50DC1135DFBEA0027F8AA</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -663,13 +662,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>8526F566135A86FC000E193B</string>
-		<string>8526F567135A86FC000E193B</string>
 		<string>8565BD44120C19560081A319</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>85A17599133EEB2F0055F404</string>
 		<string>85B0365D1340EEB8000019EB</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -750,7 +746,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>8565BD44120C19560081A319</string>
-				<string>8526F557135A83E3000E193B</string>
+				<string>85C50DC4135DFBEA0027F8AA</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -872,13 +868,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>8526F558135A83E3000E193B</string>
+				<string>85C50DC5135DFBEA0027F8AA</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>8526F559135A83E3000E193B</string>
-				<string>8526F55A135A83E3000E193B</string>
-				<string>8526F55B135A83E3000E193B</string>
-				<string>8526F55C135A83E3000E193B</string>
-				<string>8526F55D135A83E3000E193B</string>
+				<string>85C50DC6135DFBEA0027F8AA</string>
+				<string>85C50DC7135DFBEA0027F8AA</string>
+				<string>85C50DC8135DFBEA0027F8AA</string>
+				<string>85C50DC9135DFBEA0027F8AA</string>
+				<string>85C50DCA135DFBEA0027F8AA</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
