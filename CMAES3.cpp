@@ -530,6 +530,7 @@ int main(int argn, char **args) {
 		
 		string dist = "dist_"+filename;
 		ofstream dd(dist.c_str());
+		dd << K << endl;
 		dd << Dsize << endl;
 		for(int i=0;i<Dsize;i++) 
 			dd<<Tags[i]<<"\t";
@@ -537,6 +538,12 @@ int main(int argn, char **args) {
 		for(int i=0;i<Dsize;i++) 
 			dd<<setw(12)<<xbest[i]<<"\t";
 		dd << endl;
+		if(K==10000)
+			dd << "16 0.013" << endl;
+		else {
+			dd << "16 0.03" << endl;
+		}
+
 		dd.close();
 		delete [] xbest;
 	}
