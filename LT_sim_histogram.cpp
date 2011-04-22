@@ -85,7 +85,7 @@ int main(){
 	
 	//cin >> K >> Run;
 	cin >> K;
-	Run = (10000000000/K);
+	Run = (10000000000L/K);
 	cin >> Dsize;
 	Degree = new int[Dsize];
 	D = new double[Dsize];
@@ -123,7 +123,7 @@ int main(){
 		int start_time = time(0);
 		//int n=0;
 		#pragma omp parallel for num_threads(6)
-		for(int run=0;run<Run;run++){
+		for(long run=0;run<Run;run++){
 			int seed;
 			#pragma omp critical
 			seed = Rnd.BRandom();
