@@ -83,7 +83,9 @@ int main(){
 	
 	//D = Robust_Soliton_Distribution(K,C,Delta);
 	
-	cin >> K >> Run;
+	//cin >> K >> Run;
+	cin >> K;
+	Run = (10000000000/K);
 	cin >> Dsize;
 	Degree = new int[Dsize];
 	D = new double[Dsize];
