@@ -12,12 +12,15 @@
 #include <omp.h>
 #include <algorithm>
 
-#define K 1000
-
-#define Run 10000000
+//#define K 1000
+int K;
+//#define Run (10000000000LL/K)
+long Run;
 //#define C 0.05
-#define Delta 0.03
-#define STEPS 16
+//#define Delta 0.03
+double Delta;
+//#define STEPS 16
+int STEPS;
 #define MaxN (K*(1+Delta*(STEPS-1)))
 
 using namespace std;
@@ -35,7 +38,9 @@ using namespace CodeSim;
 //int M_sym2code[K][MaxN];            // 記錄反向連結 - 每個symbol連到哪幾個 codeword
 //int S_sym2code[K];                  // 反向連結的 size 
 
-unsigned long ErrorCount[STEPS][16];
+//unsigned long ErrorCount[STEPS][16];
+vector< vector<double> > ErrorCount;
+
 //double BER[STEPS];
 vector< vector<double> > BER;
 int Dsize;
@@ -78,7 +83,7 @@ int main(){
 	
 	//D = Robust_Soliton_Distribution(K,C,Delta);
 	
-	//cout << "haha";
+	cin >> K >> Run;
 	cin >> Dsize;
 	Degree = new int[Dsize];
 	D = new double[Dsize];
@@ -88,8 +93,10 @@ int main(){
 	}
 	for (int i=0; i<Dsize; i++) {
 		cin >> D[i];
-	}	
+	}
+	cin >> STEPS >> Delta;
 	
+	ErrorCount.assign(STEPS, 0);
 	BER.assign(STEPS, 0);
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
@@ -105,9 +112,9 @@ int main(){
 		for (int i = 0; i<STEPS; i++) {
 			cout << i*Delta << '\t';
 			//BER[i] = 0;
+			ErrorCount[i].assign(16,0);
 			BER[i].assign(Run,0);
-			for(int j = 0; j< 16; j++)
-			ErrorCount[i][j] = 0;
+			
 		}
 		cout << '\n';
 		
@@ -115,7 +122,11 @@ int main(){
 		//int n=0;
 		#pragma omp parallel for num_threads(6)
 		for(int run=0;run<Run;run++){
-			LT_sim<Bit> sim(K, MaxN, Dsize, Degree, D, Rnd.BRandom());
+			int seed;
+			#pragma omp critical
+			seed = Rnd.BRandom();
+			
+			LT_sim<Bit> sim(K, MaxN, Dsize, Degree, D, seed);
 			//cout << "Run " << i <<'\n';
 			//#pragma omp parallel for
 			for (int i = 0; i< STEPS; i++) {
