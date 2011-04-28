@@ -56,7 +56,9 @@ class LT_exp:
 	def __init__(self, filename):
 		#read from config file
 		f=open(filename,'r')
-		self.K = int(mygetline(f))
+		tmp=mygetline(f).split()
+		self.K = int(tmp[0])
+		self.Run = int(tmp[1])
 		self.Dsize = int(mygetline(f))
 		self.Tags = parseInt(mygetline(f).split())
 		if(self.Dsize != len(self.Tags)):
@@ -80,7 +82,6 @@ class LT_exp:
 		LT_BER_format = "{K} {Run}\n{Dsize}\n{tag_list}\n{STEPS}\n{epsilon_list}\n"
 		self.STEPS = 61
 		self.Delta = 0.005
-		self.Run = 10000
 		self.MaxEpsilon = (self.Delta*(self.STEPS-1))
 		self.P_e_min = log10(1/float(self.K*self.Run))
 		
@@ -108,7 +109,6 @@ class LT_exp:
 		#K='`self.K`', Run='100', Dsize='`self.Dsize`', tag_list=' '.join(self.Tags), distribution='`self.D`', STEPS='16', epsilon_list= "")
 		#print input
 		self.p.stdin.write('%s\n' % input)
-		#err =  p.communicate(input)[0]
 		err = self.p.stdout.readline()
 		err = err.split()
 		err = parseFloat(err)
