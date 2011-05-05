@@ -153,6 +153,7 @@ namespace CodeSim {
 	
 	Codeword<Bit> ConvoCode::encode(Codeword<Bit> a) const{
 		Codeword<Bit> output;
+		output.reserve( (a.size()/k+1) *n);
 		stack<int> s = a.getMessageStack();
 		s.push(a.size());
 		
@@ -208,6 +209,7 @@ namespace CodeSim {
 	
 	Codeword<Bit> ConvoCode::decode(Codeword<Bit> & a) const{
 		Codeword<Bit> output;
+		output.reserve( (a.size()/n+1) *k);
 		stack<int> s = a.getMessageStack();
 		
 		while (a.size() % n != 0) {
@@ -262,7 +264,7 @@ namespace CodeSim {
 			}
 			
 			trellisLength++;
-			if (trellisLength > 10000) {
+			if (trellisLength > 80) {
 				//sliding window decoding
 				int state = 0, windowSize = 0;
 				list<unsigned int> out_temp;
