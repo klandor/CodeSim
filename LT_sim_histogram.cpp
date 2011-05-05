@@ -22,6 +22,7 @@ double Delta;
 //#define STEPS 16
 int STEPS;
 #define MaxN (K*(1+Delta*(STEPS-1)))
+int windowSize = 50;
 
 using namespace std;
 using namespace CodeSim;
@@ -102,6 +103,8 @@ int main(){
 	BER.assign(STEPS, 0);
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
+	vector< vector<long> > l0a(STEPS, vector<long>(windowSize+1,0));
+	
 	//while (cin >> D[0])
 	{
 		cout << "distribution\t";
@@ -147,6 +150,32 @@ int main(){
 				BER[i][run]=t;
 				if (t>0) {
 					FER[i]++;
+				}
+				
+				Codeword<Bit> a = sim.getResult();
+				int errNO=0;
+				for (int p=0; p<windowSize; p++) {
+					if (a[p].isErased()) {
+						errNO ++;
+					}
+				}
+				
+				//#pragma omp atomic
+				l0a[i][errNO]++;
+				//			l0h[errNO]++;
+				for (int p=windowSize; p< a.size(); p++) {
+					if (a[p].isErased()) {
+						errNO++;
+					}
+					if (a[p-windowSize].isErased()) {
+						errNO --;
+					}
+					
+					
+					#pragma omp atomic
+					l0a[i][errNO]++;
+					//				l0h[errNO]++;
+					//cout << errNO << '\n';
 				}
 			}
 			
@@ -208,6 +237,15 @@ int main(){
 		cout << '\n';
 		
 		cout << "Time\t" << time(0) - start_time<< "\tK\t"<< K << "\tRun\t"<< Run <<endl;
+		
+		for (int i=0; i<windowSize+1; i++) {
+			cout << i;
+			
+			for (int j=0; j<STEPS; j++) {
+				cout << '\t' << l0a[j][i]/(double)(Run*(K-windowSize+1));
+			}
+			cout << endl;
+		}
 	}
 	
 	return 0;
