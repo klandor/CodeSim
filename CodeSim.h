@@ -107,8 +107,8 @@ namespace CodeSim {
 		// default construct, blockSize = 1 (no permutation).
 		Permutator(){
 			blockSize = 1;
-			permutationTable.assign(1,1);
-			depermutationTable.assign(1,1);
+			permutationTable.assign(1,0);
+			depermutationTable.assign(1,0);
 		}
 		
 		/* 
@@ -120,7 +120,7 @@ namespace CodeSim {
 			if(in.fail())
 			{
 				cerr << "Permutator initial error: \""<< filename << "\" can't be opened." ;
-				Permutator();
+				exit(-1);
 				return;
 			}
 			

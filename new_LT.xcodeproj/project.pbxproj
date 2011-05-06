@@ -12,7 +12,6 @@
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
-		85C50E371361E2FB0027F8AA /* CMAES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */; };
 		85F215A112E5874600F6E5EA /* mrqmin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A012E5874600F6E5EA /* mrqmin.cpp */; };
 		85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A412E5876300F6E5EA /* covsrt.cpp */; };
 		85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A512E5876300F6E5EA /* mrqcof.cpp */; };
@@ -62,6 +61,7 @@
 		85BA1FF31333575400394FF3 /* LDPC_to_bipartite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDPC_to_bipartite.cpp; sourceTree = "<group>"; };
 		85BA200B1334A34C00394FF3 /* LDPC_H_matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDPC_H_matrix.cpp; sourceTree = "<group>"; };
 		85BD043D122A86A800EFCF85 /* PermutatorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PermutatorTest.cpp; sourceTree = "<group>"; };
+		85C50E3E1362B8190027F8AA /* SVC_UEP_exp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVC_UEP_exp.cpp; sourceTree = "<group>"; };
 		85D061A4122FA19F0094829A /* LTTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LTTest.cpp; sourceTree = "<group>"; };
 		85D061AA122FAC2F0094829A /* LTCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCode.h; sourceTree = "<group>"; };
 		85D0BC70128F9BD000A98351 /* fitting_data_set_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fitting_data_set_generator.cpp; sourceTree = "<group>"; };
@@ -175,6 +175,7 @@
 				85992B0A132A6B7E0021CC49 /* LT_graph.cpp */,
 				85BA1FF31333575400394FF3 /* LDPC_to_bipartite.cpp */,
 				85BA200B1334A34C00394FF3 /* LDPC_H_matrix.cpp */,
+				85C50E3E1362B8190027F8AA /* SVC_UEP_exp.cpp */,
 			);
 			name = Programs;
 			sourceTree = "<group>";
@@ -297,7 +298,6 @@
 				85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */,
 				85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */,
 				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
-				85C50E371361E2FB0027F8AA /* CMAES3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
