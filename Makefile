@@ -28,6 +28,9 @@ fitting_data_set_generator.out: fitting_data_set_generator.cpp
 
 LT_BER.out: LT_BER.cpp CodeSim randomc
 	$(CXX) $(CPPFLAGS) LT_BER.cpp mersenne.o userintf.o Bit.o -o $@
+	
+ConvoCodeSim.out: ConvoCodeSim.cpp CodeSim randomc
+	$(CXX) $(CPPFLAGS) ConvoCodeSim.cpp mersenne.o userintf.o Bit.o ConvoCode.o -o $@
 
 cmaes: cmaes.o cmaes.h cmaes_interface.h
 	
