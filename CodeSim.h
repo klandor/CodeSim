@@ -61,7 +61,21 @@ namespace CodeSim {
 		
 
 		Bit operator+(Bit t);		
-		Bit operator*(Bit t);		
+		//Bit operator*(Bit t);		
+		string toString();
+	};
+	
+	class Byte : public Symbol<unsigned char,8>{
+	public:
+		static const unsigned int mask = (1<<8)-1;
+		Byte();
+		
+		
+		Byte(int t);
+		
+		
+		Byte operator+(Byte t);		
+		//Byte operator*(Byte t);		
 		string toString();
 	};
 	
@@ -98,6 +112,82 @@ namespace CodeSim {
 //		virtual Codeword<S1> backward(Codeword<S2> c) = 0;
 		
 	private:
+	};
+	
+	class BitToByteCoverter : public CodingBlock<Bit, Byte> {
+	public:
+		 static Codeword<Byte> convert(Codeword<Bit> &a){
+			Codeword<Byte> output;
+			output.reserve(a.size()/8+1);
+			stack<int> s = a.getMessageStack();
+			s.push(a.size());
+			
+			int i;
+			for (i=0; i<a.size(); i+=8) {
+				int v=0;
+				bool e=false;
+				
+				for (int j=0; j<8; j++) {
+					v <<= 1;
+					if(i+j >= a.size())
+						continue;
+					
+					if(a[i+j].getValue())
+						v ^= 1;
+					if(a[i+j].isErased())
+						e=true;
+				}
+				
+				if(e){
+					output.push_back(-1);
+				}
+				else {
+					output.push_back(v);
+				}
+
+			}
+			
+			output.setMessageStack(s);
+			return output;
+		}
+		
+		static Codeword<Bit> revert(Codeword<Byte> &a){
+			Codeword<Bit> output;
+			output.reserve(a.size()*8);
+			stack<int> s = a.getMessageStack();
+			
+			for (int i=0; i<a.size(); i++) {
+				if (a[i].isErased()) { // Byte is erased
+					// 8 erased Bits
+					for (int i=0; i<8; i++) {
+						output.push_back(-1); 
+					}
+				}
+				else {
+					int array[8];
+					unsigned int tmp = a[i].getValue();
+					for (int i=0; i<8; i++) {
+						if (tmp & 1){
+							array[7-i] = 1;
+						}
+						else {
+							array[7-i] = 0;
+						}
+
+						tmp >>= 1;
+					}
+					
+					output.insert(output.end(), array, array+8);
+				}
+
+			}
+			
+			output.trim(s.top());
+			s.pop();
+			output.setMessageStack(s);
+			
+			return output;
+		}
 	};
 	
 	template<class T>
