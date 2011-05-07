@@ -12,7 +12,7 @@
 #include "randomc.h"
 #include <ctime>
 #include <cmath>
-#define L 10000000
+#define L 1000000
 #define Layer 4
 
 using namespace CodeSim;
@@ -23,6 +23,11 @@ int main(int argn, char **args){
 	
 	CRandomMersenne r(time(0));
 	ConvoCode cc("convo-2-4-6-6.txt");
+	cout << "ChannelErasureRate";
+	for (int i=0; i<Layer; i++) {
+		cout << "\tLayer" << i+1;
+	}
+	cout << "TotalBits\n";
 	
 	double errRate = 0.1;
 	while (1) {
@@ -60,6 +65,7 @@ int main(int argn, char **args){
 			if (total >= 1000*L) {
 				break;
 			}
+			
 			bool enough = true;
 			for (int i=0; i<Layer; i++) {
 				if (err[i] < 100) {
@@ -80,9 +86,9 @@ int main(int argn, char **args){
 			cout << '\t' << err[i]/(double)total;
 		}
 		
-		cout << endl;
+		cout << '\t' << total << endl;
 		
-		errRate *= pow(10, -1/3.0);
+		errRate *= pow(10, -1.0/5);
 		
 	}
 	
