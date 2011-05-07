@@ -268,7 +268,7 @@ namespace CodeSim{
 	Codeword<S> LT_sim<S>::encode(Codeword<S>& a){
 		reset();
 		codeGen(Num_of_Output-1);
-		
+		stack<int> s = a.getMessageStack();
 		Codeword<S> output;
 		output.assign(Num_of_Output,0);
 		
@@ -277,8 +277,11 @@ namespace CodeSim{
 				output[i] = output[i] + a[edge[i][j]];
 			}
 		}
-		output.getMessageStack().push(seed);
+		
 		Mid_Output = output;
+		s.push(seed);
+		output.setMessageStack(s);
+		
 		return output;
 	}
 	
