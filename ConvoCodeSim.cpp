@@ -12,8 +12,9 @@
 #include "randomc.h"
 #include <ctime>
 #include <cmath>
-#define L 1000000
+#define L 100000
 #define Layer 4
+#include <omp.h>
 
 using namespace CodeSim;
 using namespace std;
@@ -27,7 +28,7 @@ int main(int argn, char **args){
 	for (int i=0; i<Layer; i++) {
 		cout << "\tLayer" << i+1;
 	}
-	cout << "TotalBits\n";
+	cout << "\tTotalBits\n";
 	
 	double errRate = 0.1;
 	while (1) {
@@ -38,29 +39,32 @@ int main(int argn, char **args){
 		}
 		
 		while (1) {
-			Codeword<Bit> a;
-			a.reserve(Layer*L);
-			for (int i=0; i<Layer*L; i++) {
-				a.push_back(r.IRandomX(0, 1));
-			}
-			Codeword<Bit> b = cc.encode(a);
-			
-			for (int i=0; i< b.size(); i++) {
-				if (r.Random() < errRate) {
-					b[i].setErased(true);
+			#pragma omp parallel for num_threads(6)
+			for (int i=0; i<6; i++) {
+				Codeword<Bit> a;
+				a.reserve(Layer*L);
+				for (int i=0; i<Layer*L; i++) {
+					a.push_back(r.IRandomX(0, 1));
 				}
-			}
-			
-			Codeword<Bit> c = cc.decode(b);
-			
-			for (int i=0; i<c.size(); i++) {
-				if (!(a[i] == c[i])) {
-					err[i%4]++;
+				Codeword<Bit> b = cc.encode(a);
+				
+				for (int i=0; i< b.size(); i++) {
+					if (r.Random() < errRate) {
+						b[i].setErased(true);
+					}
 				}
+				
+				Codeword<Bit> c = cc.decode(b);
+				
+				for (int i=0; i<c.size(); i++) {
+					if (!(a[i] == c[i])) {
+						#pragma omp atomic
+						err[i%4]++;
+					}
+				}
+				#pragma omp atomic
+				total += L;
 			}
-			
-			total += L;
-			
 			// check stop
 			if (total >= 1000*L) {
 				break;
