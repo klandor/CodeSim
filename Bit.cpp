@@ -19,7 +19,8 @@ namespace CodeSim {
 	
 	
 	Bit::Bit(){
-			value = 0;
+		value = 0;
+		setErased(false);
 	}
 		
 	//template<class T>
@@ -42,9 +43,9 @@ namespace CodeSim {
 		return Bit(value ^ t.value);
 	}
 	
-	Bit Bit::operator*(Bit t){
-		return Bit(this->value & t.value);
-	}
+//	Bit Bit::operator*(Bit t){
+//		return Bit(this->value & t.value);
+//	}
 	
 	string Bit::toString()
 	{

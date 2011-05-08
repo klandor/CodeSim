@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		852756251372E4AF0027C87C /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
+		8527562C1372E5170027C87C /* Byte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8527562B1372E5170027C87C /* Byte.cpp */; };
 		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
-		8544527512279DDD00BA9182 /* Bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8544527412279DDD00BA9182 /* Bit.cpp */; };
+		85609BE513759F7C0081F746 /* SVC_UEP_exp_byte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8527560A1372A1870027C87C /* SVC_UEP_exp_byte.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
@@ -36,6 +38,10 @@
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_sim_Test.cpp; sourceTree = "<group>"; };
 		8517BEC212676B6F003C1095 /* exp_SVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exp_SVC.cpp; sourceTree = "<group>"; };
+		8527560A1372A1870027C87C /* SVC_UEP_exp_byte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVC_UEP_exp_byte.cpp; sourceTree = "<group>"; };
+		8527562B1372E5170027C87C /* Byte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Byte.cpp; sourceTree = "<group>"; };
+		85275643137394A30027C87C /* ByteTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ByteTest.cpp; sourceTree = "<group>"; };
+		852756B8137456BB0027C87C /* ConvoCodeSim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvoCodeSim.cpp; sourceTree = "<group>"; };
 		852D9C6E135962D1001D8E0E /* NES_fit.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = NES_fit.py; sourceTree = "<group>"; };
 		853626601235E65E00476D16 /* ConvoCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvoCode.cpp; sourceTree = "<group>"; };
 		8544522B1226A22100BA9182 /* BitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitTest.cpp; sourceTree = "<group>"; };
@@ -43,6 +49,7 @@
 		8547658212FC25FB00F0528A /* statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statistics.h; sourceTree = "<group>"; };
 		85497768131F6E140043C89E /* Binomial_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binomial_test.cpp; sourceTree = "<group>"; };
 		854BD8951225411B006CD78C /* CodeSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSim.h; sourceTree = "<group>"; };
+		855AD7F613752F0A00B9F197 /* BitToByteCoverterTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitToByteCoverterTest.cpp; sourceTree = "<group>"; };
 		855EEE2D124DCEA700D1D91C /* LT_sim_histogram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LT_sim_histogram.cpp; sourceTree = "<group>"; };
 		8565BD1D120C0A0D0081A319 /* LT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LT.h; sourceTree = "<group>"; };
 		8565BDD0120C28050081A319 /* mersenne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mersenne.cpp; sourceTree = "<group>"; };
@@ -137,6 +144,7 @@
 				8565BD1D120C0A0D0081A319 /* LT.h */,
 				854BD8951225411B006CD78C /* CodeSim.h */,
 				8544527412279DDD00BA9182 /* Bit.cpp */,
+				8527562B1372E5170027C87C /* Byte.cpp */,
 				85D061AA122FAC2F0094829A /* LTCode.h */,
 				85B60A531234900700842D09 /* ConvoCode.h */,
 				853626601235E65E00476D16 /* ConvoCode.cpp */,
@@ -150,10 +158,12 @@
 			children = (
 				08FB7796FE84155DC02AAC07 /* LT_sim_Test.cpp */,
 				8544522B1226A22100BA9182 /* BitTest.cpp */,
+				85275643137394A30027C87C /* ByteTest.cpp */,
 				85BD043D122A86A800EFCF85 /* PermutatorTest.cpp */,
 				85D061A4122FA19F0094829A /* LTTest.cpp */,
 				85B60A561234903000842D09 /* ConvoCodeTest.cpp */,
 				85730E731274980900609F2C /* ConvoCodeTest2.cpp */,
+				855AD7F613752F0A00B9F197 /* BitToByteCoverterTest.cpp */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -176,6 +186,8 @@
 				85BA1FF31333575400394FF3 /* LDPC_to_bipartite.cpp */,
 				85BA200B1334A34C00394FF3 /* LDPC_H_matrix.cpp */,
 				85C50E3E1362B8190027F8AA /* SVC_UEP_exp.cpp */,
+				8527560A1372A1870027C87C /* SVC_UEP_exp_byte.cpp */,
+				852756B8137456BB0027C87C /* ConvoCodeSim.cpp */,
 			);
 			name = Programs;
 			sourceTree = "<group>";
@@ -290,7 +302,6 @@
 			files = (
 				8565BDD3120C28050081A319 /* mersenne.cpp in Sources */,
 				8565BDD4120C28050081A319 /* userintf.cpp in Sources */,
-				8544527512279DDD00BA9182 /* Bit.cpp in Sources */,
 				853626611235E65E00476D16 /* ConvoCode.cpp in Sources */,
 				8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */,
 				85F215A112E5874600F6E5EA /* mrqmin.cpp in Sources */,
@@ -298,6 +309,9 @@
 				85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */,
 				85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */,
 				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
+				852756251372E4AF0027C87C /* Bit.cpp in Sources */,
+				8527562C1372E5170027C87C /* Byte.cpp in Sources */,
+				85609BE513759F7C0081F746 /* SVC_UEP_exp_byte.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
