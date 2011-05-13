@@ -367,4 +367,11 @@ namespace CodeSim {
 		output.setMessageStack(s);
 		return output;
 	}
+	
+	int ConvoCode::getK() const{
+		return k;
+	}
+	int ConvoCode::getN() const{
+		return n;
+	}
 }

@@ -23,7 +23,7 @@ int main(){
 	ConvoCode cc("convo.txt");
 	cc.showInfo();
 	
-	
+	cout << "K: " << cc.getK()<< " N: " << cc.getN() << endl;
 	Codeword<Bit> a;
 	for (int i=0; i<2*L; i++) {
 		a.push_back(r.IRandomX(0, 1));
