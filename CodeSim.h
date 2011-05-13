@@ -205,7 +205,7 @@ namespace CodeSim {
 			read permutation table from file "filename"
 			inverseOrder = true would inverse the table (permutate() become depermutate(), and vice versa)
 		*/
-		Permutator(const string filename, bool inverseOrder){
+		void init(const string filename, bool inverseOrder){
 			ifstream in(filename.c_str());
 			if(in.fail())
 			{
@@ -225,6 +225,30 @@ namespace CodeSim {
 			}
 			
 			blockSize = permutationTable.size();
+			// validate
+			vector<bool> checked(blockSize, 0);
+			for (int i = 0; i< permutationTable.size(); i++) {
+				t = permutationTable[i];
+				if( t < blockSize) {
+					checked[t] = 1;
+				}
+				else {
+					cerr << "Permutator initial error: \""<< filename << "\" is not a valid interleaver: index out of range."<<endl ;
+					exit(-1);
+					return;
+				}
+
+			}
+			
+			for (int i = 0; i< checked.size(); i++) {
+				if(checked[i] == 0)
+				{
+					cerr << "Permutator initial error: \""<< filename << "\" is not a valid interleaver: duplicated indexes."<<endl ;
+					exit(-1);
+					return;
+				}
+			}
+			
 			depermutationTable.assign(blockSize, 0);
 			
 			for (int i = 0; i< permutationTable.size(); i++) {
@@ -246,9 +270,12 @@ namespace CodeSim {
 		 */
 		
 		Permutator(const string filename){
-			Permutator(filename, false);
+			init(filename, false);
 		}
 		
+		Permutator(const string filename, bool inverseOrder){
+			init(filename, inverseOrder);
+		}
 		
 		Codeword<T> permutate(Codeword<T> c){
 			Codeword<T> output;
