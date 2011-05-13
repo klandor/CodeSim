@@ -21,8 +21,8 @@ using namespace CodeSim;
 
 #define MAX_STEPS 25
 #define MAX_LAYERSxGOPs 25
-int STEPS = 25;
-double Delta = 0.01;
+int STEPS = 13;
+double Delta = 0.02;
 int LAYERS = 3, GOPs = 5, PACKET_SIZE=500, Run=100;
 
 int main(int argn, char **args) {
