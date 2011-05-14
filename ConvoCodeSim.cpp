@@ -96,7 +96,7 @@ int main(int argn, char **args){
 		
 		cout << '\t' << total << endl;
 		
-		errRate *= pow(10, -1.0/5);
+		errRate *= pow(10, -1.0/2);
 		
 	}
 	

@@ -161,6 +161,10 @@
 			8577CC50137E781E004695DE /* PBXTextBookmark */ = 8577CC50137E781E004695DE /* PBXTextBookmark */;
 			8577CC51137E7844004695DE /* PBXTextBookmark */ = 8577CC51137E7844004695DE /* PBXTextBookmark */;
 			8577CC52137E7844004695DE /* PBXTextBookmark */ = 8577CC52137E7844004695DE /* PBXTextBookmark */;
+			8577CC53137E7922004695DE /* PBXTextBookmark */ = 8577CC53137E7922004695DE /* PBXTextBookmark */;
+			8577CC54137E7922004695DE /* PBXTextBookmark */ = 8577CC54137E7922004695DE /* PBXTextBookmark */;
+			8577CC57137E7942004695DE /* PBXTextBookmark */ = 8577CC57137E7942004695DE /* PBXTextBookmark */;
+			8577CC58137E7942004695DE /* PBXTextBookmark */ = 8577CC58137E7942004695DE /* PBXTextBookmark */;
 			858040971237CB890082A9CE = 858040971237CB890082A9CE /* PBXTextBookmark */;
 			85809D56137D173800A5038C = 85809D56137D173800A5038C /* PBXTextBookmark */;
 			85809D8F137D26C700A5038C = 85809D8F137D26C700A5038C /* PBXTextBookmark */;
@@ -263,9 +267,9 @@
 	};
 	852756B8137456BB0027C87C /* ConvoCodeSim.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1161, 1326}}";
-			sepNavSelRange = "{1509, 0}";
-			sepNavVisRange = "{0, 1027}";
+			sepNavIntBoundsRect = "{{0, 0}, {1161, 1339}}";
+			sepNavSelRange = "{1955, 0}";
+			sepNavVisRange = "{1211, 760}";
 			sepNavWindowFrame = "{{38, 1}, {1220, 751}}";
 		};
 	};
@@ -926,6 +930,46 @@
 		rType = 0;
 		vrLen = 1027;
 		vrLoc = 0;
+	};
+	8577CC53137E7922004695DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8547658212FC25FB00F0528A /* statistics.h */;
+		name = "statistics.h: 84";
+		rLen = 0;
+		rLoc = 2018;
+		rType = 0;
+		vrLen = 401;
+		vrLoc = 1617;
+	};
+	8577CC54137E7922004695DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 852756B8137456BB0027C87C /* ConvoCodeSim.cpp */;
+		name = "ConvoCodeSim.cpp: 99";
+		rLen = 0;
+		rLoc = 1955;
+		rType = 0;
+		vrLen = 760;
+		vrLoc = 1211;
+	};
+	8577CC57137E7942004695DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8547658212FC25FB00F0528A /* statistics.h */;
+		name = "statistics.h: 84";
+		rLen = 0;
+		rLoc = 2018;
+		rType = 0;
+		vrLen = 401;
+		vrLoc = 1617;
+	};
+	8577CC58137E7942004695DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 852756B8137456BB0027C87C /* ConvoCodeSim.cpp */;
+		name = "ConvoCodeSim.cpp: 99";
+		rLen = 0;
+		rLoc = 1955;
+		rType = 0;
+		vrLen = 760;
+		vrLoc = 1211;
 	};
 	858040601237C4BE0082A9CE /* stl_iterator.h */ = {
 		isa = PBXFileReference;
