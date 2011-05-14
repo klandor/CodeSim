@@ -12,7 +12,7 @@
 		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
-		85809DA3137D36C100A5038C /* ConvoCodeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85B60A561234903000842D09 /* ConvoCodeTest.cpp */; };
+		8577CC41137E772E004695DE /* ConvoCodeSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 852756B8137456BB0027C87C /* ConvoCodeSim.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
 		85F215A112E5874600F6E5EA /* mrqmin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A012E5874600F6E5EA /* mrqmin.cpp */; };
 		85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A412E5876300F6E5EA /* covsrt.cpp */; };
@@ -311,7 +311,7 @@
 				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
 				852756251372E4AF0027C87C /* Bit.cpp in Sources */,
 				8527562C1372E5170027C87C /* Byte.cpp in Sources */,
-				85809DA3137D36C100A5038C /* ConvoCodeTest.cpp in Sources */,
+				8577CC41137E772E004695DE /* ConvoCodeSim.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
