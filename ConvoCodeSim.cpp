@@ -21,9 +21,10 @@ using namespace std;
 
 int main(int argn, char **args){
 	
-	
+	string puncher_table = "0111111111";
 	CRandomMersenne r(time(0));
 	ConvoCode cc("convo-2-4-6-6.txt");
+	cout << "Punchering table: " << puncher_table << endl;
 	cout << "ChannelErasureRate";
 	for (int i=0; i<Layer; i++) {
 		cout << "\tLayer" << i+1;
@@ -49,7 +50,10 @@ int main(int argn, char **args){
 				Codeword<Bit> b = cc.encode(a);
 				
 				for (int i=0; i< b.size(); i++) {
-					if (r.Random() < errRate) {
+					if (puncher_table[i%puncher_table.size()] == '0') {
+						b[i].setErased(true);
+					}
+					else if (r.Random() < errRate) {
 						b[i].setErased(true);
 					}
 				}
@@ -92,7 +96,7 @@ int main(int argn, char **args){
 		
 		cout << '\t' << total << endl;
 		
-		errRate *= pow(10, -1.0/5);
+		errRate *= pow(10, -1.0/2);
 		
 	}
 	

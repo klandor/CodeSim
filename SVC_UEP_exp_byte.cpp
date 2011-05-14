@@ -19,21 +19,23 @@
 using namespace std;
 using namespace CodeSim;
 
-int STEPS = 2;
-double Delta = 0.5;
-int LAYERS = 3, GOPs = 5;
+#define MAX_STEPS 25
+#define MAX_LAYERSxGOPs 25
+int STEPS = 13;
+double Delta = 0.02;
+int LAYERS = 3, GOPs = 5, PACKET_SIZE=500, Run=100;
 
 int main(int argn, char **args) {
 	int start_time = time(0);
 	CRandomMersenne random(start_time);
 	
-	string precoder = "convo-4-6-10.txt", postcoder = "input_script_histogram";
+	string precoder = "convo-4-6-10.txt", postcoder = "LT_10k_0.01x.txt";
 	ConvoCode cc( precoder );
 	
-	ifstream ifs[LAYERS*GOPs], ifsStreamSize;
-	ofstream ofs[LAYERS*GOPs];
-	Codeword<Bit> a[LAYERS*GOPs];
-	int streamSize[LAYERS*GOPs];
+	ifstream ifs[MAX_LAYERSxGOPs], ifsStreamSize;
+	ofstream ofs[MAX_LAYERSxGOPs];
+	Codeword<Bit> a[MAX_LAYERSxGOPs];
+	int streamSize[MAX_LAYERSxGOPs];
 	
 	
 	// read LT parameters
@@ -57,7 +59,7 @@ int main(int argn, char **args) {
 		ifsLT >> Distribution[i];
 	}
 	
-	MaxN = 120000;
+	MaxN = K*1.5;
 	
 	
 	
@@ -134,8 +136,9 @@ int main(int argn, char **args) {
 	Codeword<Bit> d = cc.encode(c);
 	
 	// interleaver
-	Codeword<Bit> id = d;
-	// TODO
+	Permutator<Bit> inter1("interleaver-block-20x8.txt", true);
+	Codeword<Bit> id = inter1.permutate(d);
+	
 	
 	// convert to Byte
 	Codeword<Byte> e = BitToByteCoverter::convert(id);
@@ -143,8 +146,8 @@ int main(int argn, char **args) {
 	cout << e.size() << ' '<<MaxN << endl;
 	// simulating start
 	#pragma omp parallel for num_threads(4)
-	for (int run=0; run<1; run++) {
-		vector<bool> error[16][LAYERS*GOPs];
+	for (int run=0; run<Run; run++) {
+		vector<bool> error[MAX_STEPS][MAX_LAYERSxGOPs];
 		//#pragma omp parallel for //num_threads(6)
 		for (int d=0; d<STEPS; d++) {
 			for (int i=0; i<LAYERS*GOPs; i++) {
@@ -156,13 +159,13 @@ int main(int argn, char **args) {
 			seed = random.BRandom();
 			CRandomMersenne rnd(seed); // local random
 			
-			LT_sim<Byte> lt(e.size(), MaxN, Dsize, Tags, Distribution, rnd.BRandom());
+			LTCode<Byte> lt(K, K*1.5, Dsize, Tags, Distribution, rnd.BRandom());
 			Codeword<Byte> f = lt.encode(e);
 			
 			// packetize and channel
-			for (int frame_base=0; frame_base<f.size(); frame_base+=100) {
+			for (int frame_base=0; frame_base<f.size(); frame_base+=PACKET_SIZE) {
 				if( rnd.Random() < d*Delta ) {
-					for (int i=0; i<100; i++) {
+					for (int i=0; i<PACKET_SIZE; i++) {
 						if(frame_base + i == f.size())
 							break;
 						
@@ -173,7 +176,7 @@ int main(int argn, char **args) {
 			}
 			Codeword<Byte> df = lt.decode(f);
 			Codeword<Bit> ff = BitToByteCoverter::revert(df);
-			// TODO deinterleave
+			ff=inter1.depermutate(ff);
 			Codeword<Bit> g = cc.decode(ff);
 			
 			// compare result
