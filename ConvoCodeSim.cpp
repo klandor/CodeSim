@@ -13,7 +13,10 @@
 #include <ctime>
 #include <cmath>
 #define L 100000
-#define Layer 4
+#define MAX_BIT 1000000000L
+#define START_ERROR_RATE 0.1
+#define STEPS_PER_ORDER 3
+#define MIN_ERRORS 100
 #include <omp.h>
 
 using namespace CodeSim;
@@ -21,10 +24,23 @@ using namespace std;
 
 int main(int argn, char **args){
 	
-	string puncher_table = "0111111111";
+	if (argn == 1) {
+		cerr << "Usage: ConvoCodeSim.out code_file [punchering_table_string]" << endl;
+		exit(-1);
+	}
+
+	
+	string puncher_table = "1";
+
+	
+	if (argn > 2) {
+		puncher_table = args[2];
+	}
+	
 	CRandomMersenne r(time(0));
-	ConvoCode cc("convo-2-4-6-6.txt");
-	cout << "Punchering table: " << puncher_table << endl;
+	ConvoCode cc( args[1] );
+	int Layer = cc.getK();
+	cout << "Code file: \"" << args[1] <<"\" Punchering table: " << puncher_table << endl;
 	cout << "ChannelErasureRate";
 	for (int i=0; i<Layer; i++) {
 		cout << "\tLayer" << i+1;
@@ -33,11 +49,12 @@ int main(int argn, char **args){
 	
 	double errRate = 0.1;
 	while (1) {
-		unsigned long err[Layer], total=0;
+		vector<unsigned long> err(Layer, 0);
+		unsigned long total=0;
 		
-		for (int i=0; i<Layer; i++) {
-			err[i]=0;
-		}
+//		for (int i=0; i<Layer; i++) {
+//			err[i]=0;
+//		}
 		
 		while (1) {
 			#pragma omp parallel for num_threads(6)
@@ -70,13 +87,13 @@ int main(int argn, char **args){
 				total += L;
 			}
 			// check stop
-			if (total >= 1000*L) {
+			if (total >= MAX_BIT) {
 				break;
 			}
 			
 			bool enough = true;
 			for (int i=0; i<Layer; i++) {
-				if (err[i] < 100) {
+				if (err[i] < MIN_ERRORS) {
 					enough = false;
 				}
 			}
@@ -96,7 +113,7 @@ int main(int argn, char **args){
 		
 		cout << '\t' << total << endl;
 		
-		errRate *= pow(10, -1.0/2);
+		errRate *= pow(10, -1.0/STEPS_PER_ORDER);
 		
 	}
 	
