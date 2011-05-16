@@ -39,8 +39,8 @@ int		*Degree;//[10] = {1, 2, 3, 4, 5, 7, 9, 19, 59, 179};//{1,2,3,4,5,8,9,19,65,
 
 double  *Omega;//[10] ;//= {7.9379E-02, 4.0129E-01, 1.0121E-01, 2.1679E-01, 5.0996E-02, 
 //	5.8338E-05, 3.9740E-02, 7.7470E-02, 2.1520E-02, 1.1547E-02};
-vector<unsigned long> err_histo[STEPS]; //, l0a_max[STEPS][1000];
-list<unsigned int> burst_length[STEPS];
+unsigned long *err_histo[STEPS]; //, l0a_max[STEPS][1000];
+unsigned long *burst_length[STEPS];
 
 int main(int argn, char **args){
 	if (argn <3) {
@@ -74,7 +74,15 @@ int main(int argn, char **args){
 	
 	for (int s=0; s<STEPS; s++) {
 		
-		err_histo[s].assign(windowSize+1,0);
+		err_histo[s] = new unsigned long[windowSize+1];
+		for (int i=0; i<windowSize+1; i++) {
+			err_histo[s][i]=0;
+		}
+		
+		burst_length[s]= new unsigned long[K];
+		for (int i=0; i<K; i++) {
+			burst_length[s][i]=0;
+		}
 		
 	}
 	
@@ -126,8 +134,8 @@ int main(int argn, char **args){
 				}
 				else {
 					if (burstLen !=0) {
-						#pragma omp critical
-						burst_length[s].push_back(burstLen);
+						#pragma omp atomic
+						burst_length[s][burstLen]++;
 						burstLen = 0;
 					}
 				}
@@ -151,9 +159,9 @@ int main(int argn, char **args){
 	}
 	cout << "\n\n";
 	for (int s=0; s<STEPS; s++) {
-		cout << BASE + s*Delta << ":\t";
-		for (list<unsigned int>::iterator i=burst_length[s].begin(); i!=burst_length[s].end(); i++) {
-			cout << *i << '\t' ;//<< l0a_max[i] << '\n';
+		cout << BASE + s*Delta << ":";
+		for (int i=1; i< K; i++) {
+			cout  << '\t' << burst_length[s][i];
 		}
 		cout << '\n';
 	}
