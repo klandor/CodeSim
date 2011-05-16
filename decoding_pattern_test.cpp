@@ -27,7 +27,7 @@ using namespace CodeSim;
 int K;
 
 #define EPS 0.2
-#define RUN 1000000
+#define RUN 1000000L
 #define BASE 1.065
 #define Delta 0.005
 #define STEPS 8
@@ -153,7 +153,7 @@ int main(int argn, char **args){
 	for (int s=0; s<STEPS; s++) {
 		cout << BASE + s*Delta << ":\t";
 		for (int i=0; i<windowSize+1; i++) {
-			cout << err_histo[s][i] / (double)(RUN*(K-windowSize+1)) << '\t' ;//<< l0a_max[i] << '\n';
+			cout << err_histo[s][i] / ((double)(RUN)*(K-windowSize+1)) << '\t' ;//<< l0a_max[i] << '\n';
 		}
 		cout << '\n';
 	}
