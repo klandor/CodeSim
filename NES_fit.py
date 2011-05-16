@@ -116,7 +116,7 @@ class LT_exp:
 			if(err[i]>0):
 				err[i] = log10(err[i])
 			else:
-				err[i] = P_e_min
+				err[i] = self.P_e_min
 		
 		
 		fit = 0
