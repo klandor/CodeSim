@@ -80,7 +80,7 @@ int main(int argn, char **args){
 				for (int i=0; i<c.size(); i++) {
 					if (!(a[i] == c[i])) {
 						#pragma omp atomic
-						err[i%4]++;
+						err[i%Layer]++;
 					}
 				}
 				#pragma omp atomic
