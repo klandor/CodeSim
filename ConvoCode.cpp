@@ -78,6 +78,9 @@ namespace CodeSim {
 				G[i][j] = octToDec(t);
 			}
 		}
+		
+		if(!(fin >> puntureTable))
+			puntureTable = "1";
 		fin.close();
 		generateTrellis();
 		
@@ -204,16 +207,59 @@ namespace CodeSim {
 		
 		delete [] o;
 		output.setMessageStack(s);
-		return output;
+		
+		double prate=0;
+		for(int i=0; i<puntureTable.size(); i++){
+			if (puntureTable[i] == '1') {
+				prate++;
+			}
+		}
+		prate /= puntureTable.size();
+		Codeword<Bit> tmp;
+		tmp.setMessageStack(s);
+		tmp.reserve(output.size()*prate + n);
+		//punture
+		int j=0;
+		Codeword<Bit>::iterator it=output.begin();
+		while( it!=output.end() ) {
+			if (puntureTable[j%puntureTable.size()] == '1') {
+				tmp.push_back(*it);
+			}
+			
+			it++;
+			j++;
+		}
+		return tmp;
 	}
 	
-	Codeword<Bit> ConvoCode::decode(Codeword<Bit> & a) const{
-		Codeword<Bit> output;
+	Codeword<Bit> ConvoCode::decode(Codeword<Bit> & pa) const{
+		double prate=0;
+		for(int i=0; i<puntureTable.size(); i++){
+			if (puntureTable[i] == '1') {
+				prate++;
+			}
+		}
+		prate /= puntureTable.size();
+		
+		Codeword<Bit> output, a;
 		output.reserve( (a.size()/n+1) *k);
-		stack<int> s = a.getMessageStack();
+		a.reserve(pa.size()/prate + n);
+		stack<int> s = pa.getMessageStack();
+		
+		//depunture
+		int j=0, it=0;
+		while( it< pa.size() ) {
+			while (puntureTable[j%puntureTable.size()] == '0') {
+				a.push_back(-1);
+				j++;
+			}
+			a.push_back(pa[it]);
+			it++;
+			j++;
+		}
 		
 		while (a.size() % n != 0) {
-			a.push_back(0);
+			a.push_back(-1);
 		}
 		list< vector<unsigned int> > preState, cost, preIn;
 		

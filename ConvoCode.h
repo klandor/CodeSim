@@ -59,6 +59,7 @@ namespace CodeSim {
 		vector<int> forneyIndices;
 		vector< vector<int> > G;
 		vector< vector<state> > trellis;
+		string puntureTable;
 	};
 
 }
