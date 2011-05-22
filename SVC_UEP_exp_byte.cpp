@@ -22,8 +22,8 @@ using namespace CodeSim;
 #define MAX_STEPS 25
 #define MAX_LAYERSxGOPs 25
 #define GOPs 5
-int STEPS = 3;
-double Delta = 0.04, BASE = 1.08, errorRate=0.16;
+int STEPS = 6;
+double Delta = 0.01, BASE = 1.05, errorRate=0.2;
 int LAYERS = 3, PACKET_SIZE=100, Run=100;
 
 int main(int argn, char **args) {
@@ -61,7 +61,7 @@ int main(int argn, char **args) {
 	}
 	
 	MaxN = K*1.5;
-	
+	unsigned long total_k = 0;
 	
 	
 	// read in data
@@ -74,7 +74,7 @@ int main(int argn, char **args) {
 	}
 	for (int i=0; i<LAYERS*GOPs; i++) {
 		ifsStreamSize >> streamSize[i];
-		
+		total_k += streamSize[i];
 		p = new short[streamSize[i]];
 		
 		ostringstream oss;
@@ -107,6 +107,8 @@ int main(int argn, char **args) {
 		
 	}
 	ifsStreamSize.close();
+	
+	ofstream realRate("realRate.txt");
 	
 	
 	// concacenate to LAYERS streams
@@ -174,6 +176,7 @@ int main(int argn, char **args) {
 	#pragma omp parallel for num_threads(4)
 	for (int run=0; run<Run; run++) {
 		vector<bool> error[MAX_STEPS][MAX_LAYERSxGOPs];
+		unsigned long total_n[MAX_STEPS];
 		
 		int seed;
 		#pragma omp critical
@@ -184,7 +187,7 @@ int main(int argn, char **args) {
 			for (int i=0; i<LAYERS*GOPs; i++) {
 				error[d][i].assign(streamSize[i], 0);
 			}
-			
+			total_n[d] = 0;
 			
 			for (int gop =0; gop<GOPs; gop++) {
 				vector<bool> mask;
@@ -201,6 +204,7 @@ int main(int argn, char **args) {
 					}
 				}
 				
+				total_n[d] += mask.size();
 				LT_sim<Byte> lt(e[gop].size(), mask.size(),  Dsize, Tags, Distribution, rnd.BRandom());
 				Codeword<Byte> f = lt.encode(e[gop]);
 				
@@ -278,7 +282,11 @@ int main(int argn, char **args) {
 					ofs[i] << '\n';
 					
 				}
-				ofs[i] << '\n';
+				ofs[i] << endl;
+				realRate << endl;
+			}
+			for (int d=0; d<STEPS; d++) {
+				realRate << total_n[d]*8/(double)total_k << '\t';
 			}
 		}
 	}
