@@ -31,6 +31,9 @@ LT_BER.out: LT_BER.cpp CodeSim randomc
 	
 ConvoCodeSim.out: ConvoCodeSim.cpp CodeSim randomc
 	$(CXX) $(CPPFLAGS) ConvoCodeSim.cpp mersenne.o userintf.o Bit.o ConvoCode.o -o $@
+	
+ConvoLTSim.out: ConvoCodeSim.cpp CodeSim randomc
+	$(CXX) $(CPPFLAGS) ConvoLTSim.cpp mersenne.o userintf.o Byte.o Bit.o ConvoCode.o -o $@
 
 SVC_UEP_exp_byte.out: ConvoCodeSim.cpp CodeSim randomc
 	$(CXX) $(CPPFLAGS) SVC_UEP_exp_byte.cpp mersenne.o userintf.o Bit.o Byte.o ConvoCode.o -o $@
