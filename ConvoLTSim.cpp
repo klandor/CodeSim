@@ -26,7 +26,7 @@ using namespace std;
 int main(int argn, char **args){
 	
 	if (argn < 3) {
-		cerr << "Usage: ConvoCodeSim.out convo_code_file LT_file [punchering_table_string]" << endl;
+		cerr << "Usage: ConvoLTSim.out convo_code_file LT_file [punchering_table_string]" << endl;
 		exit(-1);
 	}
 	
