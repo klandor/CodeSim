@@ -15,9 +15,9 @@
 #include <cmath>
 //#define L 100000
 #define MAX_BIT 1000000000L
-#define BASE 1.085
-#define STEPS 4
-#define Delta 0.005
+#define BASE 1.05
+#define STEPS 6
+#define Delta 0.01
 #include <omp.h>
 
 using namespace CodeSim;
@@ -41,8 +41,8 @@ int main(int argn, char **args){
 	CRandomMersenne r(time(0));
 	ConvoCode cc( args[1] );
 	int Layer = cc.getK();
-	unsigned long L = 80000/Layer;
-	unsigned long Run = MAX_BIT / L;
+	unsigned long L = 22852;//80000/Layer;
+	unsigned long Run = 1;//MAX_BIT / L;
 	ifstream ifsLT(args[2]);
 	if(ifsLT.fail()){
 		cerr << "Error: file \""+string(args[2])+"\" does not exist." << endl;
@@ -64,7 +64,7 @@ int main(int argn, char **args){
 	}
 	
 	
-	Permutator<Bit> inter("interleaver-block-20x8.txt");
+	Permutator<Bit> inter("interleaver_S_s1_1100_s2_30.txt");
 	
 	
 	cout << "ConvoCode file: \"" << args[1] <<"\" LT file: " << args[2] << endl;
@@ -93,15 +93,17 @@ int main(int argn, char **args){
 					a.push_back(r.IRandomX(0, 1));
 				}
 				Codeword<Bit> b = cc.encode(a);
+				if(s == 0 && i==0)
+					cout << "Convo block:" << b.size() << endl;
 				b = inter.permutate(b);
-				Codeword<Byte> b1 = BitToByteCoverter::convert(b);
+//				Codeword<Byte> b1 = BitToByteCoverter::convert(b);
 				
 				if(s == 0 && i==0)
-					cout << "LT block:" << b1.size() << endl;
-				LT_sim<Byte> lt(b1.size(), b1.size()*(1+Epsilon), Dsize, Tags, Distribution, r.BRandom());
-				Codeword<Byte> c1 = lt.encode(b1);
+					cout << "LT block:" << b.size() << endl;
+				LTCode<Bit> lt(10000, 10000*(1+Epsilon), Dsize, Tags, Distribution, r.BRandom());
+				Codeword<Bit> c1 = lt.encode(b);
 				c1 = lt.decode(c1);
-				Codeword<Bit> c2 = BitToByteCoverter::revert(c1);
+				Codeword<Bit> c2 = c1;//BitToByteCoverter::revert(c1);
 				c2 = inter.depermutate(c2);
 				
 				Codeword<Bit> c = cc.decode(c2);
