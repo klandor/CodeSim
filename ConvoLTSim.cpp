@@ -42,7 +42,7 @@ int main(int argn, char **args){
 	ConvoCode cc( args[1] );
 	int Layer = cc.getK();
 	unsigned long L = 22852;//80000/Layer;
-	unsigned long Run = 1;//MAX_BIT / L;
+	unsigned long Run = MAX_BIT / L;
 	ifstream ifsLT(args[2]);
 	if(ifsLT.fail()){
 		cerr << "Error: file \""+string(args[2])+"\" does not exist." << endl;
