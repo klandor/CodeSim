@@ -15,9 +15,9 @@
 #include <cmath>
 //#define L 100000
 #define MAX_BIT 1000000000L
-#define BASE 1.05
-#define STEPS 6
-#define Delta 0.01
+#define BASE 1.085
+#define STEPS 4
+#define Delta 0.005
 #include <omp.h>
 
 using namespace CodeSim;
@@ -42,7 +42,7 @@ int main(int argn, char **args){
 	ConvoCode cc( args[1] );
 	int Layer = cc.getK();
 	unsigned long L = 80000/Layer;
-	unsigned long Run = MAX_BIT / 80000;
+	unsigned long Run = MAX_BIT / L;
 	ifstream ifsLT(args[2]);
 	if(ifsLT.fail()){
 		cerr << "Error: file \""+string(args[2])+"\" does not exist." << endl;
