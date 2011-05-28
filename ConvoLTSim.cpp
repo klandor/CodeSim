@@ -13,6 +13,7 @@
 #include "randomc.h"
 #include <ctime>
 #include <cmath>
+#include <map>
 //#define L 100000
 #define MAX_BIT 1000000000L
 #define BASE 1.05
@@ -41,7 +42,7 @@ int main(int argn, char **args){
 	CRandomMersenne r(time(0));
 	ConvoCode cc( args[1] );
 	int Layer = cc.getK();
-	unsigned long L = 22852;//80000/Layer;
+	unsigned long L = 80000/Layer;
 	unsigned long Run = MAX_BIT / L;
 	ifstream ifsLT(args[2]);
 	if(ifsLT.fail()){
@@ -64,7 +65,7 @@ int main(int argn, char **args){
 	}
 	
 	
-	Permutator<Bit> inter("interleaver_S_s1_1100_s2_30.txt");
+	Permutator<Bit> inter("interleaver-block-20x8.txt");
 	
 	
 	cout << "ConvoCode file: \"" << args[1] <<"\" LT file: " << args[2] << endl;
@@ -76,9 +77,11 @@ int main(int argn, char **args){
 	
 	
 	for (int s=0; s<STEPS; s++) {
-		vector<unsigned long> err(Layer, 0);
+		vector<unsigned long> total_err(Layer, 0);
 		unsigned long total=0;
 		double Epsilon = (BASE+s*Delta) -1;
+		vector<vector<bool> > histo_mask(Layer, vector<bool>(L+1,0));
+		vector<map<unsigned long, unsigned long> > histo(Layer, map<unsigned long, unsigned long>());
 		//		for (int i=0; i<Layer; i++) {
 		//			err[i]=0;
 		//		}
@@ -87,23 +90,22 @@ int main(int argn, char **args){
 		{
 			#pragma omp parallel for num_threads(6)
 			for (int i=0; i<Run; i++) {
+				vector<unsigned long> err(Layer, 0);
 				Codeword<Bit> a;
 				a.reserve(Layer*L);
 				for (int t=0; t<Layer*L; t++) {
 					a.push_back(r.IRandomX(0, 1));
 				}
 				Codeword<Bit> b = cc.encode(a);
-				if(s == 0 && i==0)
-					cout << "Convo block:" << b.size() << endl;
 				b = inter.permutate(b);
-//				Codeword<Byte> b1 = BitToByteCoverter::convert(b);
+				Codeword<Byte> b1 = BitToByteCoverter::convert(b);
 				
 				if(s == 0 && i==0)
-					cout << "LT block:" << b.size() << endl;
-				LTCode<Bit> lt(10000, 10000*(1+Epsilon), Dsize, Tags, Distribution, r.BRandom());
-				Codeword<Bit> c1 = lt.encode(b);
+					cout << "LT block:" << b1.size() << endl;
+				LT_sim<Byte> lt(b1.size(), b1.size()*(1+Epsilon), Dsize, Tags, Distribution, r.BRandom());
+				Codeword<Byte> c1 = lt.encode(b1);
 				c1 = lt.decode(c1);
-				Codeword<Bit> c2 = c1;//BitToByteCoverter::revert(c1);
+				Codeword<Bit> c2 = BitToByteCoverter::revert(c1);
 				c2 = inter.depermutate(c2);
 				
 				Codeword<Bit> c = cc.decode(c2);
@@ -114,11 +116,29 @@ int main(int argn, char **args){
 						err[i%Layer]++;
 					}
 				}
+				
 				#pragma omp atomic
 				total += L;
+				
+				for (int i=0; i<Layer; i++) {
+					#pragma omp atomic
+					total_err[i]+=err[i];
+				}
+				
+				#pragma omp critical
+				for (int i=0; i<Layer; i++) {
+					if(histo_mask[i][err[i]]){
+						histo[i][err[i]] ++;
+					}
+					else {
+						histo[i][err[i]] = 1;
+						histo_mask[i][err[i]] =1;
+					}
+					
+				}
 			}
 			
-		
+			
 		}
 		
 		// enough # of errors
@@ -126,14 +146,19 @@ int main(int argn, char **args){
 		cout << Epsilon;
 		
 		for (int i=0; i<Layer; i++) {
-			cout << '\t' << err[i]/(double)total;
+			cout << '\t' << total_err[i]/(double)total;
 		}
 		
 		cout << '\t' << total << endl;
 		
-		//errRate *= pow(10, -1.0/STEPS_PER_ORDER);
-		Epsilon += 0.01;
+		for (int i=0; i<Layer; i++) {
+			cout << "Layer " << i +1 << " histogram:\n";
+			for (map<unsigned long, unsigned long>::iterator it = histo[i].begin(); it!=histo[i].end(); it++) {
+				cout << it->first << '\t' << it->second / (double) Run << '\n';
+			}
+		}
 		
+		cout << endl;
 		
 	}
 	
