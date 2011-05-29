@@ -15,9 +15,9 @@
 #include <cmath>
 #include <map>
 //#define L 100000
-#define MAX_BIT 1000000000L
+#define MAX_BIT 20000000000ULL
 #define BASE 1.05
-#define STEPS 6
+#define STEPS 1
 #define Delta 0.01
 #include <omp.h>
 
