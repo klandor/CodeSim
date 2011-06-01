@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>8566F38E13917109001BAD3B</string>
+						<string>85F8AB6313955BD900B231EE</string>
 						<key>history</key>
 						<array>
-							<string>8566F389139170F4001BAD3B</string>
+							<string>8566F3E61392AA20001BAD3B</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -371,6 +371,10 @@
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
 										<string>ConvoLTSim.cpp</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>85F8AB6213955BD900B231EE</string>
 										<key>history</key>
 										<array>
 											<string>85B60B8E1235293000842D09</string>
@@ -442,14 +446,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {723, 159}}</string>
+								<string>{{0, 0}, {723, 143}}</string>
 								<key>RubberWindowFrame</key>
 								<string>265 55 1003 723 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>159pt</string>
+							<string>143pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -462,14 +466,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 164}, {723, 518}}</string>
+								<string>{{0, 148}, {723, 534}}</string>
 								<key>RubberWindowFrame</key>
 								<string>265 55 1003 723 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>518pt</string>
+							<string>534pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -488,9 +492,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>8566F38A13917109001BAD3B</string>
+				<string>85F8AB271395568B00B231EE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>8566F38B13917109001BAD3B</string>
+				<string>85F8AB281395568B00B231EE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -628,9 +632,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>85F8AB6013955BD400B231EE</string>
+		<string>85F8AB6113955BD400B231EE</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>8565BD44120C19560081A319</string>
-		<string>8566F38C13917109001BAD3B</string>
 		<string>/Users/klandor/Dropbox/Lab/Programs/CodeSim/new_LT.xcodeproj</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>8566F38C13917109001BAD3B</string>
 	</array>
 	<key>WindowString</key>
 	<string>265 55 1003 723 0 0 1280 778 </string>
@@ -710,7 +718,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>8565BD44120C19560081A319</string>
-				<string>8566F38F13917109001BAD3B</string>
+				<string>85F8AB2A1395568B00B231EE</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -832,13 +840,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>8566F30D139128C7001BAD3B</string>
+				<string>85F8AB5913955BD400B231EE</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>8566F30E139128C7001BAD3B</string>
-				<string>8566F30F139128C7001BAD3B</string>
-				<string>8566F310139128C7001BAD3B</string>
-				<string>8566F311139128C7001BAD3B</string>
-				<string>8566F312139128C7001BAD3B</string>
+				<string>85F8AB5A13955BD400B231EE</string>
+				<string>85F8AB5B13955BD400B231EE</string>
+				<string>85F8AB5C13955BD400B231EE</string>
+				<string>85F8AB5D13955BD400B231EE</string>
+				<string>85F8AB5E13955BD400B231EE</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -994,7 +1002,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>8566F313139128C7001BAD3B</string>
+				<string>85F8AB5F13955BD400B231EE</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
