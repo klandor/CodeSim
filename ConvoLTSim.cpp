@@ -15,8 +15,8 @@
 #include <cmath>
 #include <map>
 //#define L 100000
-#define MAX_BIT 5000000000ULL
-#define BASE 1.11
+#define MAX_BIT 8000000000ULL
+#define BASE 1.08
 #define STEPS 1
 #define Delta 0.01
 #include <omp.h>
@@ -26,18 +26,18 @@ using namespace std;
 
 int main(int argn, char **args){
 	
-	if (argn < 3) {
-		cerr << "Usage: ConvoLTSim.out convo_code_file LT_file [punchering_table_string]" << endl;
+	if (argn < 4) {
+		cerr << "Usage: ConvoLTSim.out convo_code_file LT_file interleaver_file" << endl;
 		exit(-1);
 	}
 	
 	int start_time = time(0);
-	string puncher_table = "1";
-	
-	
-	if (argn > 3) {
-		puncher_table = args[3];
-	}
+//	string puncher_table = "1";
+//	
+//	
+//	if (argn > 3) {
+//		puncher_table = args[3];
+//	}
 	
 	CRandomMersenne r(time(0));
 	ConvoCode cc( args[1] );
@@ -65,10 +65,10 @@ int main(int argn, char **args){
 	}
 	
 	
-	Permutator<Bit> inter("interleaver-block-20x8.txt");
+	Permutator<Bit> inter(args[3]);
 	
 	
-	cout << "ConvoCode file: \"" << args[1] <<"\" LT file: " << args[2] << endl;
+	cout << "ConvoCode file: \"" << args[1] <<"\" LT file: " << args[2] << "\" interleaver file: " << args[2] << '"' << endl;
 	cout << "Epsilon";
 	for (int i=0; i<Layer; i++) {
 		cout << "\tLayer" << i+1;
@@ -88,7 +88,7 @@ int main(int argn, char **args){
 		
 		//while (1) 
 		{
-			#pragma omp parallel for num_threads(6)
+			#pragma omp dynamic parallel for num_threads(6)
 			for (int i=0; i<Run; i++) {
 				vector<unsigned long> err(Layer, 0);
 				unsigned long LT_err = 0;
