@@ -15,7 +15,7 @@
 #include <cmath>
 #include <map>
 //#define L 100000
-#define MAX_BIT 8000000000ULL
+#define MAX_BIT 1000000000ULL
 #define BASE 1.08
 #define STEPS 1
 #define Delta 0.01
@@ -65,10 +65,10 @@ int main(int argn, char **args){
 	}
 	
 	
-	Permutator<Bit> inter(args[3]);
+	Permutator<Bit> inter(args[3], true);
 	
 	
-	cout << "ConvoCode file: \"" << args[1] <<"\" LT file: " << args[2] << "\" interleaver file: " << args[2] << '"' << endl;
+	cout << "ConvoCode file: \"" << args[1] <<"\" LT file: " << args[2] << "\" interleaver file: " << args[3] << '"' << endl;
 	cout << "Epsilon";
 	for (int i=0; i<Layer; i++) {
 		cout << "\tLayer" << i+1;
