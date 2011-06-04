@@ -88,7 +88,7 @@ int main(int argn, char **args){
 		
 		//while (1) 
 		{
-			#pragma omp dynamic parallel for num_threads(6)
+			#pragma omp dynamic parallel for schedule(dynamic) num_threads(6)
 			for (int i=0; i<Run; i++) {
 				vector<unsigned long> err(Layer, 0);
 				unsigned long LT_err = 0;
