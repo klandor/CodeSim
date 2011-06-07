@@ -16,9 +16,9 @@
 #include <map>
 //#define L 100000
 #define MAX_BIT 1000000000ULL
-#define BASE 1.08
-#define STEPS 1
-#define Delta 0.01
+#define BASE 1.05
+#define STEPS 3
+#define Delta 0.02
 #include <omp.h>
 
 using namespace CodeSim;
@@ -42,7 +42,7 @@ int main(int argn, char **args){
 	CRandomMersenne r(time(0));
 	ConvoCode cc( args[1] );
 	int Layer = cc.getK();
-	unsigned long L = 80000/Layer;
+	unsigned long L = 80000*6/7/Layer;
 	unsigned long Run = MAX_BIT / L;
 	ifstream ifsLT(args[2]);
 	if(ifsLT.fail()){
@@ -73,7 +73,7 @@ int main(int argn, char **args){
 	for (int i=0; i<Layer; i++) {
 		cout << "\tLayer" << i+1;
 	}
-	cout << "\tTotalBits\tLT\tLT_total\tRun\n";
+	cout << "\tTotalBits\tLT\tLT_total\tRun\tRealEpsilon\n";
 	
 	
 	for (int s=0; s<STEPS; s++) {
@@ -82,10 +82,7 @@ int main(int argn, char **args){
 		double Epsilon = (BASE+s*Delta) -1;
 		vector<vector<bool> > histo_mask(Layer, vector<bool>(L+1,0)), LT_histo_mask(1, vector<bool>(L+1,0));
 		vector<map<unsigned long, unsigned long> > histo(Layer, map<unsigned long, unsigned long>()), LT_histo(1, map<unsigned long, unsigned long>());
-		//		for (int i=0; i<Layer; i++) {
-		//			err[i]=0;
-		//		}
-		
+		double real_epsilon=0;
 		//while (1) 
 		{
 			#pragma omp parallel for schedule(dynamic) num_threads(6)
@@ -101,9 +98,15 @@ int main(int argn, char **args){
 				b = inter.permutate(b);
 				Codeword<Byte> b1 = BitToByteCoverter::convert(b);
 				
+				int encoding_block=0;
+				while (encoding_block < b1.size()*(1+Epsilon)) {
+					encoding_block += 100;
+				}
+				real_epsilon = (encoding_block / (double) b1.size() ) -1;
+
 				if(s == 0 && i==0)
-					cout << "LT block:" << b1.size() << endl;
-				LT_sim<Byte> lt(b1.size(), b1.size()*(1+Epsilon), Dsize, Tags, Distribution, r.BRandom());
+					cout << "LT block:\t" << b1.size() <<endl;
+				LT_sim<Byte> lt(b1.size(), encoding_block, Dsize, Tags, Distribution, r.BRandom());
 				Codeword<Byte> c1 = lt.encode(b1);
 				c1 = lt.decode(c1);
 				for (int i=0; i<c1.size(); i++) {
@@ -172,7 +175,7 @@ int main(int argn, char **args){
 			cout << '\t' << total_err[i];
 		}
 		
-		cout << '\t' << total << '\t' << LT_total_err << '\t' << LT_total << '\t' << Run << endl;
+		cout << '\t' << total << '\t' << LT_total_err << '\t' << LT_total << '\t' << Run << '\t' << real_epsilon << endl;
 		
 		for (int i=0; i<Layer; i++) {
 			cout << "Layer " << i +1 << " histogram:\n";
