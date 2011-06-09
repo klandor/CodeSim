@@ -127,16 +127,18 @@ int main(int argn, char **args){
 					}
 				}
 				
-				
-				Codeword<Bit> c2 = BitToByteCoverter::revert(c1);
-				c2 = inter.depermutate(c2);
-				
-				Codeword<Bit> c = cc.decode(c2);
-				
-				for (int i=0; i<c.size(); i++) {
-					if (!(a[i] == c[i])) {
-						//#pragma omp atomic
-						err[i%Layer]++;
+				if (LT_err > 0)
+				{
+					Codeword<Bit> c2 = BitToByteCoverter::revert(c1);
+					c2 = inter.depermutate(c2);
+
+					Codeword<Bit> c = cc.decode(c2);
+
+					for (int i=0; i<c.size(); i++) {
+						if (!(a[i] == c[i])) {
+							//#pragma omp atomic
+							err[i%Layer]++;
+						}
 					}
 				}
 				
