@@ -23,22 +23,37 @@ using namespace CodeSim;
 #define MAX_LAYERSxGOPs 25
 #define GOPs 5
 int STEPS = 6;
-double Delta = 0.01, BASE = 1.05, errorRate=0.2;
-int LAYERS = 3, PACKET_SIZE=100, Run=100;
+double Delta = 0.01, BASE = 1.05, errorRate=0.0;
+int LAYERS = 3, PACKET_SIZE=1, Run=100;
 
 int main(int argn, char **args) {
 	int start_time = time(0);
 	CRandomMersenne random(start_time);
 	
-	string precoder = "convo-2-4-5.txt", postcoder = "LT_10k_0.01x.txt";
-	ConvoCode cc( precoder );
+	string precoder = "convo-2-3-6.txt", postcoder = "LT_ArithmWtAt0.2.txt"
+		, interleaver = "interleaver-block-160x8.txt";
 	
 	ifstream ifs[MAX_LAYERSxGOPs], ifsStreamSize;
 	ofstream ofs[MAX_LAYERSxGOPs];
 	Codeword<Bit> a[MAX_LAYERSxGOPs];
 	int streamSize[MAX_LAYERSxGOPs];
 	
+	if(argn >= 2){
+		precoder = args[1];
+	}
 	
+	if(argn >= 3){
+		postcoder = args[2];
+	}
+	
+	if(argn >= 4){
+		interleaver = args[3];
+	}
+	
+	ConvoCode cc( precoder );
+
+	cout << "precoder: \"" << precoder << "\" postcoder: \""<< postcoder << '"';
+	cout << " interleaver: \"" << interleaver << '"' << endl;
 	// read LT parameters
 	ifstream ifsLT(postcoder.c_str());
 	if(ifsLT.fail()){
@@ -67,7 +82,7 @@ int main(int argn, char **args) {
 	// read in data
 	short *p;
 	
-	ifsStreamSize.open("Stream_Size");
+	ifsStreamSize.open("Stream_Size.txt");
 	if(ifsStreamSize.fail()){
 		cerr << "Error: file \"Stream_Size\" does not exist." << endl;
 		exit(-1);
@@ -156,7 +171,7 @@ int main(int argn, char **args) {
 	
 	
 	// interleaver
-	Permutator<Bit> inter1("interleaver-block-20x8.txt", true);
+	Permutator<Bit> inter1(interleaver, true);
 	Codeword<Bit> id[GOPs];
 	for (int i=0; i<GOPs; i++) {
 		id[i]  = inter1.permutate(d[i]);
@@ -173,7 +188,7 @@ int main(int argn, char **args) {
 	}
 	
 	// simulating start
-	#pragma omp parallel for num_threads(4)
+	#pragma omp parallel for schedule(dynamic) num_threads(6)
 	for (int run=0; run<Run; run++) {
 		vector<bool> error[MAX_STEPS][MAX_LAYERSxGOPs];
 		unsigned long total_n[MAX_STEPS];
@@ -275,7 +290,7 @@ int main(int argn, char **args) {
 		#pragma omp critical
 		{
 			for (int i=0; i<LAYERS*GOPs; i++) {
-				for (int d=0; d<STEPS; d++) {
+				for (int d=STEPS-1; d >=0; d--) {
 					for (int b=0; b<streamSize[i]; b++) {
 						ofs[i] << error[d][i][b] << ' ';
 					}
