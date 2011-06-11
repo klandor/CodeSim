@@ -23,8 +23,8 @@ using namespace CodeSim;
 #define MAX_LAYERSxGOPs 25
 #define GOPs 5
 int STEPS = 6;
-double Delta = 0.01, BASE = 1.05, errorRate=0.0;
-int LAYERS = 3, PACKET_SIZE=1, Run=100;
+double Delta = 0.01, BASE = 1.05, errorRate=0.1;
+int LAYERS = 3, PACKET_SIZE=1, Run=500;
 
 int main(int argn, char **args) {
 	int start_time = time(0);
@@ -34,7 +34,7 @@ int main(int argn, char **args) {
 		, interleaver = "interleaver-block-160x8.txt";
 	
 	ifstream ifs[MAX_LAYERSxGOPs], ifsStreamSize;
-	ofstream ofs[MAX_LAYERSxGOPs];
+	ofstream ofs[MAX_LAYERSxGOPs], realRate[GOPs], ofsExpSetting;
 	Codeword<Bit> a[MAX_LAYERSxGOPs];
 	int streamSize[MAX_LAYERSxGOPs];
 	
@@ -123,7 +123,25 @@ int main(int argn, char **args) {
 	}
 	ifsStreamSize.close();
 	
-	ofstream realRate("realRate.txt");
+	ofsExpSetting.open("setting.txt");
+	if(ofsExpSetting.fail())
+	{
+		cerr << "Error: file \"block_size.txt\" can not be opened." << endl;
+		exit(-1);
+	}
+	
+	ofsExpSetting << "precoder: \"" << precoder << "\" postcoder: \""<< postcoder << '"';
+	ofsExpSetting << " interleaver: \"" << interleaver << '"' << endl;
+	
+	for (int i=0; i<GOPs; i++) {
+		ostringstream s;
+		s << "transmittedByte_GOP" << i; 
+		realRate[i].open(s.str().c_str());
+		if(realRate[i].fail()){
+			cerr << "Error: file \"" << s.str() << "\" can not be opened." << endl;
+			exit(-1);
+		}
+	}
 	
 	
 	// concacenate to LAYERS streams
@@ -144,14 +162,17 @@ int main(int argn, char **args) {
 	
 	Codeword<Bit> c[GOPs];
 	
+	ofsExpSetting << "GOP_size(bit)\n";
 	for (int i=0; i<GOPs; i++) {
-		int max_length=0;
+		int max_length=0, sum = 0;
 		for (int j=0; j<LAYERS; j++) {
 			if(streamSize[i*LAYERS+j] > max_length)
 			{
 				max_length = streamSize[i*LAYERS+j];
 			}
+			sum += streamSize[i*LAYERS+j];
 		}
+		ofsExpSetting << sum << endl;
 		
 		c[i].assign(LAYERS*max_length, 0);
 		for (int j=0; j<c[i].size(); j++) {
@@ -183,33 +204,34 @@ int main(int argn, char **args) {
 		e[i]  = BitToByteCoverter::convert(id[i]);
 	}
 	
+	ofsExpSetting << "LT_block_size(byte)\n";
 	for (int i=0; i<GOPs; i++) {
-		cout << e[i].size() << endl;
+		ofsExpSetting << e[i].size() << endl;
 	}
 	
 	// simulating start
 	#pragma omp parallel for schedule(dynamic) num_threads(6)
 	for (int run=0; run<Run; run++) {
 		vector<bool> error[MAX_STEPS][MAX_LAYERSxGOPs];
-		unsigned long total_n[MAX_STEPS];
+		unsigned long total_n[MAX_STEPS][GOPs];
 		
 		int seed;
 		#pragma omp critical
 		seed = random.BRandom();
 		CRandomMersenne rnd(seed); // local random
 		
-		for (int d=0; d<STEPS; d++) {
+		for (int step=0; step<STEPS; step++) {
 			for (int i=0; i<LAYERS*GOPs; i++) {
-				error[d][i].assign(streamSize[i], 0);
+				error[step][i].assign(streamSize[i], 0);
 			}
-			total_n[d] = 0;
+			//total_n[step] = 0;
 			
 			for (int gop =0; gop<GOPs; gop++) {
 				vector<bool> mask;
 				mask.reserve((size_t)(e[gop].size()/(1-errorRate)*2));
 				long received =0;
 				
-				while (received < e[gop].size()*(BASE+d*Delta) ) {
+				while (received < e[gop].size()*(BASE+step*Delta) ) {
 					if(rnd.Random() > errorRate) { // received
 						mask.insert(mask.end(), PACKET_SIZE, 0);
 						received += PACKET_SIZE;
@@ -219,7 +241,7 @@ int main(int argn, char **args) {
 					}
 				}
 				
-				total_n[d] += mask.size();
+				total_n[step][gop] = mask.size();
 				LT_sim<Byte> lt(e[gop].size(), mask.size(),  Dsize, Tags, Distribution, rnd.BRandom());
 				Codeword<Byte> f = lt.encode(e[gop]);
 				
@@ -233,6 +255,14 @@ int main(int argn, char **args) {
 				}
 				
 				Codeword<Byte> df = lt.decode(f);
+//				unsigned long sum=0;
+//				for (int index=0; index<df.size(); index++) {
+//					if(df[index].isErased())
+//						sum++;
+//				}
+//				cout << sum / (double) df.size() << '\t';
+//				cout.flush();
+				
 				Codeword<Bit> ff = BitToByteCoverter::revert(df);
 				ff=inter1.depermutate(ff);
 				Codeword<Bit> g = cc.decode(ff);
@@ -240,7 +270,7 @@ int main(int argn, char **args) {
 				// compare result
 				for (int b=0; b<g.size(); b++) {
 					if( b/LAYERS < streamSize[gop*LAYERS+b%LAYERS] && !(g[b] == c[gop][b]) ) {
-						error[d][gop*LAYERS+b%LAYERS][b/LAYERS] = 1;
+						error[step][gop*LAYERS+b%LAYERS][b/LAYERS] = 1;
 					}
 				}
 			}
@@ -290,18 +320,20 @@ int main(int argn, char **args) {
 		#pragma omp critical
 		{
 			for (int i=0; i<LAYERS*GOPs; i++) {
-				for (int d=STEPS-1; d >=0; d--) {
+				for (int step=0; step<STEPS; step++) {
 					for (int b=0; b<streamSize[i]; b++) {
-						ofs[i] << error[d][i][b] << ' ';
+						ofs[i] << error[step][i][b] << ' ';
 					}
 					ofs[i] << '\n';
 					
 				}
 				ofs[i] << endl;
-				realRate << endl;
 			}
-			for (int d=0; d<STEPS; d++) {
-				realRate << total_n[d]*8/(double)total_k << '\t';
+			for (int gop=0; gop < GOPs; gop++) {
+				for (int step=0; step<STEPS; step++) {
+					realRate[gop] << total_n[step][gop] << '\t';
+				}
+				realRate[gop] << endl;
 			}
 		}
 	}
