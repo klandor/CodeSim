@@ -24,16 +24,16 @@ int main(){
 		}
 	}
 	
-	cout << "key\tcount\n";
+	cout << "\n\n\nkey\tcount\n";
 	for (map<long, unsigned long>::iterator i=histo.begin(); i!=histo.end(); i++) {
 		cout << i->first << '\t' << i->second << '\n';
 	}
 	cout << "total:\t" << sum << "\n\n";
 	
-	cout << "key\tfrequency\n";
-	for (map<long, unsigned long>::iterator i=histo.begin(); i!=histo.end(); i++) {
-		cout << i->first << '\t' << i->second/(double) sum << '\n';
-	}
+//	cout << "key\tfrequency\n";
+//	for (map<long, unsigned long>::iterator i=histo.begin(); i!=histo.end(); i++) {
+//		cout << i->first << '\t' << i->second/(double) sum << '\n';
+//	}
 	
 	return 0;
 }
