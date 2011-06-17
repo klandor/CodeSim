@@ -176,9 +176,9 @@ int main(int argn, char **args) {
 		
 		c[i].assign(LAYERS*max_length, 0);
 		for (int j=0; j<c[i].size(); j++) {
-			if(j/LAYERS < streamSize[i*LAYERS + (j%LAYERS)])
+			if(j/LAYERS < streamSize[i*LAYERS + (LAYERS-1 -(j%LAYERS))])
 			{
-				c[i][j] = a[i*LAYERS + (j%LAYERS)][j/LAYERS];
+				c[i][j] = a[i*LAYERS + (LAYERS-1 -(j%LAYERS))][j/LAYERS];
 			}
 		}
 	}
@@ -269,8 +269,8 @@ int main(int argn, char **args) {
 				
 				// compare result
 				for (int b=0; b<g.size(); b++) {
-					if( b/LAYERS < streamSize[gop*LAYERS+b%LAYERS] && !(g[b] == c[gop][b]) ) {
-						error[step][gop*LAYERS+b%LAYERS][b/LAYERS] = 1;
+					if( b/LAYERS < streamSize[gop*LAYERS+(LAYERS-1 - b%LAYERS)] && !(g[b] == c[gop][b]) ) {
+						error[step][gop*LAYERS+(LAYERS-1 - b%LAYERS)][b/LAYERS] = 1;
 					}
 				}
 			}
