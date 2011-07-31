@@ -39,6 +39,7 @@ namespace CodeSim{
 		void codeGen(int t);
 		void printGraph(ostream &os);
 		void printDecodingSequence(ostream &os);
+		int getNumOfErased();
 		
 	private:
 		
@@ -383,6 +384,12 @@ namespace CodeSim{
 			os << decoding_degree_sequence[i] << '\t';
 		}
 		os << endl;
+	}
+	
+	template<class S>
+	int LT_sim<S>::getNumOfErased() {
+		decode();
+		return Num_of_Input - Num_of_Decoding;
 	}
 }
 

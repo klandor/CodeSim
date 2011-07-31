@@ -117,7 +117,7 @@ int main (int argc, char * const argv[]) {
 //			Codeword<Bit> out = sim.decode(c);
 //			
 			
-			sum[i] += sim.failureRate();
+			sum[i] += sim.getNumOfErased()/(double)K;
 			//cout << sim.run();
 //			int s=0;
 //			for (int j = 0; j<K; j++) {
