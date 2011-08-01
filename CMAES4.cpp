@@ -92,16 +92,16 @@ int winSize = 30;
 
 istream& mygetline ( istream& is, string& str );
 
-double* normolize(double* d){
-	int i;
-	double z = 0;
-	for(i=0;i<Dsize;i++){
-		if(d[i]<0) d[i] = -d[i];
-		z = z + d[i];
-	}
-	for(i=0;i<Dsize;i++) d[i] = d[i]/z;
-	return d;
-}
+//double* normolize(double* d){
+//	int i;
+//	double z = 0;
+//	for(i=0;i<Dsize;i++){
+//		if(d[i]<0) d[i] = -d[i];
+//		z = z + d[i];
+//	}
+//	for(i=0;i<Dsize;i++) d[i] = d[i]/z;
+//	return d;
+//}
 
 //  初始化設定參數  從uniform distribution 開始  STD 設為 0.025 
 void Parameter_init(){
@@ -134,7 +134,7 @@ inline double exceed_penalty(double value, double base, double penalty_ratio)
 
 double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &parameters){
 	
-	normolize(Indiv);
+	//normolize(Indiv);
 	
 	parameters.assign(epsilons.size()+targetErrorRate.size(),0);
 	
@@ -485,7 +485,7 @@ int main(int argn, char **args) {
 	if (seed < 0)
 		seed = -seed;
 	/* Initialize everything into the struct evo, 0 means default */
-	arFunvals = cmaes_init(evo, Dsize, D, Std, seed, Lambda, "non");
+	arFunvals = cmaes_init(evo, Dsize-1, D, Std, seed, Lambda, "non");
 	evo->sp.stopMaxFunEvals = MAXFEC;	
 	cout<<cmaes_SayHello(evo)<<endl;
 	
@@ -499,13 +499,33 @@ int main(int argn, char **args) {
 		/* evaluate the new search points using fitfun from above */ 
 		for (i = 0; i < Lambda; ++i) {
 			bool needResample = false;
+			
+			double* dist = new double[Dsize];
+			double sum = 0;
+			for (int j=0; j<Dsize-1; j++) {
+				if (pop[i][j] < 0) {
+					needResample = true;
+					break;
+				}
+				dist[j] = pop[i][j];
+				sum += pop[i][j];
+			}
+			dist[Dsize-1] = 1-sum;
+			if(dist[Dsize-1] < 0)
+				needResample = true;
+			
 			vector<double> t_parameters;
-			arFunvals[i] = fitfun(pop[i], Dsize, needResample, t_parameters);
+			if(needResample == false)
+				arFunvals[i] = fitfun(dist, Dsize, needResample, t_parameters);
+			else {
+				arFunvals[i] = 9999;
+			}
+
 			
 			if (needResample) {
 				pop = cmaes_ReSampleSingle(evo, i);
 				i--;
-				cout << "R";
+				//cout << "R";
 			}
 			else {
 				cout << "E";
@@ -515,18 +535,23 @@ int main(int argn, char **args) {
 				min_fit = arFunvals[i];
 				xbest_parameters = t_parameters;
 			}
+			delete [] dist;
 		}
 		cout << '\n';
 		/* update the search distribution used for cmaes_SampleDistribution() */
 		cmaes_UpdateDistribution(evo, arFunvals);  
 		/* read instructions for printing output or changing termination conditions */ 
-		xbest = normolize(cmaes_GetNew(evo, "xbest"));
+		xbest = cmaes_GetNew(evo, "xbest");
 		fs<<cmaes_Get(evo, "iteration")<<"\t"<<cmaes_Get(evo, "eval")<<"\t"<<cmaes_Get(evo, "fitness")<<"\t"<<cmaes_Get(evo, "fbestever")<<"\t";
 		fs.setf(ios::fixed);
 		fs.precision(6);
 		fs << "dist.\t";
-		for(i=0;i<Dsize;i++) 
+		double sum = 0;
+		for(i=0;i<Dsize-1;i++) { 
 			fs<<setw(8)<<xbest[i]<<"\t";
+			sum += xbest[i];
+		}
+		fs<<setw(8)<<1-sum<<"\t";
 		
 		fs << "para.\t";
 		for (int i=0; i<xbest_parameters.size(); i++) {
@@ -546,9 +571,9 @@ int main(int argn, char **args) {
 		for(int i=0;i<Dsize;i++) 
 			dd<<Tags[i]<<"\t";
 		dd << endl;
-		for(int i=0;i<Dsize;i++) 
+		for(int i=0;i<Dsize-1;i++) 
 			dd<<setw(12)<<xbest[i]<<"\t";
-		dd << endl;
+		dd << setw(12)<< 1-sum << endl;
 		if(K==10000)
 			dd << "16 0.013" << endl;
 		else {
