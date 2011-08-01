@@ -151,7 +151,11 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	#pragma omp parallel for schedule(dynamic) num_threads(6) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		
-		LT_sim<Bit> sim(K, (int) MaxN, Dsize, Tags, Indiv, RanGen.BRandom());
+		int seed;
+		#pragma omp critical
+		seed = RanGen.BRandom();
+		
+		LT_sim<Bit> sim(K, (int) MaxN, Dsize, Tags, Indiv, seed);
 		
 		for (int i=0; i<STEPS; i++) {
 			sim.seqReceive(K*(1+Delta*(i))-1);
@@ -477,8 +481,11 @@ int main(int argn, char **args) {
 	
 	evo = new cmaes_t();
 	
+	int seed = RanGen.BRandom();
+	if (seed < 0)
+		seed = -seed;
 	/* Initialize everything into the struct evo, 0 means default */
-	arFunvals = cmaes_init(evo, Dsize, D, Std, 0, Lambda, "non"); 
+	arFunvals = cmaes_init(evo, Dsize, D, Std, seed, Lambda, "non");
 	evo->sp.stopMaxFunEvals = MAXFEC;	
 	cout<<cmaes_SayHello(evo)<<endl;
 	
