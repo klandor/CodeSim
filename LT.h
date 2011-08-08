@@ -166,6 +166,9 @@ namespace CodeSim{
 	
 	template<class S>
 	inline void LT_sim<S>::receive(int t, S s){
+		if (Num_of_Decoding >= Num_of_Input) {
+			return;
+		}
 		codeGen(t);
 		if(receivedMask[t]==0)
 		{
