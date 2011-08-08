@@ -169,9 +169,6 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 			else {
 				break;
 			}
-
-			
-			
 		}
 		
 	}// end of simulation
@@ -291,11 +288,11 @@ int main(int argn, char **args) {
 			exit(1);
 		}
 	}
-	string comm;
+	string tmp_string;
 	
 	// read K
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		iss >> K >> Run;
 	}
 	else {
@@ -303,8 +300,8 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	// read Number of tags
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		iss >> Dsize;
 	}
 	else {
@@ -315,8 +312,8 @@ int main(int argn, char **args) {
 	
 	// read Tags
 	Tags = new int[Dsize];
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		for (int i=0; i<Dsize; i++) {
 			iss >> Tags[i];
 		}
@@ -329,8 +326,8 @@ int main(int argn, char **args) {
 	
 	// read initial distribution
 	D  = new double[Dsize];
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		for (int i=0; i<Dsize; i++) {
 			iss >> D[i];
 		}
@@ -341,8 +338,8 @@ int main(int argn, char **args) {
 	}
 	
 	// read STEPS and Delta
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		iss >> STEPS >> Delta;
 	}
 	else {
@@ -351,8 +348,8 @@ int main(int argn, char **args) {
 	}
 	
 	// read cubic fitting
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		iss >> cubic_fitting;
 	}
 	else {
@@ -361,8 +358,8 @@ int main(int argn, char **args) {
 	}	
 	
 	// read error exponent
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		iss >> error_exponent;
 	}
 	else {
@@ -371,8 +368,8 @@ int main(int argn, char **args) {
 	}	
 	
 	// read epsilons
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
 			epsilons.push_back(t);
@@ -384,8 +381,8 @@ int main(int argn, char **args) {
 	}
 	
 	// read epsilons weighting
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
 			epsilons_w.push_back(t);
@@ -402,8 +399,8 @@ int main(int argn, char **args) {
 	}
 	
 	// read targetErrorRate
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
 			targetErrorRate.push_back(t);
@@ -415,8 +412,8 @@ int main(int argn, char **args) {
 	}
 	
 	// read targetErrorRate weighting
-	if(mygetline(ifs,comm)){
-		istringstream iss(comm);
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
 			targetErrorRate_w.push_back(t);
@@ -444,10 +441,10 @@ int main(int argn, char **args) {
 	
 	// open file
 	//cout << "Enter filename: ";
-	comm = "result_";
-	comm += filename;
+	tmp_string = "result_";
+	tmp_string += filename;
 	//getline(cin, comm);
-	fs.open(comm.c_str(),fstream::out);
+	fs.open(tmp_string.c_str(),fstream::out);
 	
 	// recored start time 
 	time(&rawtime);
@@ -459,7 +456,7 @@ int main(int argn, char **args) {
 	
 	Parameter_init();
 	// write Tags and init distribtuion into file
-	fs << "Comment: " << comm << '\n';
+	fs << "Comment: " << tmp_string << '\n';
 	fs<<"Tags\n";
 	for(i=0;i<Dsize;i++) fs<<Tags[i]<<"\t";
 	fs<<"\nInitial distribution \n";
