@@ -113,7 +113,7 @@ void Parameter_init(){
 	for(int i =0;i<Dsize;i++){
 		//Tags[i] = Set_tags[i];
 		//D[i] = 1/(double)Dsize;
-		Std[i] 	 = 0.1;
+		Std[i] 	 = 0.025;
 	}
 }
 
@@ -188,9 +188,9 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	fit /= (STEPS-1)*Delta;
 	fit *=100;
 	
-	for (int i=0; i<STEPS; i++) {
-		fit += (errorCount[i]*Delta)/(double)Run;
-	}
+//	for (int i=0; i<STEPS; i++) {
+//		fit += (errorCount[i]*Delta)/(double)Run;
+//	}
 	
 //	if(cubic_fitting){
 //		// start regression
