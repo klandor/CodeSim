@@ -478,11 +478,8 @@ int main(int argn, char **args) {
 	
 	evo = new cmaes_t();
 	
-	int seed = RanGen.BRandom();
-	if (seed < 0)
-		seed = -seed;
 	/* Initialize everything into the struct evo, 0 means default */
-	arFunvals = cmaes_init(evo, Dsize-1, D, Std, seed, Lambda, "non");
+	arFunvals = cmaes_init(evo, Dsize-1, D, Std, RanGen.BRandom(), Lambda, "non");
 	evo->sp.stopMaxFunEvals = MAXFEC;	
 	cout<<cmaes_SayHello(evo)<<endl;
 	
