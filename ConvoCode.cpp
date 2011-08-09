@@ -69,7 +69,7 @@ namespace CodeSim {
 				max_forney = forneyIndices[i];
 		}
 		
-		G.assign(k,0);
+		G.assign(k,vector<int>() );
 		for (int i=0; i<k; i++) {
 			G[i].assign(n,0);
 			for(int j=0; j<n; j++){
@@ -110,7 +110,7 @@ namespace CodeSim {
 	}
 	
 	void ConvoCode::generateTrellis(){
-		trellis.assign(1<<m, 0);
+		trellis.assign(1<<m, vector<state>());
 		for(int i=0; i< (1<<m); i++){
 			trellis[i].assign(1<<k, state());
 			for(int j=0; j< (1<<k); j++){

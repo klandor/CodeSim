@@ -15,7 +15,7 @@ CMAES4.out: all CMAES4.cpp laguer.o mrqmin.o mrqcof.o gaussj.o covsrt.o histogra
 	$(CXX) $(CPPFLAGS) CMAES4.cpp laguer.o mrqmin.o mrqcof.o gaussj.o covsrt.o mersenne.o userintf.o cmaes.o Bit.o -o $@
 
 histogram.out: all LT_sim_histogram.cpp
-	$(CXX) $(CPPFLAGS) LT_sim_histogram.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
+	$(CXX) $(CPPFLAGS) LT_sim_histogram.cpp mersenne.o userintf.o Bit.o -o $@
 
 exp_SVC.out : randomc CodeSim exp_SVC.cpp
 	$(CXX) $(CPPFLAGS) exp_SVC.cpp mersenne.o userintf.o ConvoCode.o Bit.o -o $@

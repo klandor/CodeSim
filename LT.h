@@ -327,7 +327,7 @@ namespace CodeSim{
 		d.assign(Num_of_Output,0);
 		output_symbol_degree.assign(Num_of_Output,0);
 		decoding_degree_sequence.clear();
-		edge.assign(Num_of_Output,0);
+		edge.assign(Num_of_Output,vector<long int>());
 		//R_M.assign(Num_of_Output,0);
 		//erasure.assign(max_n,0);
 		

@@ -99,8 +99,8 @@ int main(){
 	}
 	cin >> STEPS >> Delta;
 	
-	ErrorCount.assign(STEPS, 0);
-	BER.assign(STEPS, 0);
+	ErrorCount.assign(STEPS, vector<double>() );
+	BER.assign(STEPS, vector<double>());
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
 	vector< vector<long> > l0a(STEPS, vector<long>(windowSize+1,0));

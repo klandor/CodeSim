@@ -13,6 +13,7 @@
 #include<stack>
 #include<fstream>
 #include<iostream>
+#include<cstdlib>
 using namespace std;
 
 #ifndef H_CodeSim_BASIC
