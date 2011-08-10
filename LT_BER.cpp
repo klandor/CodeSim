@@ -101,7 +101,7 @@ int main(){
 		
 //		int start_time = time(0);
 		//int n=0;
-		#pragma omp parallel for num_threads(6)
+		#pragma omp parallel for schedule(dynamic) num_threads(6)
 		for(int run=0;run<Run;run++){
 			int seed;
 			#pragma omp critical
