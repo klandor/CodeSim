@@ -19,7 +19,7 @@ using namespace std;
 #ifndef H_CodeSim_BASIC
 #define H_CodeSim_BASIC
 
-#define PARALLEL_THREADS 8
+#define PARALLEL_THREADS 10
 
 namespace CodeSim {
 	
