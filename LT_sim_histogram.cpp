@@ -241,7 +241,9 @@ int main(){
 		for (int j=0; j<N_rhos; j++) {
 			cout << "BlockFailureRate pdf "<< rhos[j]*100 <<"%\t";
 			cout <<  1-(BFailureCount[j][0]/(double)Run)<< '\t';
-			
+			for (int i = 1; i<STEPS; i++) {
+				cout <<  (BFailureCount[j][i-1]-BFailureCount[j][i])/(double)Run<< '\t';
+			}
 			cout << '\n';
 		}
 		
