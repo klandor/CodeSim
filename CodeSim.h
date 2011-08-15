@@ -19,6 +19,8 @@ using namespace std;
 #ifndef H_CodeSim_BASIC
 #define H_CodeSim_BASIC
 
+#define PARALLEL_THREADS 8
+
 namespace CodeSim {
 	
 	template<class T, int W>

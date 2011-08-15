@@ -148,7 +148,7 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	}
 	
 	// run simulation
-	#pragma omp parallel for schedule(dynamic) num_threads(6) reduction(+:fit)
+	#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS) reduction(+:fit)
 	for(int i=0;i<Run;i++){
 		
 		int seed;
