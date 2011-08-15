@@ -173,7 +173,7 @@ int main(){
 				double t = sim.failureRate();// = Encoder(K, K*(1.05+0.01*i), Dsize);
 
 				for (int h=0; h<N_histo_bins; h++) {
-					if (t<=histo_bins_ratio[h]) {
+					if (t<=histo_bins_ratio[h]+(1.0/K/10)) {
 						#pragma omp atomic
 						histoErrorCount[i][h]++;
 						break;
