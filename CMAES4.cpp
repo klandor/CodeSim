@@ -69,7 +69,7 @@ double* Std;
 //	0.15, 0.16, 0.17, 0.18, 0.19,
 //	0.2},//{0.05, 0.06,0.08, 0.12,0.20},
 //targetErrorRate[epsilonIndex] = {0.1, 0.01};//{0.376629,
-vector<double> epsilons, epsilons_w, targetErrorRate, targetErrorRate_w;
+vector<double> rhos, targetFalureRate, weighting;
 //	0.349958, 0.237445, 0.18919, 0.108815, 0.0701708,
 //	0.0347487, 0.01925, 0.0085005, 0.0044277, 0.0020448,
 //	0.0010388, 0.0004038, 0.0003112, 0.0002659, 0.0001987};
@@ -117,10 +117,10 @@ void Parameter_init(){
 	}
 }
 
-double weighting(double epsilon, double f_rate){
-	return epsilon*pow(f_rate,1.5);
-	
-}
+//double weighting(double epsilon, double f_rate){
+//	return epsilon*pow(f_rate,1.5);
+//	
+//}
 
 
 inline double exceed_penalty(double value, double base, double penalty_ratio)
@@ -136,7 +136,7 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	
 	//normolize(Indiv);
 	
-	parameters.assign(epsilons.size()+targetErrorRate.size(),0);
+	parameters.assign(rhos.size()+targetFalureRate.size(),0);
 	
 	double fit=0, *err = new double[STEPS];
 	unsigned long	*errorCount = new unsigned long[STEPS];
@@ -149,7 +149,7 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	
 	// run simulation
 	#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS) reduction(+:fit)
-	for(int i=0;i<Run;i++){
+	for(int run=0;run<Run;run++){
 		
 		int seed;
 		#pragma omp critical
@@ -161,7 +161,7 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 			sim.seqReceive(K*(1+Delta*(i))-1);
 			//sim.decode();
 			int temp = sim.getNumOfErased();
-			if(temp > K*0.01)
+			if(temp > K*rhos[0])
 			{
 				#pragma omp atomic
 				errorCount[i] += 1;
@@ -177,7 +177,7 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 	
 	fit = (STEPS-1)*Delta;
 	for (int i=0; i<STEPS; i++) {
-		if (errorCount[i] <= 1) {
+		if (errorCount[i] <= Run*targetFalureRate[0]) {
 			fit = i*Delta;
 			break;
 		}
@@ -276,7 +276,7 @@ int main(int argn, char **args) {
 	string filename;
 	if (argn == 1) {
 		cerr << "Usage: CMAES3.out <filename>" << endl;
-		//exit(1);
+		exit(1);
 		filename = "input_script";
 		ifs.open(filename.c_str());
 	}
@@ -347,32 +347,32 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	
-	// read cubic fitting
-	if(mygetline(ifs,tmp_string)){
-		istringstream iss(tmp_string);
-		iss >> cubic_fitting;
-	}
-	else {
-		cerr << "inputfile: "<< filename << ": format error"<< endl;
-		exit(1);
-	}	
+//	// read cubic fitting
+//	if(mygetline(ifs,tmp_string)){
+//		istringstream iss(tmp_string);
+//		iss >> cubic_fitting;
+//	}
+//	else {
+//		cerr << "inputfile: "<< filename << ": format error"<< endl;
+//		exit(1);
+//	}	
+//	
+//	// read error exponent
+//	if(mygetline(ifs,tmp_string)){
+//		istringstream iss(tmp_string);
+//		iss >> error_exponent;
+//	}
+//	else {
+//		cerr << "inputfile: "<< filename << ": format error"<< endl;
+//		exit(1);
+//	}	
 	
-	// read error exponent
-	if(mygetline(ifs,tmp_string)){
-		istringstream iss(tmp_string);
-		iss >> error_exponent;
-	}
-	else {
-		cerr << "inputfile: "<< filename << ": format error"<< endl;
-		exit(1);
-	}	
-	
-	// read epsilons
+	// read minimum acceptable failure ratio rho_tilde
 	if(mygetline(ifs,tmp_string)){
 		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
-			epsilons.push_back(t);
+			rhos.push_back(t);
 		}
 	}
 	else {
@@ -380,12 +380,27 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	
-	// read epsilons weighting
+//	// read epsilons weighting
+//	if(mygetline(ifs,tmp_string)){
+//		istringstream iss(tmp_string);
+//		double t;
+//		while (iss >> t) {
+//			epsilons_w.push_back(t);
+//		}
+//	}
+//	else {
+//		cerr << "inputfile: "<< filename << ": format error"<< endl;
+//		exit(1);
+//	}
+	
+
+	
+	// read acceptable block failure rate
 	if(mygetline(ifs,tmp_string)){
 		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
-			epsilons_w.push_back(t);
+			targetFalureRate.push_back(t);
 		}
 	}
 	else {
@@ -393,21 +408,8 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	
-	if(epsilons.size() != epsilons_w.size()){
-		cerr << "Error: epsilons list size doesn't match to weighting list" << endl;
-		exit(1);
-	}
-	
-	// read targetErrorRate
-	if(mygetline(ifs,tmp_string)){
-		istringstream iss(tmp_string);
-		double t;
-		while (iss >> t) {
-			targetErrorRate.push_back(t);
-		}
-	}
-	else {
-		cerr << "inputfile: "<< filename << ": format error"<< endl;
+	if(rhos.size() != targetFalureRate.size()){
+		cerr << "Error: rhos list size doesn't match to failure rate list" << endl;
 		exit(1);
 	}
 	
@@ -416,7 +418,7 @@ int main(int argn, char **args) {
 		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
-			targetErrorRate_w.push_back(t);
+			weighting.push_back(t);
 		}
 	}
 	else {
@@ -424,8 +426,8 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	
-	if(targetErrorRate.size() != targetErrorRate_w.size()){
-		cerr << "Error: targetErrorRate list size doesn't match to weighting list" << endl;
+	if(targetFalureRate.size() != weighting.size()){
+		cerr << "Error: weighting list size doesn't match to failure rate list" << endl;
 		exit(1);
 	}
 	
@@ -441,8 +443,8 @@ int main(int argn, char **args) {
 	
 	// open file
 	//cout << "Enter filename: ";
-	tmp_string = "result_";
-	tmp_string += filename;
+	//tmp_string = "result_";
+	tmp_string = filename + "_result.txt";
 	//getline(cin, comm);
 	fs.open(tmp_string.c_str(),fstream::out);
 	
@@ -461,19 +463,19 @@ int main(int argn, char **args) {
 	for(i=0;i<Dsize;i++) fs<<Tags[i]<<"\t";
 	fs<<"\nInitial distribution \n";
 	for(i=0;i<Dsize;i++) fs<<D[i]<<"\t";
-	fs<<"\nEpsilons \n";
-	for(i=0;i<epsilons.size();i++) fs<<epsilons[i]<<"\t";
-	fs<<"\nEpsilons weighting\n";
-	for(i=0;i<epsilons_w.size();i++) fs<<epsilons_w[i]<<"\t";
-	fs<<"\nTarget Error Rate \n";
-	for(i=0;i<targetErrorRate.size();i++) fs<<targetErrorRate[i]<<"\t";
-	fs<<"\nTarget Error Rate weighting\n";
-	for(i=0;i<targetErrorRate_w.size();i++) fs<<targetErrorRate_w[i]<<"\t";
+	fs<<"\nminimum acceptable failure ratios \n";
+	for(i=0;i<rhos.size();i++) fs<<rhos[i]<<"\t";
+//	fs<<"\nEpsilons weighting\n";
+//	for(i=0;i<epsilons_w.size();i++) fs<<epsilons_w[i]<<"\t";
+	fs<<"\nTarget block failure rate\n";
+	for(i=0;i<targetFalureRate.size();i++) fs<<targetFalureRate[i]<<"\t";
+	fs<<"\nTarget block failure rate weighting\n";
+	for(i=0;i<weighting.size();i++) fs<<weighting[i]<<"\t";
 	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest dist.\t";
 	for(i=0;i<Dsize;i++) fs<< Tags[i] << '\t';
 	fs<< "para.\t";
-	for(i=0;i<epsilons.size();i++) fs<<"p@e="<<epsilons[i]<<"\t";
-	for(i=0;i<targetErrorRate.size();i++) fs<<"e@p="<<targetErrorRate[i]<<"\t";
+	for(i=0;i<rhos.size();i++) fs<<"p@e="<<rhos[i]<<"\t";
+	for(i=0;i<targetFalureRate.size();i++) fs<<"e@p="<<targetFalureRate[i]<<"\t";
 	fs<<endl;
 	
 	evo = new cmaes_t();
@@ -558,7 +560,7 @@ int main(int argn, char **args) {
 		if(INFO==1) cout<<cmaes_Get(evo, "iteration")<<"\t"<<cmaes_Get(evo, "eval")<<"\t"<<cmaes_Get(evo, "fitness")<<"\t"<<cmaes_Get(evo, "fbestever")<<endl;
 		//fflush(stdout); /* useful in MinGW */
 		
-		string dist = "dist_"+filename;
+		string dist = filename+"_dist.txt";
 		ofstream dd(dist.c_str());
 		dd << K << endl;
 		dd << Dsize << endl;
@@ -568,11 +570,11 @@ int main(int argn, char **args) {
 		for(int i=0;i<Dsize-1;i++) 
 			dd<<setw(12)<<xbest[i]<<"\t";
 		dd << setw(12)<< 1-sum << endl;
-		if(K==10000)
-			dd << "16 0.013" << endl;
-		else {
-			dd << "16 0.03" << endl;
-		}
+//		if(K==10000)
+//			dd << "16 0.013" << endl;
+//		else {
+//			dd << "16 0.03" << endl;
+//		}
 		
 		dd.close();
 		delete [] xbest;
@@ -597,8 +599,8 @@ int main(int argn, char **args) {
 	
 	cout << "Running histogram...";
 	cout.flush();
-	string cmd = "~/CodeSim/histogram.out < dist_" + filename 
-	+ " > histo_" + filename;
+	string cmd = "./histogram.out < " + filename 
+	+ "_dist.txt > " + filename+ "_histo.txt";
 	
 	system(cmd.c_str() );
 	cout << "done!" << endl;

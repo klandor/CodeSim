@@ -22,7 +22,9 @@ double Delta;
 //#define STEPS 16
 int STEPS;
 #define MaxN (K*(1+Delta*(STEPS-1)))
-int windowSize = 50;
+//int windowSize = 50;
+long histo_bins[16] = {0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 99999999};
+const int N_histo_bins = 16;
 
 using namespace std;
 using namespace CodeSim;
@@ -86,7 +88,7 @@ int main(){
 	
 	//cin >> K >> Run;
 	cin >> K;
-	Run = (10000000000L/K);
+	Run = (10000000LL/K);
 	cin >> Dsize;
 	Degree = new int[Dsize];
 	D = new double[Dsize];
@@ -97,17 +99,27 @@ int main(){
 	for (int i=0; i<Dsize; i++) {
 		cin >> D[i];
 	}
-	cin >> STEPS >> Delta;
-	
+	//cin >> STEPS >> Delta;
+	STEPS = 101;
+	Delta = 0.005;
 	ErrorCount.assign(STEPS, vector<double>() );
 	BER.assign(STEPS, vector<double>());
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
-					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
-	vector< vector<long> > l0a(STEPS, vector<long>(windowSize+1,0));
+					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0);
+	vector< vector<long> > BFailureCount(3, vector<long>(STEPS, 0));
+	double rhos[3] = {0, 0.001, 0.01}, percents[4] = {.9, .99, .999, 1};
+	const int N_rhos = 3, N_percents = 4;
+	vector<double> averageEpsilon(N_rhos, 0);
 	
 	//while (cin >> D[0])
 	{
-		cout << "distribution\t";
+		cout << "tag\t";
+		for (int i =0; i<Dsize; i++) {
+			//cin >> D[i];
+			cout << Degree[i] << '\t';
+			
+		}
+		cout << "\ndistribution\t";
 		for (int i =0; i<Dsize; i++) {
 			//cin >> D[i];
 			cout << D[i] << '\t';
@@ -117,11 +129,16 @@ int main(){
 		for (int i = 0; i<STEPS; i++) {
 			cout << i*Delta << '\t';
 			//BER[i] = 0;
-			ErrorCount[i].assign(16,0);
-			BER[i].assign(Run,0);
-			
+			ErrorCount[i].assign(N_histo_bins,0);
+			BER[i].assign(Run,0);	
 		}
 		cout << '\n';
+		
+		double histo_bins_ratio[N_histo_bins];
+		for (int i=0; i<N_histo_bins; i++) {
+			histo_bins_ratio[i] = histo_bins[i]/double(K);
+		}
+		
 		
 		int start_time = time(0);
 		//int n=0;
@@ -131,90 +148,110 @@ int main(){
 			#pragma omp critical
 			seed = Rnd.BRandom();
 			
-			LT_sim<Bit> sim(K, MaxN, Dsize, Degree, D, seed);
-			//cout << "Run " << i <<'\n';
-			//#pragma omp parallel for
+			LT_sim<Bit> sim(K, 10*K, Dsize, Degree, D, seed);
+
+			long recievedSymbol = 0;
+			vector<bool> thresholdReached(N_rhos, 0);
+			
 			for (int i = 0; i< STEPS; i++) {
-				sim.seqReceive( K*(1+Delta*i) -1);
+				while (recievedSymbol <= K*(1+Delta*i) -1) {
+					sim.receive(recievedSymbol);
+					recievedSymbol++;
+					
+					double t = sim.failureRate();
+					for (int r=0; r<N_rhos; r++) {
+						if (thresholdReached[r] == false && t<=rhos[r]) {
+							averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
+							thresholdReached[r] = true;
+						}
+					}
+				}
+				//sim.seqReceive( K*(1+Delta*i) -1);
 				//sim.decode();
 				double t = sim.failureRate();// = Encoder(K, K*(1.05+0.01*i), Dsize);
-				if (t<1) {
-					#pragma omp atomic
-					ErrorCount[i][(int)(t*16)]++;
-				}
-				else {
-					#pragma omp atomic
-					ErrorCount[i][15]++;
+
+				for (int h=0; h<N_histo_bins; h++) {
+					if (t<=histo_bins_ratio[h]) {
+						#pragma omp atomic
+						ErrorCount[i][h]++;
+						break;
+					}
 				}
 
 				BER[i][run]=t;
-				if (t>0) {
-					FER[i]++;
-				}
-				
-				Codeword<Bit> a = sim.getResult();
-				int errNO=0;
-				for (int p=0; p<windowSize; p++) {
-					if (a[p].isErased()) {
-						errNO ++;
+				for (int j=0; j<N_rhos; j++) {
+					if (t>rhos[j]) {
+						BFailureCount[j][i]++;
 					}
 				}
-				
-				//#pragma omp atomic
-				l0a[i][errNO]++;
-				//			l0h[errNO]++;
-				for (int p=windowSize; p< a.size(); p++) {
-					if (a[p].isErased()) {
-						errNO++;
-					}
-					if (a[p-windowSize].isErased()) {
-						errNO --;
-					}
-					
-					
-					#pragma omp atomic
-					l0a[i][errNO]++;
-					//				l0h[errNO]++;
-					//cout << errNO << '\n';
-				}
+
 			}
 			
-			//cout << '\n';
+			bool allReached = false;
+			while (allReached == false) {
+				allReached = true;
+				sim.receive(recievedSymbol);
+				recievedSymbol++;
+				double t = sim.failureRate();
+				for (int r=0; r<N_rhos; r++) {
+					if (thresholdReached[r] == false && t<=rhos[r]) {
+						averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
+						thresholdReached[r] = true;
+					}
+					
+					allReached &= thresholdReached[r];
+				}
+			}
 		}
 		//cout<<"Histogram";
-		for (int i = 0; i<16; i++) {
-			cout << (i+1)/16.0<<'\t';
+		for (int i = 0; i<N_histo_bins; i++) {
+			cout << histo_bins_ratio[i]<<'\t';
 			for(int j = 0; j< STEPS; j++)
 				cout <<  ErrorCount[j][i] / (double)Run<< '\t';
 			cout << '\n';
 		}
 		
-		#pragma omp parallel for num_threads(6)
+		#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
 		for (int i = 0; i<STEPS; i++) {
 			computeStats(BER[i].begin( ), BER[i].end( ), sum[i], mean[i], var[i], dev[i], skew[i], kurt[i]);
 			sort(BER[i].begin( ), BER[i].end( ));
 		}
 		
-		cout << "BER\t";
+		cout << "AverageFailureRatio\t";
 		for (int i = 0; i<STEPS; i++) {
 			cout <<  mean[i]<< '\t';
 		}
 		cout << '\n';
-		cout << "BER 90%\t";
-		for (int i = 0; i<STEPS; i++) {
-			cout <<  BER[i][Run/10*9]-mean[i]<< '\t';
+		for (int j=0; j<N_percents; j++) {
+			cout << "FailureRatio @"<< percents[j]*100 <<"%\t";
+			for (int i = 0; i<STEPS; i++) {
+				cout <<  BER[i][Run*percents[j]-1]<< '\t';
+			}
+			cout << '\n';
 		}
-		cout << '\n';
-		cout << "BER 10%\t";
-		for (int i = 0; i<STEPS; i++) {
-			cout <<  mean[i]-BER[i][Run/10]<< '\t';
+		
+		for (int j=0; j<N_rhos; j++) {
+			cout << "BlockFailureRate "<< rhos[j]*100 <<"%\t";
+			for (int i = 0; i<STEPS; i++) {
+				cout <<  BFailureCount[j][i]/(double)Run<< '\t';
+			}
+			cout << '\n';
 		}
-		cout << '\n';
-		cout << "FER\t";
-		for (int i = 0; i<STEPS; i++) {
-			cout <<  FER[i]/Run<< '\t';
+		
+		for (int j=0; j<N_rhos; j++) {
+			cout << "BlockFailureRate pdf "<< rhos[j]*100 <<"%\t";
+			cout <<  1-(BFailureCount[j][0]/(double)Run)<< '\t';
+			
+			cout << '\n';
 		}
-		cout << '\n';
+		
+		for (int j=0; j<N_rhos; j++) {
+			cout << "BlockFailureRate average "<< rhos[j]*100 <<"%\t";
+			cout <<  averageEpsilon[j]<< '\t';
+			cout << '\n';
+		}
+		
+		
 		cout << "Variance\t";
 		for (int i = 0; i<STEPS; i++) {
 			cout <<  var[i]<< '\t';
@@ -238,14 +275,14 @@ int main(){
 		
 		cout << "Time\t" << time(0) - start_time<< "\tK\t"<< K << "\tRun\t"<< Run <<endl;
 		
-		for (int i=0; i<windowSize+1; i++) {
-			cout << i;
-			
-			for (int j=0; j<STEPS; j++) {
-				cout << '\t' << l0a[j][i]/(double)(Run*(K-windowSize+1));
-			}
-			cout << endl;
-		}
+//		for (int i=0; i<windowSize+1; i++) {
+//			cout << i;
+//			
+//			for (int j=0; j<STEPS; j++) {
+//				cout << '\t' << l0a[j][i]/(double)(Run*(K-windowSize+1));
+//			}
+//			cout << endl;
+//		}
 	}
 	
 	return 0;
