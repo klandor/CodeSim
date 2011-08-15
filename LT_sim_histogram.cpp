@@ -42,7 +42,7 @@ using namespace CodeSim;
 //int S_sym2code[K];                  // 反向連結的 size 
 
 //unsigned long ErrorCount[STEPS][16];
-vector< vector<double> > ErrorCount;
+vector< vector<double> > histoErrorCount;
 
 //double BER[STEPS];
 vector< vector<double> > BER;
@@ -102,7 +102,7 @@ int main(){
 	//cin >> STEPS >> Delta;
 	STEPS = 101;
 	Delta = 0.005;
-	ErrorCount.assign(STEPS, vector<double>() );
+	histoErrorCount.assign(STEPS, vector<double>() );
 	BER.assign(STEPS, vector<double>());
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0);
@@ -129,7 +129,7 @@ int main(){
 		for (int i = 0; i<STEPS; i++) {
 			cout << i*Delta << '\t';
 			//BER[i] = 0;
-			ErrorCount[i].assign(N_histo_bins,0);
+			histoErrorCount[i].assign(N_histo_bins,0);
 			BER[i].assign(Run,0);	
 		}
 		cout << '\n';
@@ -173,7 +173,7 @@ int main(){
 				for (int h=0; h<N_histo_bins; h++) {
 					if (t<=histo_bins_ratio[h]) {
 						#pragma omp atomic
-						ErrorCount[i][h]++;
+						histoErrorCount[i][h]++;
 						break;
 					}
 				}
@@ -207,7 +207,7 @@ int main(){
 		for (int i = 0; i<N_histo_bins; i++) {
 			cout << histo_bins_ratio[i]<<'\t';
 			for(int j = 0; j< STEPS; j++)
-				cout <<  ErrorCount[j][i] / (double)Run<< '\t';
+				cout <<  histoErrorCount[j][i] / (double)Run<< '\t';
 			cout << '\n';
 		}
 		
