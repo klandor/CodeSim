@@ -88,7 +88,7 @@ int main(){
 	
 	//cin >> K >> Run;
 	cin >> K;
-	Run = (10000000LL/K);
+	Run = 1000000;//(1000000000LL/K);
 	cin >> Dsize;
 	Degree = new int[Dsize];
 	D = new double[Dsize];
