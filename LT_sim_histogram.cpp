@@ -106,9 +106,10 @@ int main(){
 	BER.assign(STEPS, vector<double>());
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0);
-	vector< vector<long> > BFailureCount(3, vector<long>(STEPS, 0));
+	
 	double rhos[3] = {0, 0.001, 0.01}, percents[4] = {.9, .99, .999, 1};
 	const int N_rhos = 3, N_percents = 4;
+	vector< vector<long> > BFailureCount(N_rhos, vector<long>(STEPS, 0));
 	vector<double> averageEpsilon(N_rhos, 0);
 	
 	//while (cin >> D[0])
@@ -161,6 +162,7 @@ int main(){
 					double t = sim.failureRate();
 					for (int r=0; r<N_rhos; r++) {
 						if (thresholdReached[r] == false && t<=rhos[r]) {
+							#pragma omp atomic
 							averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
 							thresholdReached[r] = true;
 						}
@@ -181,6 +183,7 @@ int main(){
 				BER[i][run]=t;
 				for (int j=0; j<N_rhos; j++) {
 					if (t>rhos[j]) {
+						#pragma omp atomic
 						BFailureCount[j][i]++;
 					}
 				}
@@ -195,6 +198,7 @@ int main(){
 				double t = sim.failureRate();
 				for (int r=0; r<N_rhos; r++) {
 					if (thresholdReached[r] == false && t<=rhos[r]) {
+						#pragma omp atomic
 						averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
 						thresholdReached[r] = true;
 					}
