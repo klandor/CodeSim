@@ -12,13 +12,13 @@
 		853626611235E65E00476D16 /* ConvoCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 853626601235E65E00476D16 /* ConvoCode.cpp */; };
 		8565BDD3120C28050081A319 /* mersenne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD0120C28050081A319 /* mersenne.cpp */; };
 		8565BDD4120C28050081A319 /* userintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8565BDD2120C28050081A319 /* userintf.cpp */; };
+		8584726913F9498800B43E6C /* CMAES4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8547EA4813E5958100D187A5 /* CMAES4.cpp */; };
 		8597159D124325A900BD7FC2 /* cmaes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8597159B124325A900BD7FC2 /* cmaes.cpp */; };
 		85F215A112E5874600F6E5EA /* mrqmin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A012E5874600F6E5EA /* mrqmin.cpp */; };
 		85F215A612E5876300F6E5EA /* covsrt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A412E5876300F6E5EA /* covsrt.cpp */; };
 		85F215A712E5876300F6E5EA /* mrqcof.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215A512E5876300F6E5EA /* mrqcof.cpp */; };
 		85F215AF12E5879400F6E5EA /* gaussj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215AE12E5879400F6E5EA /* gaussj.cpp */; };
 		85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F215DE12E58B6700F6E5EA /* laguer.cpp */; };
-		85F8AB6A1396138400B231EE /* ConvoCodeSim_byte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F8AB691396138400B231EE /* ConvoCodeSim_byte.cpp */; };
 		8DD76F6A0486A84900D96B5E /* new_LT.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* new_LT.1 */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +47,7 @@
 		8544522B1226A22100BA9182 /* BitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitTest.cpp; sourceTree = "<group>"; };
 		8544527412279DDD00BA9182 /* Bit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bit.cpp; sourceTree = "<group>"; };
 		8547658212FC25FB00F0528A /* statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statistics.h; sourceTree = "<group>"; };
+		8547EA4813E5958100D187A5 /* CMAES4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMAES4.cpp; sourceTree = "<group>"; };
 		85497768131F6E140043C89E /* Binomial_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binomial_test.cpp; sourceTree = "<group>"; };
 		854BD8951225411B006CD78C /* CodeSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSim.h; sourceTree = "<group>"; };
 		855AD7F613752F0A00B9F197 /* BitToByteCoverterTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitToByteCoverterTest.cpp; sourceTree = "<group>"; };
@@ -97,6 +98,7 @@
 		85F4E8C712151B0900DA56AC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		85F7DD331245219700F6BE6B /* CMAES_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMAES_main.cpp; sourceTree = "<group>"; };
 		85F8AB691396138400B231EE /* ConvoCodeSim_byte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvoCodeSim_byte.cpp; sourceTree = "<group>"; };
+		85F8ABDE13979AB600B231EE /* histogram_cumulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = histogram_cumulator.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* new_LT */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = new_LT; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* new_LT.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = new_LT.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +190,7 @@
 				85D0BC70128F9BD000A98351 /* fitting_data_set_generator.cpp */,
 				856E19F712D0ADCE00B1EBC6 /* CMAES2.cpp */,
 				85F2162D12E5EBA800F6E5EA /* CMAES3.cpp */,
+				8547EA4813E5958100D187A5 /* CMAES4.cpp */,
 				85EC9A1F1357F29A002EF955 /* LT_BER.cpp */,
 				85497768131F6E140043C89E /* Binomial_test.cpp */,
 				85992B0A132A6B7E0021CC49 /* LT_graph.cpp */,
@@ -200,6 +203,7 @@
 				856AC0A3138D2BDA0000FEFF /* ConvoLTSim.cpp */,
 				8577CD431384E345004695DE /* packet_receive_sim.cpp */,
 				856AC07E138C09B90000FEFF /* UEP_exp_byte.cpp */,
+				85F8ABDE13979AB600B231EE /* histogram_cumulator.cpp */,
 			);
 			name = Programs;
 			sourceTree = "<group>";
@@ -323,7 +327,7 @@
 				85F215DF12E58B6700F6E5EA /* laguer.cpp in Sources */,
 				852756251372E4AF0027C87C /* Bit.cpp in Sources */,
 				8527562C1372E5170027C87C /* Byte.cpp in Sources */,
-				85F8AB6A1396138400B231EE /* ConvoCodeSim_byte.cpp in Sources */,
+				8584726913F9498800B43E6C /* CMAES4.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
