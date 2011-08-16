@@ -197,7 +197,7 @@ int main(){
 				recievedSymbol++;
 				double t = sim.failureRate();
 				for (int r=0; r<N_rhos; r++) {
-					if (thresholdReached[r] == false && t<=rhos[r]++(1.0/K/10)) {
+					if (thresholdReached[r] == false && t<=rhos[r]+(1.0/K/10)) {
 						#pragma omp atomic
 						averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
 						thresholdReached[r] = true;
