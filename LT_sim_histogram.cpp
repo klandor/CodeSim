@@ -161,7 +161,7 @@ int main(){
 					
 					double t = sim.failureRate();
 					for (int r=0; r<N_rhos; r++) {
-						if (thresholdReached[r] == false && t<=rhos[r]) {
+						if (thresholdReached[r] == false && t<=rhos[r]+(1.0/K/10)) {
 							#pragma omp atomic
 							averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
 							thresholdReached[r] = true;
@@ -182,7 +182,7 @@ int main(){
 
 				BER[i][run]=t;
 				for (int j=0; j<N_rhos; j++) {
-					if (t>rhos[j]) {
+					if (t>rhos[j]+(1.0/K/10)) {
 						#pragma omp atomic
 						BFailureCount[j][i]++;
 					}
@@ -197,7 +197,7 @@ int main(){
 				recievedSymbol++;
 				double t = sim.failureRate();
 				for (int r=0; r<N_rhos; r++) {
-					if (thresholdReached[r] == false && t<=rhos[r]) {
+					if (thresholdReached[r] == false && t<=rhos[r]++(1.0/K/10)) {
 						#pragma omp atomic
 						averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
 						thresholdReached[r] = true;
