@@ -399,6 +399,8 @@ int main(int argn, char **args) {
 	evo->sp.stopMaxFunEvals = MAXFEC;	
 	cout<<cmaes_SayHello(evo)<<endl;
 	
+	omp_set_nested(1);
+	
 	/* Iterate until stop criterion holds */
 	while(!cmaes_TestForTermination(evo))
 	{ 						
