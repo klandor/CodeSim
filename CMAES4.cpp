@@ -46,7 +46,7 @@ using namespace CodeSim;
 
 int g_seed = (int)time(0);
 CRandomMersenne RanGen(g_seed);
-int K, cubic_fitting, error_exponent, STEPS, Run;
+int K, STEPS, Run;
 double Delta;
 // =================================================================
 // 依照要跑的 degree 去設定 
@@ -62,32 +62,13 @@ double* SD;
 double* Std;
 
 
-//#define epsilonIndex 2
-//double epsilons[epsilonIndex] = {0.05, 0.15},//{0.05, 0.06, 0.07, 0.08, 0.09, 
 
-//	0.1, 0.11, 0.12, 0.13, 0.14, 
-//	0.15, 0.16, 0.17, 0.18, 0.19,
-//	0.2},//{0.05, 0.06,0.08, 0.12,0.20},
-//targetErrorRate[epsilonIndex] = {0.1, 0.01};//{0.376629,
-vector<double> rhos, targetFalureRate, weighting;
-//	0.349958, 0.237445, 0.18919, 0.108815, 0.0701708,
-//	0.0347487, 0.01925, 0.0085005, 0.0044277, 0.0020448,
-//	0.0010388, 0.0004038, 0.0003112, 0.0002659, 0.0001987};
-//errorRateBound[epsilonIndex]={4,4,4,4,4},
-//epsilonBurstBound[epsilonIndex] = {0.5,0.4,0.3,0.2,0.1},
+vector<double> rhos, targetFalureRate, targetEpsilon;
+int optimParameter;
+
 double epsilonBurstBound = 0.5,
 errorDensityBound = 0.33333;
-//errorDensityBound[epsilonIndex] = {0.33333, 0.26666, 0.2, 0.166666, 0.133333},
-//areaWeight[epsilonIndex] = {0, 500, 1000, 2000, 4000};
 int winSize = 30;
-//int winSize[epsilonIndex] = {30, 30, 30, 30, 30};
-//double failurePenalty[epsilonIndex] = {20, 40, 60, 80, 100}
-;
-
-
-
-
-
 
 
 istream& mygetline ( istream& is, string& str );
@@ -117,11 +98,6 @@ void Parameter_init(){
 	}
 }
 
-//double weighting(double epsilon, double f_rate){
-//	return epsilon*pow(f_rate,1.5);
-//	
-//}
-
 
 inline double exceed_penalty(double value, double base, double penalty_ratio)
 {
@@ -132,23 +108,15 @@ inline double exceed_penalty(double value, double base, double penalty_ratio)
 	return (value - base) * penalty_ratio;
 }
 
-double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &parameters){
+double fitfun(double* Indiv , int dim, bool &needResample){
 	
-	//normolize(Indiv);
-	
-	parameters.assign(rhos.size()+targetFalureRate.size(),0);
-	
-	double fit=0, *err = new double[STEPS];
-	unsigned long	*errorCount = new unsigned long[STEPS];
-	double *failureCount = new double[STEPS];
-	for (int i=0; i<STEPS; i++) {
-		err[i]=0;
-		failureCount[i] = 0;
-		errorCount[i] = 0;
-	}
+
+	vector<double> err(STEPS,0);
+	vector<unsigned long>	errorCount(STEPS,0);
+	vector<double> failureCount(STEPS,0);
 	
 	// run simulation
-	#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS) reduction(+:fit)
+	#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
 	for(int run=0;run<Run;run++){
 		
 		int seed;
@@ -173,101 +141,24 @@ double fitfun(double* Indiv , int dim, bool &needResample, vector<double> &param
 		
 	}// end of simulation
 	
-	vector<double> x(STEPS, 0.0);
+	//vector<double> x(STEPS, 0.0);
 	
-	fit = (STEPS-1)*Delta;
+	//fit = (STEPS-1)*Delta;
 	for (int i=0; i<STEPS; i++) {
 		if (errorCount[i] <= Run*targetFalureRate[0]) {
-			fit = i*Delta;
+			//fit = i*Delta;
+			return i*Delta;
 			break;
 		}
 		// prepare x
-		x[i] = i*Delta;
+		//x[i] = i*Delta;
 		
 	}
-	fit /= (STEPS-1)*Delta;
-	fit *=100;
-	
-//	for (int i=0; i<STEPS; i++) {
-//		fit += (errorCount[i]*Delta)/(double)Run;
-//	}
-	
-//	if(cubic_fitting){
-//		// start regression
-//		vector<double> a(4, 0.0), y(err, err+STEPS);
-//		double ss;
-//		
-//		regression(x, y, a, cubic, ss);
-//		
-//		
-//		
-//		
-//		
-//		
-//		for (int i=0; i<epsilons.size(); i++) {
-//			fit += (eval(epsilons[i], a, cubic)-log10(P_e_min)) / abs(log10(P_e_min)) * epsilons_w[i];
-//			parameters[i] = (eval(epsilons[i], a, cubic)-log10(P_e_min)) / abs(log10(P_e_min));
-//		}
-//		
-//		for (int i=0; i<targetErrorRate.size(); i++) {	
-//			
-//			vector<double> a2 = a;
-//			a2[0] -= log10(targetErrorRate[i]);
-//			vector<double> sols = find_sol(a2, 0, (STEPS-1)*Delta, STEPS);
-//			double solution;
-//			switch (sols.size()) {
-//				case 0:
-//					if (eval(0, a, cubic) < log10(targetErrorRate[i])) {
-//						solution = 0;
-//					}
-//					else {
-//						solution = (STEPS-1)*Delta;
-//					}
-//					break;
-//				case 1:
-//					solution = sols[0];
-//					break;
-//					
-//					
-//				default:
-//					solution = *sols.rbegin();
-//					break;
-//			}
-//			
-//			fit += solution/(Delta*(STEPS-1)) * targetErrorRate_w[i];
-//			parameters[epsilons.size()+i] = solution/(Delta*(STEPS-1));
-//		}
-//		
-//	}
-//	
-//	else {
-//		for (int i=0; i<epsilons.size(); i++) {
-//			fit += (err[(int)(epsilons[i]/Delta)]-log10(P_e_min))  / abs(log10(P_e_min)) * epsilons_w[i];
-//			parameters[i] = (err[(int)(epsilons[i]/Delta)]-log10(P_e_min))  / abs(log10(P_e_min));
-//		}
-//		
-//		for (int i=0; i<targetErrorRate.size(); i++) {	
-//			
-//			double min_diff=999;
-//			int min_i;
-//			for (int j=0; j<STEPS; j++) {
-//				if ( abs(err[j]-log10(targetErrorRate[i])) < min_diff) {
-//					min_diff = abs(err[j]-log10(targetErrorRate[i]));
-//					min_i = j;
-//				}
-//			}
-//			
-//			
-//			fit += min_i/(double)(STEPS-1) * targetErrorRate_w[i];
-//			parameters[epsilons.size()+i] = min_i/(double)(STEPS-1);
-//		}
-//	}
+
+	return (STEPS-1)*Delta;
 	
 	
-	delete [] err;
-	delete [] errorCount;
-	delete [] failureCount;
-	return fit;
+
 }
 
 /* the optimization loop */
@@ -345,27 +236,7 @@ int main(int argn, char **args) {
 	else {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
 		exit(1);
-	}
-	
-//	// read cubic fitting
-//	if(mygetline(ifs,tmp_string)){
-//		istringstream iss(tmp_string);
-//		iss >> cubic_fitting;
-//	}
-//	else {
-//		cerr << "inputfile: "<< filename << ": format error"<< endl;
-//		exit(1);
-//	}	
-//	
-//	// read error exponent
-//	if(mygetline(ifs,tmp_string)){
-//		istringstream iss(tmp_string);
-//		iss >> error_exponent;
-//	}
-//	else {
-//		cerr << "inputfile: "<< filename << ": format error"<< endl;
-//		exit(1);
-//	}	
+	}	
 	
 	// read minimum acceptable failure ratio rho_tilde
 	if(mygetline(ifs,tmp_string)){
@@ -379,21 +250,6 @@ int main(int argn, char **args) {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
 		exit(1);
 	}
-	
-//	// read epsilons weighting
-//	if(mygetline(ifs,tmp_string)){
-//		istringstream iss(tmp_string);
-//		double t;
-//		while (iss >> t) {
-//			epsilons_w.push_back(t);
-//		}
-//	}
-//	else {
-//		cerr << "inputfile: "<< filename << ": format error"<< endl;
-//		exit(1);
-//	}
-	
-
 	
 	// read acceptable block failure rate
 	if(mygetline(ifs,tmp_string)){
@@ -413,12 +269,12 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	
-	// read targetErrorRate weighting
+	// read targetEpsilon
 	if(mygetline(ifs,tmp_string)){
 		istringstream iss(tmp_string);
 		double t;
 		while (iss >> t) {
-			weighting.push_back(t);
+			targetEpsilon.push_back(t);
 		}
 	}
 	else {
@@ -426,11 +282,21 @@ int main(int argn, char **args) {
 		exit(1);
 	}
 	
-	if(targetFalureRate.size() != weighting.size()){
+	if(targetFalureRate.size() != targetEpsilon.size()){
 		cerr << "Error: weighting list size doesn't match to failure rate list" << endl;
 		exit(1);
 	}
 	
+	
+	// read optimization Parameter
+	if(mygetline(ifs,tmp_string)){
+		istringstream iss(tmp_string);
+		iss >> optimParameter;
+	}
+	else {
+		cerr << "inputfile: "<< filename << ": format error"<< endl;
+		exit(1);
+	}
 	
 	int i; 
 	fstream fs;	
@@ -441,20 +307,14 @@ int main(int argn, char **args) {
 	cmaes_t* evo; /* an CMA-ES type struct or "object" */
 	double *arFunvals, *const*pop, *xbest;
 	
-	// open file
-	//cout << "Enter filename: ";
-	//tmp_string = "result_";
+
 	tmp_string = filename + "_result.txt";
-	//getline(cin, comm);
 	fs.open(tmp_string.c_str(),fstream::out);
 	
 	// recored start time 
 	time(&rawtime);
 	timeinfo=localtime( &rawtime );
 	fs<<"Start time : "<<asctime(timeinfo)<<endl;	
-	
-	//	cout << "Enter Comment: ";
-	//	getline(cin, comm);
 	
 	Parameter_init();
 	// write Tags and init distribtuion into file
@@ -465,17 +325,13 @@ int main(int argn, char **args) {
 	for(i=0;i<Dsize;i++) fs<<D[i]<<"\t";
 	fs<<"\nminimum acceptable failure ratios \n";
 	for(i=0;i<rhos.size();i++) fs<<rhos[i]<<"\t";
-//	fs<<"\nEpsilons weighting\n";
-//	for(i=0;i<epsilons_w.size();i++) fs<<epsilons_w[i]<<"\t";
 	fs<<"\nTarget block failure rate\n";
 	for(i=0;i<targetFalureRate.size();i++) fs<<targetFalureRate[i]<<"\t";
-	fs<<"\nTarget block failure rate weighting\n";
-	for(i=0;i<weighting.size();i++) fs<<weighting[i]<<"\t";
+	fs<<"\nTarget Epsilon\n";
+	for(i=0;i<targetEpsilon.size();i++) fs<<targetEpsilon[i]<<"\t";
+	fs<<"Optimization Parameter\n"<<optimParameter;
 	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest dist.\t";
 	for(i=0;i<Dsize;i++) fs<< Tags[i] << '\t';
-	fs<< "para.\t";
-	for(i=0;i<rhos.size();i++) fs<<"p@e="<<rhos[i]<<"\t";
-	for(i=0;i<targetFalureRate.size();i++) fs<<"e@p="<<targetFalureRate[i]<<"\t";
 	fs<<endl;
 	
 	evo = new cmaes_t();
@@ -488,7 +344,6 @@ int main(int argn, char **args) {
 	/* Iterate until stop criterion holds */
 	while(!cmaes_TestForTermination(evo))
 	{ 						
-		vector<double> xbest_parameters;
 		double min_fit = 9999;
 		/* generate lambda new search points, sample population */
 		pop = cmaes_SamplePopulation(evo); /* do not change content of pop */
@@ -510,9 +365,8 @@ int main(int argn, char **args) {
 			if(dist[Dsize-1] < 0)
 				needResample = true;
 			
-			vector<double> t_parameters;
 			if(needResample == false)
-				arFunvals[i] = fitfun(dist, Dsize, needResample, t_parameters);
+				arFunvals[i] = fitfun(dist, Dsize, needResample);
 			else {
 				arFunvals[i] = 9999;
 			}
@@ -529,7 +383,6 @@ int main(int argn, char **args) {
 			cout.flush();
 			if(min_fit > arFunvals[i]){
 				min_fit = arFunvals[i];
-				xbest_parameters = t_parameters;
 			}
 			delete [] dist;
 		}
@@ -548,11 +401,6 @@ int main(int argn, char **args) {
 			sum += xbest[i];
 		}
 		fs<<setw(8)<<1-sum<<"\t";
-		
-		fs << "para.\t";
-		for (int i=0; i<xbest_parameters.size(); i++) {
-			fs<<setw(8)<<xbest_parameters[i]<<"\t";
-		}
 		
 		fs.unsetf(ios::fixed);
 		fs<<endl;
