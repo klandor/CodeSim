@@ -406,43 +406,48 @@ int main(int argn, char **args) {
 		/* generate lambda new search points, sample population */
 		pop = cmaes_SamplePopulation(evo); /* do not change content of pop */
 		/* evaluate the new search points using fitfun from above */ 
+		#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
 		for (i = 0; i < Lambda; ++i) {
-			bool needResample = false;
+			bool needResample = true;
 			
-			double* dist = new double[Dsize];
-			double sum = 0;
-			for (int j=0; j<Dsize-1; j++) {
-				if (pop[i][j] < 0) {
-					needResample = true;
-					break;
+			while (needResample) {
+				needResample = false;
+			
+				double* dist = new double[Dsize];
+				double sum = 0;
+				for (int j=0; j<Dsize-1; j++) {
+					if (pop[i][j] < 0) {
+						needResample = true;
+						break;
+					}
+					dist[j] = pop[i][j];
+					sum += pop[i][j];
 				}
-				dist[j] = pop[i][j];
-				sum += pop[i][j];
-			}
-			dist[Dsize-1] = 1-sum;
-			if(dist[Dsize-1] < 0)
-				needResample = true;
-			
-			if(needResample == false)
-				arFunvals[i] = fitfun(dist, Dsize, needResample);
-			else {
-				arFunvals[i] = 9999;
-			}
+				dist[Dsize-1] = 1-sum;
+				if(dist[Dsize-1] < 0)
+					needResample = true;
+				
+				if(needResample == false)
+					arFunvals[i] = fitfun(dist, Dsize, needResample);
+				else {
+					arFunvals[i] = 9999;
+				}
 
-			
-			if (needResample) {
-				pop = cmaes_ReSampleSingle(evo, i);
-				i--;
-				//cout << "R";
+				
+				if (needResample) {
+					
+					pop = cmaes_ReSampleSingle(evo, i);
+					
+				}
+				else {
+					cout << "E";
+				}
+				cout.flush();
+				if(min_fit > arFunvals[i]){
+					min_fit = arFunvals[i];
+				}
+				delete [] dist;
 			}
-			else {
-				cout << "E";
-			}
-			cout.flush();
-			if(min_fit > arFunvals[i]){
-				min_fit = arFunvals[i];
-			}
-			delete [] dist;
 		}
 		cout << '\n';
 		/* update the search distribution used for cmaes_SampleDistribution() */
