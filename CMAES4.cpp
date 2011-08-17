@@ -26,7 +26,7 @@
 
 #include <omp.h>
 #include "LT.h"
-#include "DynamicFitting.h"
+#include <sstream>
 
 // =================================================================
 //#define K 1000			// K size
@@ -63,7 +63,7 @@ double* Std;
 
 
 
-vector<double> rhos, targetFalureRate, targetEpsilon;
+double targetRho, targetFailureRate, targetEpsilon;
 int optimParameter;
 
 double epsilonBurstBound = 0.5,
@@ -111,53 +111,123 @@ inline double exceed_penalty(double value, double base, double penalty_ratio)
 double fitfun(double* Indiv , int dim, bool &needResample){
 	
 
-	vector<double> err(STEPS,0);
-	vector<unsigned long>	errorCount(STEPS,0);
-	vector<double> failureCount(STEPS,0);
-	
-	// run simulation
-	#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
-	for(int run=0;run<Run;run++){
-		
-		int seed;
-		#pragma omp critical
-		seed = RanGen.BRandom();
-		
-		LT_sim<Bit> sim(K, (int) MaxN, Dsize, Tags, Indiv, seed);
-		
-		for (int i=0; i<STEPS; i++) {
-			sim.seqReceive(K*(1+Delta*(i))-1);
-			//sim.decode();
-			int temp = sim.getNumOfErased();
-			if(temp > K*rhos[0])
-			{
-				#pragma omp atomic
-				errorCount[i] += 1;
-			}
+	switch (optimParameter) {
+		case 1:// optimize rho
+		{
+			vector<double> failureRatios(Run, 0);
+			// run simulation
+			#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
+			for(int run=0;run<Run;run++){
+				
+				int seed;
+				#pragma omp critical
+				seed = RanGen.BRandom();
+				
+				LT_sim<Bit> sim(K, K*(1+targetEpsilon)+0.1, Dsize, Tags, Indiv, seed);
+				
+				
+				sim.seqReceive(K*(1+targetEpsilon)-0.9);
+				failureRatios[run] = sim.failureRate();
+				
+				
+			}// end of simulation
+			
+			sort(failureRatios.begin(), failureRatios.end());
+			
+			double t = failureRatios[Run*(1-targetFailureRate)-0.9];
+			if(t > 0)
+				return log10(t);
 			else {
-				break;
+				return log10(1.0/K) - 0.1;
 			}
-		}
-		
-	}// end of simulation
-	
-	//vector<double> x(STEPS, 0.0);
-	
-	//fit = (STEPS-1)*Delta;
-	for (int i=0; i<STEPS; i++) {
-		if (errorCount[i] <= Run*targetFalureRate[0]) {
-			//fit = i*Delta;
-			return i*Delta;
-			break;
-		}
-		// prepare x
-		//x[i] = i*Delta;
-		
-	}
 
-	return (STEPS-1)*Delta;
+			
+		}
+			break;
+		case 2:// optimize p
+		{
+			vector<double> failureRatios(Run, 0);
+			// run simulation
+			#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
+			for(int run=0;run<Run;run++){
+				
+				int seed;
+				#pragma omp critical
+				seed = RanGen.BRandom();
+				
+				LT_sim<Bit> sim(K, K*(1+targetEpsilon)+0.1, Dsize, Tags, Indiv, seed);
+				
+				
+				sim.seqReceive(K*(1+targetEpsilon)-0.9);
+				failureRatios[run] = sim.failureRate();
+				
+				
+			}// end of simulation
+			
+			sort(failureRatios.begin(), failureRatios.end());
+			
+			double t = 1;
+			for (int i=failureRatios.size()-1; i>=0; i--) {
+				if(failureRatios[i] <= targetRho) {
+					t= (Run-i-1)/(double)Run;
+					break;
+				}
+			}
+			
+			if(t > 0)
+				return log10(t);
+			else {
+				return log10(1.0/Run) -0.1;
+			}
+
+			
+		}
+			break;
+		case 3: // optimize epsilon
+		{
+			vector<int> errorCount(STEPS, 0);
+			
+			// run simulation
+			#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
+			for(int run=0;run<Run;run++){
+				
+				int seed;
+				#pragma omp critical
+				seed = RanGen.BRandom();
+				
+				LT_sim<Bit> sim(K, MaxN+0.1, Dsize, Tags, Indiv, seed);
+				
+				for (int i=0; i<STEPS; i++) {
+					sim.seqReceive(K*(1+Delta*(i))-0.9);
+					int temp = sim.getNumOfErased();
+					if(temp > K*targetRho)
+					{
+					#pragma omp atomic
+						errorCount[i] += 1;
+					}
+					else {
+						break;
+					}
+				}
+				
+			}// end of simulation
+			
+			for (int i=0; i<STEPS; i++) {
+				if (errorCount[i] <= Run*targetFailureRate) {
+					return i*Delta;
+					break;
+				}
+			}
+			
+			// can not find acceptable epsilon, maximum returned.
+			return STEPS*Delta;
+		}
+			break;
+	}
 	
-	
+	cerr << "Error!" << endl;
+	exit(-1);
+	return 0;
 
 }
 
@@ -241,10 +311,7 @@ int main(int argn, char **args) {
 	// read minimum acceptable failure ratio rho_tilde
 	if(mygetline(ifs,tmp_string)){
 		istringstream iss(tmp_string);
-		double t;
-		while (iss >> t) {
-			rhos.push_back(t);
-		}
+		iss >> targetRho;
 	}
 	else {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
@@ -254,39 +321,23 @@ int main(int argn, char **args) {
 	// read acceptable block failure rate
 	if(mygetline(ifs,tmp_string)){
 		istringstream iss(tmp_string);
-		double t;
-		while (iss >> t) {
-			targetFalureRate.push_back(t);
-		}
+		iss >> targetFailureRate;
 	}
 	else {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
 		exit(1);
 	}
 	
-	if(rhos.size() != targetFalureRate.size()){
-		cerr << "Error: rhos list size doesn't match to failure rate list" << endl;
-		exit(1);
-	}
 	
 	// read targetEpsilon
 	if(mygetline(ifs,tmp_string)){
 		istringstream iss(tmp_string);
-		double t;
-		while (iss >> t) {
-			targetEpsilon.push_back(t);
-		}
+		iss >> targetEpsilon;
 	}
 	else {
 		cerr << "inputfile: "<< filename << ": format error"<< endl;
 		exit(1);
 	}
-	
-	if(targetFalureRate.size() != targetEpsilon.size()){
-		cerr << "Error: weighting list size doesn't match to failure rate list" << endl;
-		exit(1);
-	}
-	
 	
 	// read optimization Parameter
 	if(mygetline(ifs,tmp_string)){
@@ -324,12 +375,12 @@ int main(int argn, char **args) {
 	fs<<"\nInitial distribution \n";
 	for(i=0;i<Dsize;i++) fs<<D[i]<<"\t";
 	fs<<"\nminimum acceptable failure ratios \n";
-	for(i=0;i<rhos.size();i++) fs<<rhos[i]<<"\t";
+	fs<<targetRho;
 	fs<<"\nTarget block failure rate\n";
-	for(i=0;i<targetFalureRate.size();i++) fs<<targetFalureRate[i]<<"\t";
+	fs<<targetFailureRate;
 	fs<<"\nTarget Epsilon\n";
-	for(i=0;i<targetEpsilon.size();i++) fs<<targetEpsilon[i]<<"\t";
-	fs<<"Optimization Parameter\n"<<optimParameter;
+	fs<<targetEpsilon;
+	fs<<"\nOptimization Parameter\n"<<optimParameter;
 	fs<<"\nGen\tFEvals\tFitness\tFbest\tXbest dist.\t";
 	for(i=0;i<Dsize;i++) fs<< Tags[i] << '\t';
 	fs<<endl;

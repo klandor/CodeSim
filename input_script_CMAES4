@@ -14,5 +14,7 @@
 0.01
 # acceptable block failure rate
 0.01
-# weighting
+# target epsilon
+0.1
+# optimization parameter rho=1 block_failure_rate=2 epsilon=3
 1
