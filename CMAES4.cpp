@@ -136,8 +136,11 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 			sort(failureRatios.begin(), failureRatios.end());
 			
 			double t = failureRatios[Run*(1-targetFailureRate)-0.9];
-			if(t > 0)
+			if(t > 0) {
+				if(t == 1)
+					needResample = true;
 				return log10(t);
+			}
 			else {
 				return log10(1.0/K) - 0.1;
 			}
@@ -175,8 +178,11 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 				}
 			}
 			
-			if(t > 0)
+			if(t > 0) {
+				if(t == 1)
+					needResample = true;
 				return log10(t);
+			}
 			else {
 				return log10(1.0/Run) -0.1;
 			}
