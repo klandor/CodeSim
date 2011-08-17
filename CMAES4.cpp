@@ -27,6 +27,7 @@
 #include <omp.h>
 #include "LT.h"
 #include <sstream>
+#include <algorithm>
 
 // =================================================================
 //#define K 1000			// K size
