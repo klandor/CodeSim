@@ -15,9 +15,11 @@ int K;
 
 int Run;
 //#define C 0.05
-#define Delta 0.03
+double Delta;
 int STEPS;
 #define MaxN (K*(1+Delta*(STEPS-1)))
+double targetRho, targetFailureRate, targetEpsilon;
+int optimParameter;
 
 using namespace std;
 using namespace CodeSim;
@@ -25,11 +27,11 @@ using namespace CodeSim;
 
 //unsigned long ErrorCount[STEPS][16];
 //double BER[STEPS];
-vector< unsigned long > BER;
+//vector< unsigned long > BER;
 int Dsize;
 
 
-int* Degree;
+int* Tags;
 //double* Omega;
 //int		Degree[10] = //{1,2,3,4,5,8,9,19,65,66};
 //		{1, 2, 3, 4, 5, 7, 9, 19, 59, 179};
@@ -39,10 +41,10 @@ int* Degree;
 
 //uniformRandom *Rnd;
 int g_seed = (int)time(0);
-CRandomMersenne Rnd(g_seed);
+CRandomMersenne RanGen(g_seed);
 
 
-double* D;
+double* Indiv;
 double* SD;
 
 
@@ -51,142 +53,159 @@ double e = 1.05;
 
 
 int main(){
-	//int i;
-	//Rnd = new ran3();
-	
-	//D = Robust_Soliton_Distribution(K,C,Delta);
-	
-	//cout << "haha";
+
 	cin >> K;
 	cin >> Run;
 	cin >> Dsize;
-	Degree = new int[Dsize];
-	D = new double[Dsize];
-	SD = new double[Dsize];
+	Tags = new int[Dsize];
+	Indiv = new double[Dsize];
+	
 	for (int i=0; i<Dsize; i++) {
-		cin >> Degree[i];
+		cin >> Tags[i];
 	}
-//	for (int i=0; i<Dsize; i++) {
-//		cin >> D[i];
-//	}	
-	cin >> STEPS;
+
+	cin >> STEPS >> Delta >> targetRho >> targetFailureRate >> targetEpsilon >> optimParameter;
 	
 	
-	vector<double> epsilons(STEPS, 0);
-	for (int i=0; i<STEPS; i++) {
-		cin >> epsilons[i];
-	}	
 	
-//	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
-//	dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0), FER(STEPS,0);
-	while (cin >> D[0])
+	while (cin >> Indiv[0])
 	{
-//		cout << "distribution\t";
 		for (int i =1; i<Dsize; i++) {
-			cin >> D[i];
-//			cout << D[i] << '\t';
-			
+			cin >> Indiv[i];
 		}
 		
-		BER.assign(STEPS, 0);
-//		cout << "\nEpsilons\t";
-//		for (int i = 0; i<STEPS; i++) {
-//			cout << i*Delta << '\t';
-//			//BER[i] = 0;
-//			BER[i].assign(Run,0);
-//			for(int j = 0; j< 16; j++)
-//				ErrorCount[i][j] = 0;
-//		}
-//		cout << '\n';
-		
-//		int start_time = time(0);
-		//int n=0;
-		#pragma omp parallel for schedule(dynamic) num_threads(6)
-		for(int run=0;run<Run;run++){
-			int seed;
-			#pragma omp critical
-			seed = Rnd.BRandom();
-			
-			LT_sim<Bit> sim(K, K*(1+epsilons[STEPS-1]), Dsize, Degree, D, seed);
-			//cout << "Run " << i <<'\n';
-			//#pragma omp parallel for
-			for (int i = 0; i< STEPS; i++) {
-				sim.seqReceive( K*(1+epsilons[i]) -1);
-				//sim.decode();
-				double t = sim.failureRate();// = Encoder(K, K*(1.05+0.01*i), Dsize);
-//				if (t<1) {
-//					#pragma omp atomic
-//					ErrorCount[i][(int)(t*16)]++;
-//				}
-//				else {
-//					#pragma omp atomic
-//					ErrorCount[i][15]++;
-//				}
+		switch (optimParameter) {
+			case 1:// optimize rho
+			{
+				vector<double> failureRatios(Run, 0);
+				// run simulation
+				#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
+				for(int run=0;run<Run;run++){
+					
+					int seed;
+					#pragma omp critical
+					seed = RanGen.BRandom();
+					
+					LT_sim<Bit> sim(K, K*(1+targetEpsilon)+0.1, Dsize, Tags, Indiv, seed);
+					
+					
+					sim.seqReceive(K*(1+targetEpsilon)-0.9);
+					failureRatios[run] = sim.failureRate();
+					
+					
+				}// end of simulation
 				
-				BER[i] += t*K;
-//				if (t>0) {
-//					FER[i]++;
-//				}
+				sort(failureRatios.begin(), failureRatios.end());
+				
+				double t = failureRatios[Run*(1-targetFailureRate)-0.9];
+				if(t > 0) {
+//					if(t == 1)
+//						needResample = true;
+					cout << log10(t);
+				}
+				else {
+					cout << log10(1.0/K) - 0.1;
+				}
+				
+				
 			}
-			
-			//cout << '\n';
+				break;
+			case 2:// optimize p
+			{
+				vector<double> failureRatios(Run, 0);
+				// run simulation
+				#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
+				for(int run=0;run<Run;run++){
+					
+					int seed;
+					#pragma omp critical
+					seed = RanGen.BRandom();
+					
+					LT_sim<Bit> sim(K, K*(1+targetEpsilon)+0.1, Dsize, Tags, Indiv, seed);
+					
+					
+					sim.seqReceive(K*(1+targetEpsilon)-0.9);
+					failureRatios[run] = sim.failureRate();
+					
+					
+				}// end of simulation
+				
+				sort(failureRatios.begin(), failureRatios.end());
+				
+				double t = 1;
+				for (int i=failureRatios.size()-1; i>=0; i--) {
+					if(failureRatios[i] <= targetRho) {
+						t= (Run-i-1)/(double)Run;
+						break;
+					}
+				}
+				
+				if(t > 0) {
+//					if(t == 1)
+//						needResample = true;
+					cout << log10(t);
+				}
+				else {
+					cout << log10(1.0/Run) -0.1;
+				}
+				
+				
+			}
+				break;
+			case 3: // optimize epsilon
+			{
+				vector<int> errorCount(STEPS, 0);
+				
+				// run simulation
+				#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
+				for(int run=0;run<Run;run++){
+					
+					int seed;
+					#pragma omp critical
+					seed = RanGen.BRandom();
+					
+					LT_sim<Bit> sim(K, MaxN+0.1, Dsize, Tags, Indiv, seed);
+					
+					for (int i=0; i<STEPS; i++) {
+						sim.seqReceive(K*(1+Delta*(i))-0.9);
+						int temp = sim.getNumOfErased();
+						if(temp > K*targetRho)
+						{
+							#pragma omp atomic
+							errorCount[i] += 1;
+						}
+						else {
+							break;
+						}
+					}
+					
+				}// end of simulation
+				
+				
+				double output = -1;
+				for (int i=0; i<STEPS; i++) {
+					if (errorCount[i] <= Run*targetFailureRate) {
+						output = i*Delta;
+						break;
+					}
+				}
+				
+				// can not find acceptable epsilon, maximum returned.
+				if (output == -1) {
+					output =  STEPS*Delta;
+				}
+				
+				cout << output;
+			}
+				break;
 		}
-		//cout<<"Histogram";
-//		for (int i = 0; i<16; i++) {
-//			cout << (i+1)/16.0<<'\t';
-//			for(int j = 0; j< STEPS; j++)
-//				cout <<  ErrorCount[j][i] / (double)Run<< '\t';
-//			cout << '\n';
-//		}
 		
-//		#pragma omp parallel for num_threads(6)
-//		for (int i = 0; i<STEPS; i++) {
-//			computeStats(BER[i].begin( ), BER[i].end( ), sum[i], mean[i], var[i], dev[i], skew[i], kurt[i]);
-//			sort(BER[i].begin( ), BER[i].end( ));
-//		}
 		
-//		cout << "BER\t";
-		for (int i = 0; i<STEPS; i++) {
-			cout <<  BER[i] / (double)(K*Run)<< '\t';
-		}
-		cout << '\n';
-//		cout << "BER 90%\t";
 //		for (int i = 0; i<STEPS; i++) {
-//			cout <<  BER[i][Run/10*9]-mean[i]<< '\t';
+//			cout <<  BER[i] / (double)(K*Run)<< '\t';
 //		}
-//		cout << '\n';
-//		cout << "BER 10%\t";
-//		for (int i = 0; i<STEPS; i++) {
-//			cout <<  mean[i]-BER[i][Run/10]<< '\t';
-//		}
-//		cout << '\n';
-//		cout << "FER\t";
-//		for (int i = 0; i<STEPS; i++) {
-//			cout <<  FER[i]/Run<< '\t';
-//		}
-//		cout << '\n';
-//		cout << "Variance\t";
-//		for (int i = 0; i<STEPS; i++) {
-//			cout <<  var[i]<< '\t';
-//		}
-//		cout << '\n';
-//		cout << "standard deviation\t";
-//		for (int i = 0; i<STEPS; i++) {
-//			cout <<  dev[i]<< '\t';
-//		}
-//		cout << '\n';
-//		cout << "Skewness\t";
-//		for (int i = 0; i<STEPS; i++) {
-//			cout <<  skew[i]<< '\t';
-//		}
-//		cout << '\n';
-//		cout << "kurtosis\t";
-//		for (int i = 0; i<STEPS; i++) {
-//			cout <<  kurt[i]<< '\t';
-//		}
-//		cout << '\n';
-//		
-//		cout << "Time\t" << time(0) - start_time<< "\tK\t"<< K << "\tRun\t"<< Run <<endl;
+		cout << endl;
+		
 	}
 	
 	return 0;
