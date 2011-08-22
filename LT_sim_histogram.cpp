@@ -23,7 +23,7 @@ double Delta;
 int STEPS;
 #define MaxN (K*(1+Delta*(STEPS-1)))
 //int windowSize = 50;
-long histo_bins[16] = {0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 99999999};
+long histo_bins[16] = {0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384};
 const int N_histo_bins = 16;
 
 using namespace std;
@@ -107,11 +107,11 @@ int main(){
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0);
 	
-	double rhos[3] = {0, 0.001, 0.01}, percents[4] = {.9, .99, .999, 1};
+	double rhos[3] = {0, 0.001, 0.01}, percents[4] = {.9, .99, .999, .1};
 	const int N_rhos = 3, N_percents = 4;
 	vector< vector<long> > BFailureCount(N_rhos, vector<long>(STEPS, 0));
 	vector<double> averageEpsilon(N_rhos, 0);
-	
+	vector< vector<double> > rhoEpsilons(N_rhos, vector<double>(Run, 0));
 	//while (cin >> D[0])
 	{
 		cout << "tag\t";
@@ -135,9 +135,14 @@ int main(){
 		}
 		cout << '\n';
 		
+		if(histo_bins[N_histo_bins-1]<K)
+			histo_bins[N_histo_bins-1]=K;
 		double histo_bins_ratio[N_histo_bins];
 		for (int i=0; i<N_histo_bins; i++) {
 			histo_bins_ratio[i] = histo_bins[i]/double(K);
+			if (histo_bins_ratio[i]>1) {
+				histo_bins_ratio[i]=1;
+			}
 		}
 		
 		
@@ -164,6 +169,7 @@ int main(){
 						if (thresholdReached[r] == false && t<=rhos[r]+(1.0/K/10)) {
 							#pragma omp atomic
 							averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
+							rhoEpsilons[r][run] = (recievedSymbol-K)/(double)K; 
 							thresholdReached[r] = true;
 						}
 					}
@@ -200,6 +206,7 @@ int main(){
 					if (thresholdReached[r] == false && t<=rhos[r]+(1.0/K/10)) {
 						#pragma omp atomic
 						averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
+						rhoEpsilons[r][run] = (recievedSymbol-K)/(double)K;
 						thresholdReached[r] = true;
 					}
 					
@@ -254,6 +261,9 @@ int main(){
 		for (int j=0; j<N_rhos; j++) {
 			cout << "BlockFailureRate average "<< rhos[j]*100 <<"%\t";
 			cout <<  averageEpsilon[j]<< '\t';
+			sort(rhoEpsilons[j].begin(), rhoEpsilons[j].end());
+			cout << rhoEpsilons[j][Run*0.9-0.9] - averageEpsilon[j]<< '\t'; // 90% error bar
+			cout << averageEpsilon[j] - rhoEpsilons[j][Run*0.1-0.9]<< '\t'; // 10% error bar
 			cout << '\n';
 		}
 		
