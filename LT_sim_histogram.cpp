@@ -107,8 +107,8 @@ int main(){
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0);
 	
-	double rhos[3] = {0, 0.001, 0.01}, percents[4] = {.9, .99, .999, .1};
-	const int N_rhos = 3, N_percents = 4;
+	double rhos[5] = {0, 0.0001, 0.001, 0.01, 0.1}, percents[5] = {.9, .99, .999, .9999, .1};
+	const int N_rhos = 5, N_percents = 5;
 	vector< vector<long> > BFailureCount(N_rhos, vector<long>(STEPS, 0));
 	vector<double> averageEpsilon(N_rhos, 0);
 	vector< vector<double> > rhoEpsilons(N_rhos, vector<double>(Run, 0));
@@ -160,7 +160,7 @@ int main(){
 			vector<bool> thresholdReached(N_rhos, 0);
 			
 			for (int i = 0; i< STEPS; i++) {
-				while (recievedSymbol <= K*(1+Delta*i) -1) {
+				while (recievedSymbol <= K*(1+Delta*i) -.9) {
 					sim.receive(recievedSymbol);
 					recievedSymbol++;
 					
@@ -236,13 +236,13 @@ int main(){
 		for (int j=0; j<N_percents; j++) {
 			cout << "FailureRatio @"<< percents[j]*100 <<"%\t";
 			for (int i = 0; i<STEPS; i++) {
-				cout <<  BER[i][Run*percents[j]-1]<< '\t';
+				cout <<  BER[i][Run*percents[j]-0.9]<< '\t';
 			}
 			cout << '\n';
 		}
 		
 		for (int j=0; j<N_rhos; j++) {
-			cout << "BlockFailureRate "<< rhos[j]*100 <<"%\t";
+			cout << "BlockFailureRate rho="<< rhos[j]*100 <<"%\t";
 			for (int i = 0; i<STEPS; i++) {
 				cout <<  BFailureCount[j][i]/(double)Run<< '\t';
 			}
@@ -250,7 +250,7 @@ int main(){
 		}
 		
 		for (int j=0; j<N_rhos; j++) {
-			cout << "BlockFailureRate pdf "<< rhos[j]*100 <<"%\t";
+			cout << "BlockFailureRate pdf rho="<< rhos[j]*100 <<"%\t";
 			cout <<  1-(BFailureCount[j][0]/(double)Run)<< '\t';
 			for (int i = 1; i<STEPS; i++) {
 				cout <<  (BFailureCount[j][i-1]-BFailureCount[j][i])/(double)Run<< '\t';
@@ -259,7 +259,7 @@ int main(){
 		}
 		
 		for (int j=0; j<N_rhos; j++) {
-			cout << "BlockFailureRate average "<< rhos[j]*100 <<"%\t";
+			cout << "BlockFailureRate average rho="<< rhos[j]*100 <<"%\t";
 			cout <<  averageEpsilon[j]<< '\t';
 			sort(rhoEpsilons[j].begin(), rhoEpsilons[j].end());
 			cout << rhoEpsilons[j][Run*0.9-0.9] - averageEpsilon[j]<< '\t'; // 90% error bar
