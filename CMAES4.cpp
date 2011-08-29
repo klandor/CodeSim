@@ -369,7 +369,7 @@ int main(int argn, char **args) {
 	tmp_string = filename + "_result.txt";
 	fs.open(tmp_string.c_str(),fstream::out);
 	tmp_string = filename + "_fitness_log.txt";
-	fit_log.open(tmp_string.c_str(), fstream::out)
+	fit_log.open(tmp_string.c_str(), fstream::out);
 	
 	// recored start time 
 	time(&rawtime);
@@ -460,6 +460,7 @@ int main(int argn, char **args) {
 		xbest = cmaes_GetNew(evo, "xbest");
 		fs<<cmaes_Get(evo, "iteration")<<"\t"<<cmaes_Get(evo, "eval")<<"\t"<<cmaes_Get(evo, "fitness")<<"\t"<<cmaes_Get(evo, "fbestever")<<"\t";
 		fit_log << cmaes_Get(evo, "fitness") << '\t';
+		fit_log.flush();
 		fs.setf(ios::fixed);
 		fs.precision(6);
 		fs << "dist.\t";
