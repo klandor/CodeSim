@@ -250,7 +250,7 @@ int main(){
 		}
 		
 		for (int j=0; j<N_rhos; j++) {
-			cout << "BlockFailureRate pdf rho="<< rhos[j]*100 <<"%\t";
+			cout << "pdf rho="<< rhos[j]*100 <<"%\t";
 			cout <<  1-(BFailureCount[j][0]/(double)Run)<< '\t';
 			for (int i = 1; i<STEPS; i++) {
 				cout <<  (BFailureCount[j][i-1]-BFailureCount[j][i])/(double)Run<< '\t';
@@ -259,7 +259,7 @@ int main(){
 		}
 		
 		for (int j=0; j<N_rhos; j++) {
-			cout << "BlockFailureRate average rho="<< rhos[j]*100 <<"%\t";
+			cout << "rho="<< rhos[j]*100 <<"%\t";
 			cout <<  averageEpsilon[j]<< '\t';
 			sort(rhoEpsilons[j].begin(), rhoEpsilons[j].end());
 			cout << rhoEpsilons[j][Run*0.9-0.9] - averageEpsilon[j]<< '\t'; // 90% error bar
