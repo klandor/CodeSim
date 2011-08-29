@@ -357,7 +357,7 @@ int main(int argn, char **args) {
 	}
 	
 	int i; 
-	fstream fs;	
+	fstream fs, fit_log;	
 	//Rnd = new ran0(0);
   	time_t rawtime;
   	struct tm * timeinfo;
@@ -368,6 +368,8 @@ int main(int argn, char **args) {
 
 	tmp_string = filename + "_result.txt";
 	fs.open(tmp_string.c_str(),fstream::out);
+	tmp_string = filename + "_fitness_log.txt";
+	fit_log.open(tmp_string.c_str(), fstream::out)
 	
 	// recored start time 
 	time(&rawtime);
@@ -376,7 +378,7 @@ int main(int argn, char **args) {
 	
 	Parameter_init();
 	// write Tags and init distribtuion into file
-	fs << "Comment: " << tmp_string << '\n';
+	fs << "Comment: " << filename << '\n';
 	fs<<"Tags\n";
 	for(i=0;i<Dsize;i++) fs<<Tags[i]<<"\t";
 	fs<<"\nInitial distribution \n";
@@ -457,6 +459,7 @@ int main(int argn, char **args) {
 		/* read instructions for printing output or changing termination conditions */ 
 		xbest = cmaes_GetNew(evo, "xbest");
 		fs<<cmaes_Get(evo, "iteration")<<"\t"<<cmaes_Get(evo, "eval")<<"\t"<<cmaes_Get(evo, "fitness")<<"\t"<<cmaes_Get(evo, "fbestever")<<"\t";
+		fit_log << cmaes_Get(evo, "fitness") << '\t';
 		fs.setf(ios::fixed);
 		fs.precision(6);
 		fs << "dist.\t";
@@ -501,6 +504,7 @@ int main(int argn, char **args) {
 	timeinfo=localtime( &rawtime );
 	fs<<"\nStop time : "<<asctime(timeinfo)<<endl;
 	fs.close();	
+	fit_log.close();
 	
 	cmaes_exit(evo); /* release memory */ 		
 	delete [] Tags;
