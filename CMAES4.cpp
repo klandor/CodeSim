@@ -407,6 +407,7 @@ int main(int argn, char **args) {
 	while(!cmaes_TestForTermination(evo))
 	{ 						
 		double min_fit = 9999;
+		int resampleTime = 0;
 		/* generate lambda new search points, sample population */
 		pop = cmaes_SamplePopulation(evo); /* do not change content of pop */
 		/* evaluate the new search points using fitfun from above */ 
@@ -431,8 +432,16 @@ int main(int argn, char **args) {
 				if(dist[Dsize-1] < 0)
 					needResample = true;
 				
-				if(needResample == false)
+				if(needResample == false) {
 					arFunvals[i] = fitfun(dist, Dsize, needResample);
+					if(needResample){
+						#pragma omp atomic
+						resampleTime++;
+						if(resampleTime>1000) {
+							needResample = false;
+						}
+					}
+				}
 				else {
 					arFunvals[i] = 9999;
 				}
