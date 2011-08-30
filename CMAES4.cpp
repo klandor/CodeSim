@@ -406,7 +406,6 @@ int main(int argn, char **args) {
 	/* Iterate until stop criterion holds */
 	while(!cmaes_TestForTermination(evo))
 	{ 						
-		double min_fit = 9999;
 		int resampleTime = 0;
 		/* generate lambda new search points, sample population */
 		pop = cmaes_SamplePopulation(evo); /* do not change content of pop */
@@ -456,9 +455,7 @@ int main(int argn, char **args) {
 					cout << "E";
 				}
 				cout.flush();
-				if(min_fit > arFunvals[i]){
-					min_fit = arFunvals[i];
-				}
+				
 				delete [] dist;
 			}
 		}
