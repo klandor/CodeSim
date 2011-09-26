@@ -238,6 +238,32 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 
 }
 
+void nearestPoint(double *p) {
+	double sum = 0.0, shift = 0.0;
+	int positiveDim=0;
+	for (int i = 0; i< Dsize-1; i++){
+		if(p[i]>0){
+			sum += p[i];
+			positiveDim = positiveDim + 1;
+		}
+	}
+	if(sum>1) {
+		shift = (sum-1) / positiveDim;
+	}
+	
+	for (int i = 0; i< Dsize-1; i++){
+		if(p[i]>0){
+			p[i] -= shift;
+		}
+		else {
+			p[i] = 0;
+		}
+	}
+	
+	if(sum>1)
+		nearestPoint(p);
+}
+
 /* the optimization loop */
 int main(int argn, char **args) {	
 	ifstream ifs;
@@ -414,6 +440,7 @@ int main(int argn, char **args) {
 		for (i = 0; i < Lambda; ++i) {
 			bool needResample = true;
 			
+			nearestPoint(pop[i]);
 			while (needResample) {
 				needResample = false;
 			
