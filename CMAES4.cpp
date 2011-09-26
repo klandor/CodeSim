@@ -28,7 +28,7 @@
 #include "LT.h"
 #include <sstream>
 #include <algorithm>
-
+#include <unistd.h>
 // =================================================================
 //#define K 1000			// K size
 //#define MaxN 10500		// set Max code word number (set 2*K ,but we only use 1.2*K)
@@ -376,6 +376,7 @@ int main(int argn, char **args) {
 	timeinfo=localtime( &rawtime );
 	fs<<"Start time : "<<asctime(timeinfo)<<endl;	
 	
+	nice(20);
 	Parameter_init();
 	// write Tags and init distribtuion into file
 	fs << "Comment: " << filename << '\n';
@@ -410,7 +411,7 @@ int main(int argn, char **args) {
 		/* generate lambda new search points, sample population */
 		pop = cmaes_SamplePopulation(evo); /* do not change content of pop */
 		/* evaluate the new search points using fitfun from above */ 
-		#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
+		//#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
 		for (i = 0; i < Lambda; ++i) {
 			bool needResample = true;
 			
