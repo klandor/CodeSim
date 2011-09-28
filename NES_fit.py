@@ -1,10 +1,15 @@
 import sys
-from scipy import array
+from scipy import eye, multiply, ones, dot, array, outer, rand, zeros, diag, randn, exp
+from scipy.linalg import cholesky, inv, det
+
 import math
 import pybrain
 from pybrain.optimization import ExactNES
 import os
 os.nice(20)
+scale=1
+offset=0
+useNearest = True
 if(len(sys.argv) == 1):
 	print "Usage: NES_fit.py filename"
 	sys.exit()
@@ -27,15 +32,13 @@ def toStringList(a):
 		b.append( `a[i]` )
 	return b
 
+def add(x,y):
+	return x+y
 
 def normalize(p):
-	for i in range(len(p)):
-		if p[i] < 0:
-			p[i] = -p[i]
 	from scipy import sum
 	sum_p=float(sum(p))
-	for i in range(len(p)):
-		p[i] /= sum_p
+	p.append(1-sum_p)
 
 def mygetline(file):
 	while(True):
@@ -51,9 +54,47 @@ def log10(x):
 def abs(x):
 	return math.fabs(x)
 
+def outOfRange(x):
+	if(x>1):
+		return x-1
+	if(x<0):
+		return -x
+	return 0
 
+def validDist(p):
+	sum = 0.0
+	for i in p:
+		if i < 0:
+			return False
+		sum += i
+	if sum > 1:
+		#print sum,
+		return False
+		
+	return True
+
+def nearestPoint(p):
+	sum = 0.0
+	shift = 0.0
+	positiveDim=0
+	for i in p:
+		if(i>0):
+			sum += i
+			positiveDim = positiveDim + 1
+	if(sum>1):
+		shift = (sum-1) / positiveDim
+	def trans(x):
+		if(x>0):
+			return x-shift
+		else:
+			return 0.0
+	if(sum>1):
+		return nearestPoint(map(trans, p))
+	else:
+		return map(trans, p)
 class LT_exp:
 	def __init__(self, filename):
+		self.filename = filename
 		#read from config file
 		f=open(filename,'r')
 		tmp=mygetline(f).split()
@@ -71,88 +112,169 @@ class LT_exp:
 		tmp=mygetline(f).split()
 		self.STEPS = int(tmp[0])
 		self.Delta = float(tmp[1])
-		mygetline(f) #cubic fitting
-		mygetline(f) #error exponent
-		self.epsilons = parseFloat(mygetline(f).split())
-		self.epsilons_w = parseFloat(mygetline(f).split())
-		self.targetErrorRate = parseFloat(mygetline(f).split())
-		self.targetErrorRate_w = parseFloat(mygetline(f).split())
-		
+		self.targetRho = float(mygetline(f))
+		self.targetFailureRate = float(mygetline(f))
+		self.targetEpsilon = float(mygetline(f))
+		self.optimParameter = int(mygetline(f))
+		self.maxs = [0,0,0,self.STEPS*self.Delta]
 		# prepare LT_BER process
-		LT_BER_format = "{K} {Run}\n{Dsize}\n{tag_list}\n{STEPS}\n{epsilon_list}\n"
-		self.STEPS = 61
-		self.Delta = 0.005
-		self.MaxEpsilon = (self.Delta*(self.STEPS-1))
-		self.P_e_min = log10(1/float(self.K*self.Run))
-		
-		self.epsilon_list = array(parseFloat(range(self.STEPS)))*self.Delta
-		str_epsilon_list = []
-		for i in range(self.STEPS):
-			str_epsilon_list.append('%.3f' % self.epsilon_list[i])
+		LT_BER_format = "{K} {Run}\n{Dsize}\n{tag_list}\n{STEPS} {Delta}\n{targetRho}\n{targetFailureRate}\n{targetEpsilon}\n{optimParameter}\n"
+
 		from subprocess import Popen
 		from subprocess import PIPE
 		
-		self.p = Popen('../../LT_BER.out', stdin=PIPE, stdout=PIPE)
-		input = LT_BER_format.format(K=self.K, Run=self.Run, Dsize=self.Dsize, tag_list=' '.join(toStringList(self.Tags)), STEPS=self.STEPS, epsilon_list= ' '.join(str_epsilon_list))
+		self.p = Popen('./LT_BER.out', stdin=PIPE, stdout=PIPE)
+		input = LT_BER_format.format(K=self.K, Run=self.Run, Dsize=self.Dsize, tag_list=' '.join(toStringList(self.Tags)), STEPS=self.STEPS, Delta=self.Delta, targetRho = self.targetRho, targetFailureRate= self.targetFailureRate, targetEpsilon= self.targetEpsilon, optimParameter = self.optimParameter)
 		self.p.stdin.write(input)
 		
 		#prepare listener for ExactNES to write out results
-		self.file_result = open('result_%s' % filename, 'w')
+		self.file_result = open('%s_restlt.txt' % filename, 'w')
+		self.fitness_log = open('%s_fitness_log.txt' % filename, 'w')
 		self.result_line = 0
 		self.times_of_eval = 0
 	def fitness_LT(self, dist):
 		self.times_of_eval += 1
 		
-		d=dist[0:]
+		d=map(float,dist)
+		"""e=nearestPoint(d)
+		exceed = array(d)-array(e)
+		exceed = map(lambda x:float(x*x), exceed)
+		exceed = sum(exceed)"""
+		#d=e
 		normalize(d)
+		#fit=exceed*100000000
+
+		print 'O',
+		if(d[0]==0):
+			return self.maxs[self.optimParameter]
 		input=' '.join(toStringList(d))
 		#K='`self.K`', Run='100', Dsize='`self.Dsize`', tag_list=' '.join(self.Tags), distribution='`self.D`', STEPS='16', epsilon_list= "")
 		#print input
 		self.p.stdin.write('%s\n' % input)
-		err = self.p.stdout.readline()
-		err = err.split()
-		err = parseFloat(err)
-		for i in range(len(err)):
-			if(err[i]>0):
-				err[i] = log10(err[i])
-			else:
-				err[i] = self.P_e_min
-		
-		
-		fit = 0
-		
-		for i in range(len(self.epsilons)) :
-			fit += (err[int(self.epsilons[i]/self.Delta)] - self.P_e_min)  / abs( self.P_e_min ) * self.epsilons_w[i];
-			#parameters[i] = (err[int(self.epsilons[i]/Delta)] - P_e_min)  / abs( P_e_min );
-		
-		for i in range(len(self.targetErrorRate)):	
-			min_diff=999
-			for j in range(self.STEPS):
-				if ( abs(err[j]-log10(self.targetErrorRate[i])) < min_diff):
-					min_diff = abs(err[j]-log10(self.targetErrorRate[i]))
-					min_i = j
-			fit += min_i/float(self.STEPS-1) * self.targetErrorRate_w[i];
-		
-		#print fit
+		fit = float(self.p.stdout.readline())
+
 		
 		return fit
 	def printResult(self, parameter_list, eval):
 		self.result_line += 1
-		p_list = parameter_list[0:]
+		p_list = map(float,parameter_list)
 		normalize(p_list)
-		self.file_result.write(`self.result_line`+'\t'+ `self.times_of_eval`+'\teval\t'+`eval`+'\tpara\t' + ' '.join(toStringList(p_list))+'\n')
+		self.file_result.write(`self.result_line`+'\t'+ `self.times_of_eval`+'\teval\t'+`-eval`+'\tpara\t' + '\t'.join(toStringList(p_list))+'\n')
 		self.file_result.flush()
+		self.fitness_log.write(`-eval`+'\t')
+		self.fitness_log.flush()
+		dist = open('%s_dist.txt' % filename, 'w')
+		dist.write(`self.K` + '\n' + `self.Dsize` + '\n' + '\t'.join(toStringList(self.Tags)) + '\n' + '\t'.join(toStringList(p_list))+'\n')
+		dist.close()
 
+class ExactNESforLT(ExactNES):
+    def _additionalInit(self):
+        xdim = self.numParameters
+        assert not self.diagonalOnly, 'Diagonal-only not yet supported'
+        self.numDistrParams = xdim + xdim * (xdim + 1) / 2
+                
+        if self.momentum != None:
+            self.momentumVector = zeros(self.numDistrParams)
+        if self.learningRateSigma == None:
+            self.learningRateSigma = self.learningRate
+        
+        if self.rangemins == None:
+            self.rangemins = -ones(xdim)
+        if self.rangemaxs == None:
+            self.rangemaxs = ones(xdim)
+        if self.initCovariances == None:
+            if self.diagonalOnly:
+                self.initCovariances = ones(xdim)
+            else:
+                self.initCovariances = eye(xdim)
 
-# class ResultWriter:
-# 	def __init__(self, filename):
-# 		self.filename = filename
-# 		self.file = open(filename, 'w')
-# 	def printLine(self, line):
-# 		self.file.write(line+'\n')
-# 		self.file.flush()
-# 	def close(self):
-# 		self.file.close()
+        #self.x = rand(xdim) * (self.rangemaxs - self.rangemins) + self.rangemins
+        self.x = self._initEvaluable
+        self.sigma = dot(eye(xdim)*.000625, self.initCovariances)
+        self.factorSigma = cholesky(self.sigma)
+        
+        # keeping track of history
+        self.allSamples = []
+        self.allFitnesses = []
+        self.allPs = []
+        
+        self.allGenerated = [0]
+        
+        self.allCenters = [self.x.copy()]
+        self.allFactorSigmas = [self.factorSigma.copy()]
+        
+        # for baseline computation
+        self.phiSquareWindow = zeros((self.batchSize, self.numDistrParams))
+        
+        
+    def _produceNewSample(self, z=None, p=None):
+        if z == None:
+            while True:
+                p = randn(self.numParameters)
+                z = dot(self.factorSigma.T, p) + self.x
+                if useNearest:
+                    z = array(nearestPoint(z))
+                if validDist(z):
+                    break
+        if p == None:
+            p = dot(inv(self.factorSigma).T, (z - self.x))            
+        self.allPs.append(p)
+        self.allSamples.append(z)
+        fit = self._oneEvaluation(z)
+        self.allFitnesses.append(fit) 
+        return z, fit
+        
+    def _produceSamples(self):
+        """ Append batchsize new samples and evaluate them. """
+        if self.numLearningSteps == 0 or not self.importanceMixing:
+            for _ in range(self.batchSize):
+                self._produceNewSample()
+            self.allGenerated.append(self.batchSize + self.allGenerated[-1])
+        else:
+            olds = len(self.allSamples)
+            oldDetFactorSigma = det(self.allFactorSigmas[-2])
+            newDetFactorSigma = det(self.factorSigma)
+            invA = inv(self.factorSigma)
+    
+            # All pdfs computed here are off by a coefficient of 1/power(2.0*pi, self.numDistrParams/2.)
+            # but as only their relative values matter, we ignore it.
+            
+            # stochastically reuse old samples, according to the change in distribution
+            for s in range(olds - self.batchSize, olds):
+                oldPdf = exp(-0.5 * dot(self.allPs[s], self.allPs[s])) / oldDetFactorSigma
+                sample = self.allSamples[s]
+                newPs = dot(invA.T, (sample - self.x))
+                newPdf = exp(-0.5 * dot(newPs, newPs)) / newDetFactorSigma
+                r = rand()
+                if r < (1 - self.forcedRefresh) * newPdf / oldPdf:
+                    self.allSamples.append(sample)
+                    self.allFitnesses.append(self.allFitnesses[s])
+                    self.allPs.append(newPs)
+                # never use only old samples
+                if (olds + self.batchSize) - len(self.allSamples) < self.batchSize * self.forcedRefresh:
+                    break
+            self.allGenerated.append(self.batchSize - (len(self.allSamples) - olds) + self.allGenerated[-1])
+
+            # add the remaining ones
+            oldInvA = inv(self.allFactorSigmas[-2])
+            while  len(self.allSamples) < olds + self.batchSize:
+                r = rand()
+                if r < self.forcedRefresh:
+                    self._produceNewSample()
+                else:
+                    while True:
+                        p = randn(self.numParameters)
+                        newPdf = exp(-0.5 * dot(p, p)) / newDetFactorSigma
+                        sample = dot(self.factorSigma.T, p) + self.x
+                        if useNearest:
+                            sample = array(nearestPoint(sample))
+                        if validDist(sample):
+                            break
+                    oldPs = dot(oldInvA.T, (sample - self.allCenters[-2]))
+                    oldPdf = exp(-0.5 * dot(oldPs, oldPs)) / oldDetFactorSigma
+                    if r < 1 - oldPdf / newPdf:
+                        self._produceNewSample(sample, p)
+
 
 """main()"""
 filename = sys.argv[1]
@@ -160,9 +282,9 @@ lt = LT_exp(filename)
 # out = dup(sys.stdout, open('result_%s' % filename, 'w'))
 # sys.stdout = out
 # writer = ResultWriter('dist_%s' % filename)
-nes = ExactNES(lt.fitness_LT, lt.D, minimize=True, maxEvaluations=10000, verbose=True, listener=lt.printResult)
+nes = ExactNESforLT(lt.fitness_LT, array(lt.D[:lt.Dsize-1]), minimize=True, maxEvaluations=10000, verbose=True, listener=lt.printResult)
 nes_result = nes.learn()
-final = nes_result[0]
+final = map(float, nes_result[0])
 normalize(final)
 final = toStringList(final)
 print ' '.join(final)
