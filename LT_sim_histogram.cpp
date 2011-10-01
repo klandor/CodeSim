@@ -11,6 +11,7 @@
 #include "statistics.h"
 #include <omp.h>
 #include <algorithm>
+#include <unistd.h>
 
 //#define K 1000
 int K;
@@ -81,12 +82,8 @@ double* normolize(double* d){
 
 
 int main(){
-	//int i;
-	//Rnd = new ran3();
+	nice(20);
 	
-	//D = Robust_Soliton_Distribution(K,C,Delta);
-	
-	//cin >> K >> Run;
 	cin >> K;
 	Run = 1000000;//(1000000000LL/K);
 	cin >> Dsize;
