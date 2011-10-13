@@ -14,6 +14,9 @@ CMAES3.out: all CMAES3.cpp laguer.o mrqmin.o mrqcof.o gaussj.o covsrt.o histogra
 CMAES4.out: all CMAES4.cpp histogram.out
 	$(CXX) $(CPPFLAGS) CMAES4.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
 
+CMAES5.out: all CMAES5.cpp histogram.out
+	$(CXX) $(CPPFLAGS) CMAES5.cpp mersenne.o userintf.o cmaes.o Bit.o -o $@
+
 histogram.out: all LT_sim_histogram.cpp
 	$(CXX) $(CPPFLAGS) LT_sim_histogram.cpp mersenne.o userintf.o Bit.o -o $@
 
