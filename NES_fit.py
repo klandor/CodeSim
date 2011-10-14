@@ -10,6 +10,7 @@ os.nice(20)
 scale=1
 offset=0
 useNearest = True
+globel_Dsize = 0
 if(len(sys.argv) == 1):
 	print "Usage: NES_fit.py filename"
 	sys.exit()
@@ -92,6 +93,14 @@ def nearestPoint(p):
 		return nearestPoint(map(trans, p))
 	else:
 		return map(trans, p)
+
+def degree_bound(x):
+	if x<4:
+		return 4.0
+	if x>lt.K:
+		return float(lt.K)
+	return x
+
 class LT_exp:
 	def __init__(self, filename):
 		self.filename = filename
@@ -101,6 +110,7 @@ class LT_exp:
 		self.K = int(tmp[0])
 		self.Run = int(tmp[1])
 		self.Dsize = int(mygetline(f))
+		globel_Dsize = self.Dsize
 		self.Tags = parseInt(mygetline(f).split())
 		if(self.Dsize != len(self.Tags)):
 			print "Error: Dsize and Tags doesn't match"
@@ -122,20 +132,24 @@ class LT_exp:
 
 		from subprocess import Popen
 		from subprocess import PIPE
-		
-		self.p = Popen('./LT_BER.out', stdin=PIPE, stdout=PIPE)
+		if len(sys.argv) >= 3:
+			if sys.argv[2] == "linux":
+				self.p = Popen('./LT_BER_linux.out', stdin=PIPE, stdout=PIPE)
+		else:
+			self.p = Popen('/u/gcs/98/9856523/CodeSim/LT_BER2.out', stdin=PIPE, stdout=PIPE)
 		input = LT_BER_format.format(K=self.K, Run=self.Run, Dsize=self.Dsize, tag_list=' '.join(toStringList(self.Tags)), STEPS=self.STEPS, Delta=self.Delta, targetRho = self.targetRho, targetFailureRate= self.targetFailureRate, targetEpsilon= self.targetEpsilon, optimParameter = self.optimParameter)
 		self.p.stdin.write(input)
 		
 		#prepare listener for ExactNES to write out results
-		self.file_result = open('%s_restlt.txt' % filename, 'w')
+		self.file_result = open('%s_result.txt' % filename, 'w')
 		self.fitness_log = open('%s_fitness_log.txt' % filename, 'w')
 		self.result_line = 0
 		self.times_of_eval = 0
 	def fitness_LT(self, dist):
 		self.times_of_eval += 1
 		
-		d=map(float,dist)
+		d=map(float,dist[:self.Dsize-1])
+		t=self.Tags[:3]+map(int, dist[self.Dsize-1:]+0.5)
 		"""e=nearestPoint(d)
 		exceed = array(d)-array(e)
 		exceed = map(lambda x:float(x*x), exceed)
@@ -147,7 +161,7 @@ class LT_exp:
 		print 'O',
 		if(d[0]==0):
 			return self.maxs[self.optimParameter]
-		input=' '.join(toStringList(d))
+		input=' '.join(toStringList(t))+'\n'+' '.join(toStringList(d))
 		#K='`self.K`', Run='100', Dsize='`self.Dsize`', tag_list=' '.join(self.Tags), distribution='`self.D`', STEPS='16', epsilon_list= "")
 		#print input
 		self.p.stdin.write('%s\n' % input)
@@ -157,14 +171,14 @@ class LT_exp:
 		return fit
 	def printResult(self, parameter_list, eval):
 		self.result_line += 1
-		p_list = map(float,parameter_list)
+		p_list = map(float,parameter_list[:self.Dsize-1])
 		normalize(p_list)
 		self.file_result.write(`self.result_line`+'\t'+ `self.times_of_eval`+'\teval\t'+`-eval`+'\tpara\t' + '\t'.join(toStringList(p_list))+'\n')
 		self.file_result.flush()
 		self.fitness_log.write(`-eval`+'\t')
 		self.fitness_log.flush()
 		dist = open('%s_dist.txt' % filename, 'w')
-		dist.write(`self.K` + '\n' + `self.Dsize` + '\n' + '\t'.join(toStringList(self.Tags)) + '\n' + '\t'.join(toStringList(p_list))+'\n')
+		dist.write(`self.K` + '\n' + `self.Dsize` + '\n' + '\t'.join(toStringList(self.Tags[:3]+map(int,parameter_list[self.Dsize-1:]+0.5))) + '\n' + '\t'.join(toStringList(p_list))+'\n')
 		dist.close()
 
 class ExactNESforLT(ExactNES):
@@ -191,6 +205,8 @@ class ExactNESforLT(ExactNES):
         #self.x = rand(xdim) * (self.rangemaxs - self.rangemins) + self.rangemins
         self.x = self._initEvaluable
         self.sigma = dot(eye(xdim)*.000625, self.initCovariances)
+        for i in range(lt.Dsize-1, 2*lt.Dsize-1-3):
+        	self.sigma[i][i]=100
         self.factorSigma = cholesky(self.sigma)
         
         # keeping track of history
@@ -212,9 +228,10 @@ class ExactNESforLT(ExactNES):
             while True:
                 p = randn(self.numParameters)
                 z = dot(self.factorSigma.T, p) + self.x
+                z = array(map(float,z[:lt.Dsize-1])+map(degree_bound,z[lt.Dsize-1:]))
                 if useNearest:
-                    z = array(nearestPoint(z))
-                if validDist(z):
+                    z = array(nearestPoint(z[:lt.Dsize-1])+map(float,z[lt.Dsize-1:]))
+                if validDist(z[:lt.Dsize-1]):
                     break
         if p == None:
             p = dot(inv(self.factorSigma).T, (z - self.x))            
@@ -266,9 +283,10 @@ class ExactNESforLT(ExactNES):
                         p = randn(self.numParameters)
                         newPdf = exp(-0.5 * dot(p, p)) / newDetFactorSigma
                         sample = dot(self.factorSigma.T, p) + self.x
+                        sample = array(map(float,sample[:lt.Dsize-1])+map(degree_bound,sample[lt.Dsize-1:]))
                         if useNearest:
-                            sample = array(nearestPoint(sample))
-                        if validDist(sample):
+                            sample = array(nearestPoint(sample[:lt.Dsize-1])+map(float,sample[lt.Dsize-1:]))
+                        if validDist(sample[:lt.Dsize-1]):
                             break
                     oldPs = dot(oldInvA.T, (sample - self.allCenters[-2]))
                     oldPdf = exp(-0.5 * dot(oldPs, oldPs)) / oldDetFactorSigma
@@ -282,7 +300,7 @@ lt = LT_exp(filename)
 # out = dup(sys.stdout, open('result_%s' % filename, 'w'))
 # sys.stdout = out
 # writer = ResultWriter('dist_%s' % filename)
-nes = ExactNESforLT(lt.fitness_LT, array(lt.D[:lt.Dsize-1]), minimize=True, maxEvaluations=10000, verbose=True, listener=lt.printResult)
+nes = ExactNESforLT(lt.fitness_LT, array( lt.D[:lt.Dsize-1]+map(float,lt.Tags[3:]) ), minimize=True, maxEvaluations=10000, verbose=True, listener=lt.printResult)
 nes_result = nes.learn()
 final = map(float, nes_result[0])
 normalize(final)
