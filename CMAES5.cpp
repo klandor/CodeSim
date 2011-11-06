@@ -587,8 +587,8 @@ int main(int argn, char **args) {
 	
 	cout << "Running histogram...";
 	cout.flush();
-	string cmd = "./histogram.out < " + filename 
-	+ "_dist.txt > " + filename+ "_histo.txt";
+	string cmd = "./histogram.out " + filename 
+	+ "_dist.txt " + filename+ "_histo.txt";
 	
 	system(cmd.c_str() );
 	cout << "done!" << endl;
