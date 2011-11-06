@@ -227,6 +227,7 @@ double fitfun(double* Indiv , int dim, bool &needResample){
 			}
 			
 			// can not find acceptable epsilon, maximum returned.
+			needResample = true;
 			return STEPS*Delta;
 		}
 			break;
