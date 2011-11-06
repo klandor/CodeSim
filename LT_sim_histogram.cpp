@@ -81,22 +81,50 @@ double* normolize(double* d){
 }
 
 
-int main(){
+int main(int argn, char **args){
+	
+	if(argn < 2) {
+		cerr << "Usage: histogram.out LT_distibution_file [histogram_file]"<<endl;
+		exit(1);
+	}
+	
+	ifstream dist_file(args[1]);
+	if(dist_file.fail()){
+		cerr << "File can not be opened: " << args[1]<<endl;
+		exit(1);
+	}
+	
+	string histo_filename;
+	if(argn == 2) {
+		histo_filename = args[1];
+		histo_filename += "_histo.txt";
+	}
+	else {
+		histo_filename = args[2];
+	}
+
+	
+	ofstream histo_file(histo_filename.c_str());
+	if(histo_file.fail()){
+		cerr << "File can not be opened: " << histo_filename <<endl;
+		exit(1);
+	}
+	
 	nice(20);
 	
-	cin >> K;
+	dist_file >> K;
 	Run = 1000000;//(1000000000LL/K);
-	cin >> Dsize;
+	dist_file >> Dsize;
 	Degree = new int[Dsize];
 	D = new double[Dsize];
 	SD = new double[Dsize];
 	for (int i=0; i<Dsize; i++) {
-		cin >> Degree[i];
+		dist_file >> Degree[i];
 	}
 	for (int i=0; i<Dsize; i++) {
-		cin >> D[i];
+		dist_file >> D[i];
 	}
-	//cin >> STEPS >> Delta;
+	//dist_file >> STEPS >> Delta;
 	STEPS = 101;
 	Delta = 0.005;
 	histoErrorCount.assign(STEPS, vector<double>() );
@@ -109,28 +137,26 @@ int main(){
 	vector< vector<long> > BFailureCount(N_of_r, vector<long>(STEPS, 0));
 	vector<double> averageEpsilon(N_of_r, 0);
 	vector< vector<double> > r_epsilons(N_of_r, vector<double>(Run, 0));
-	//while (cin >> D[0])
+	
 	{
-		cout << "tag\t";
+		histo_file << "tab of degree\t";
 		for (int i =0; i<Dsize; i++) {
-			//cin >> D[i];
-			cout << Degree[i] << '\t';
+			histo_file << Degree[i] << '\t';
 			
 		}
-		cout << "\ndistribution\t";
+		histo_file << "\ndistribution\t";
 		for (int i =0; i<Dsize; i++) {
-			//cin >> D[i];
-			cout << D[i] << '\t';
+			histo_file << D[i] << '\t';
 			
 		}
-		cout << "\nEpsilons\t";
+		histo_file << "\nEpsilons\t";
 		for (int i = 0; i<STEPS; i++) {
-			cout << i*Delta << '\t';
+			histo_file << i*Delta << '\t';
 			//BER[i] = 0;
 			histoErrorCount[i].assign(N_histo_bins,0);
 			BER[i].assign(Run,0);	
 		}
-		cout << '\n';
+		histo_file << '\n';
 		
 		if(histo_bins[N_histo_bins-1]<K)
 			histo_bins[N_histo_bins-1]=K;
@@ -211,12 +237,12 @@ int main(){
 				}
 			}
 		}
-		//cout<<"Histogram";
+		//histo_file<<"Histogram";
 		for (int i = 0; i<N_histo_bins; i++) {
-			cout << histo_bins_ratio[i]<<'\t';
+			histo_file << histo_bins_ratio[i]<<'\t';
 			for(int j = 0; j< STEPS; j++)
-				cout <<  histoErrorCount[j][i] / (double)Run<< '\t';
-			cout << '\n';
+				histo_file <<  histoErrorCount[j][i] / (double)Run<< '\t';
+			histo_file << '\n';
 		}
 		
 		#pragma omp parallel for schedule(dynamic) num_threads(PARALLEL_THREADS)
@@ -225,76 +251,76 @@ int main(){
 			sort(BER[i].begin( ), BER[i].end( ));
 		}
 		
-		cout << "Averaged r\t";
+		histo_file << "Averaged r\t";
 		for (int i = 0; i<STEPS; i++) {
-			cout <<  mean[i]<< '\t';
+			histo_file <<  mean[i]<< '\t';
 		}
-		cout << '\n';
+		histo_file << '\n';
 		for (int j=0; j<N_of_p; j++) {
-			cout << "p="<< list_p[j] <<"%\t";
+			histo_file << "p="<< list_p[j] <<"%\t";
 			for (int i = 0; i<STEPS; i++) {
-				cout <<  BER[i][Run*list_p[j]-0.9]<< '\t';
+				histo_file <<  BER[i][Run*list_p[j]-0.9]<< '\t';
 			}
-			cout << '\n';
+			histo_file << '\n';
 		}
 		
 		for (int j=0; j<N_of_r; j++) {
-			cout << "r="<< list_r[j] <<"%\t";
+			histo_file << "r="<< list_r[j] <<"%\t";
 			for (int i = 0; i<STEPS; i++) {
-				cout <<  BFailureCount[j][i]/(double)Run<< '\t';
+				histo_file <<  BFailureCount[j][i]/(double)Run<< '\t';
 			}
-			cout << '\n';
+			histo_file << '\n';
 		}
 		
 		for (int j=0; j<N_of_r; j++) {
-			cout << "pdf r="<< list_r[j]*100 <<"%\t";
-			cout <<  1-(BFailureCount[j][0]/(double)Run)<< '\t';
+			histo_file << "pdf r="<< list_r[j]*100 <<"%\t";
+			histo_file <<  1-(BFailureCount[j][0]/(double)Run)<< '\t';
 			for (int i = 1; i<STEPS; i++) {
-				cout <<  (BFailureCount[j][i-1]-BFailureCount[j][i])/(double)Run<< '\t';
+				histo_file <<  (BFailureCount[j][i-1]-BFailureCount[j][i])/(double)Run<< '\t';
 			}
-			cout << '\n';
+			histo_file << '\n';
 		}
 		
 		for (int j=0; j<N_of_r; j++) {
-			cout << "r="<< list_r[j]*100 <<"%\t";
-			cout <<  averageEpsilon[j]<< '\t';
+			histo_file << "r="<< list_r[j]*100 <<"%\t";
+			histo_file <<  averageEpsilon[j]<< '\t';
 			sort(r_epsilons[j].begin(), r_epsilons[j].end());
-			cout << r_epsilons[j][Run*0.9-0.9] - averageEpsilon[j]<< '\t'; // 90% error bar
-			cout << averageEpsilon[j] - r_epsilons[j][Run*0.1-0.9]<< '\t'; // 10% error bar
-			cout << '\n';
+			histo_file << r_epsilons[j][Run*0.9-0.9] - averageEpsilon[j]<< '\t'; // 90% error bar
+			histo_file << averageEpsilon[j] - r_epsilons[j][Run*0.1-0.9]<< '\t'; // 10% error bar
+			histo_file << '\n';
 		}
 		
 		
-		cout << "Variance\t";
+		histo_file << "Variance\t";
 		for (int i = 0; i<STEPS; i++) {
-			cout <<  var[i]<< '\t';
+			histo_file <<  var[i]<< '\t';
 		}
-		cout << '\n';
-		cout << "standard deviation\t";
+		histo_file << '\n';
+		histo_file << "standard deviation\t";
 		for (int i = 0; i<STEPS; i++) {
-			cout <<  dev[i]<< '\t';
+			histo_file <<  dev[i]<< '\t';
 		}
-		cout << '\n';
-		cout << "Skewness\t";
+		histo_file << '\n';
+		histo_file << "Skewness\t";
 		for (int i = 0; i<STEPS; i++) {
-			cout <<  skew[i]<< '\t';
+			histo_file <<  skew[i]<< '\t';
 		}
-		cout << '\n';
-		cout << "kurtosis\t";
+		histo_file << '\n';
+		histo_file << "kurtosis\t";
 		for (int i = 0; i<STEPS; i++) {
-			cout <<  kurt[i]<< '\t';
+			histo_file <<  kurt[i]<< '\t';
 		}
-		cout << '\n';
+		histo_file << '\n';
 		
-		cout << "Time\t" << time(0) - start_time<< "\tK\t"<< K << "\tRun\t"<< Run <<endl;
+		histo_file << "Time\t" << time(0) - start_time<< "\tK\t"<< K << "\tRun\t"<< Run <<endl;
 		
 //		for (int i=0; i<windowSize+1; i++) {
-//			cout << i;
+//			histo_file << i;
 //			
 //			for (int j=0; j<STEPS; j++) {
-//				cout << '\t' << l0a[j][i]/(double)(Run*(K-windowSize+1));
+//				histo_file << '\t' << l0a[j][i]/(double)(Run*(K-windowSize+1));
 //			}
-//			cout << endl;
+//			histo_file << endl;
 //		}
 	}
 	
