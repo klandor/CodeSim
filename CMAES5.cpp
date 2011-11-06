@@ -458,18 +458,20 @@ int main(int argn, char **args) {
 		for (i = 0; i < Lambda; ++i) {
 			bool needResample = true;
 			
-			nearestPoint(pop[i]);
-			for (int j=0; j<Dsize-3; j++) {
-				if(pop[i][j+Dsize-1]>K) {
-					pop[i][j+Dsize-1] = K;
-				}
-				if(pop[i][j+Dsize-1]<4) {
-					pop[i][j+Dsize-1] = 4;
-				}
-			}
+			
 			
 			while (needResample) {
 				needResample = false;
+				
+				nearestPoint(pop[i]);
+				for (int j=0; j<Dsize-3; j++) {
+					if(pop[i][j+Dsize-1]>K) {
+						pop[i][j+Dsize-1] = K;
+					}
+					if(pop[i][j+Dsize-1]<4) {
+						pop[i][j+Dsize-1] = 4;
+					}
+				}
 				
 				double* dist = new double[Dsize];
 				double sum = 0;
