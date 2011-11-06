@@ -104,11 +104,11 @@ int main(){
 	vector<double> sum(STEPS,0), mean(STEPS,0), var(STEPS,0),
 					dev(STEPS,0), skew(STEPS,0), kurt(STEPS,0);
 	
-	double rhos[5] = {0, 0.0001, 0.001, 0.01, 0.1}, percents[5] = {.9, .99, .999, .9999, .1};
-	const int N_rhos = 5, N_percents = 5;
-	vector< vector<long> > BFailureCount(N_rhos, vector<long>(STEPS, 0));
-	vector<double> averageEpsilon(N_rhos, 0);
-	vector< vector<double> > rhoEpsilons(N_rhos, vector<double>(Run, 0));
+	double list_r[5] = {0, 0.0001, 0.001, 0.01, 0.1}, list_p[5] = {.9, .99, .999, .9999, .1};
+	const int N_of_r = 5, N_of_p = 5;
+	vector< vector<long> > BFailureCount(N_of_r, vector<long>(STEPS, 0));
+	vector<double> averageEpsilon(N_of_r, 0);
+	vector< vector<double> > r_epsilons(N_of_r, vector<double>(Run, 0));
 	//while (cin >> D[0])
 	{
 		cout << "tag\t";
@@ -154,7 +154,7 @@ int main(){
 			LT_sim<Bit> sim(K, 10*K, Dsize, Degree, D, seed);
 
 			long recievedSymbol = 0;
-			vector<bool> thresholdReached(N_rhos, 0);
+			vector<bool> thresholdReached(N_of_r, 0);
 			
 			for (int i = 0; i< STEPS; i++) {
 				while (recievedSymbol <= K*(1+Delta*i) -.9) {
@@ -162,11 +162,11 @@ int main(){
 					recievedSymbol++;
 					
 					double t = sim.failureRate();
-					for (int r=0; r<N_rhos; r++) {
-						if (thresholdReached[r] == false && t<=rhos[r]+(1.0/K/10)) {
+					for (int r=0; r<N_of_r; r++) {
+						if (thresholdReached[r] == false && t<=list_r[r]+(1.0/K/10)) {
 							#pragma omp atomic
 							averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
-							rhoEpsilons[r][run] = (recievedSymbol-K)/(double)K; 
+							r_epsilons[r][run] = (recievedSymbol-K)/(double)K; 
 							thresholdReached[r] = true;
 						}
 					}
@@ -184,8 +184,8 @@ int main(){
 				}
 
 				BER[i][run]=t;
-				for (int j=0; j<N_rhos; j++) {
-					if (t>rhos[j]+(1.0/K/10)) {
+				for (int j=0; j<N_of_r; j++) {
+					if (t>list_r[j]+(1.0/K/10)) {
 						#pragma omp atomic
 						BFailureCount[j][i]++;
 					}
@@ -199,11 +199,11 @@ int main(){
 				sim.receive(recievedSymbol);
 				recievedSymbol++;
 				double t = sim.failureRate();
-				for (int r=0; r<N_rhos; r++) {
-					if (thresholdReached[r] == false && t<=rhos[r]+(1.0/K/10)) {
+				for (int r=0; r<N_of_r; r++) {
+					if (thresholdReached[r] == false && t<=list_r[r]+(1.0/K/10)) {
 						#pragma omp atomic
 						averageEpsilon[r] += (recievedSymbol-K)/(double)K/Run;
-						rhoEpsilons[r][run] = (recievedSymbol-K)/(double)K;
+						r_epsilons[r][run] = (recievedSymbol-K)/(double)K;
 						thresholdReached[r] = true;
 					}
 					
@@ -225,29 +225,29 @@ int main(){
 			sort(BER[i].begin( ), BER[i].end( ));
 		}
 		
-		cout << "AverageFailureRatio\t";
+		cout << "Averaged r\t";
 		for (int i = 0; i<STEPS; i++) {
 			cout <<  mean[i]<< '\t';
 		}
 		cout << '\n';
-		for (int j=0; j<N_percents; j++) {
-			cout << "FailureRatio @"<< percents[j]*100 <<"%\t";
+		for (int j=0; j<N_of_p; j++) {
+			cout << "p="<< list_p[j] <<"%\t";
 			for (int i = 0; i<STEPS; i++) {
-				cout <<  BER[i][Run*percents[j]-0.9]<< '\t';
+				cout <<  BER[i][Run*list_p[j]-0.9]<< '\t';
 			}
 			cout << '\n';
 		}
 		
-		for (int j=0; j<N_rhos; j++) {
-			cout << "BlockFailureRate rho="<< rhos[j]*100 <<"%\t";
+		for (int j=0; j<N_of_r; j++) {
+			cout << "r="<< list_r[j] <<"%\t";
 			for (int i = 0; i<STEPS; i++) {
 				cout <<  BFailureCount[j][i]/(double)Run<< '\t';
 			}
 			cout << '\n';
 		}
 		
-		for (int j=0; j<N_rhos; j++) {
-			cout << "pdf rho="<< rhos[j]*100 <<"%\t";
+		for (int j=0; j<N_of_r; j++) {
+			cout << "pdf r="<< list_r[j]*100 <<"%\t";
 			cout <<  1-(BFailureCount[j][0]/(double)Run)<< '\t';
 			for (int i = 1; i<STEPS; i++) {
 				cout <<  (BFailureCount[j][i-1]-BFailureCount[j][i])/(double)Run<< '\t';
@@ -255,12 +255,12 @@ int main(){
 			cout << '\n';
 		}
 		
-		for (int j=0; j<N_rhos; j++) {
-			cout << "rho="<< rhos[j]*100 <<"%\t";
+		for (int j=0; j<N_of_r; j++) {
+			cout << "r="<< list_r[j]*100 <<"%\t";
 			cout <<  averageEpsilon[j]<< '\t';
-			sort(rhoEpsilons[j].begin(), rhoEpsilons[j].end());
-			cout << rhoEpsilons[j][Run*0.9-0.9] - averageEpsilon[j]<< '\t'; // 90% error bar
-			cout << averageEpsilon[j] - rhoEpsilons[j][Run*0.1-0.9]<< '\t'; // 10% error bar
+			sort(r_epsilons[j].begin(), r_epsilons[j].end());
+			cout << r_epsilons[j][Run*0.9-0.9] - averageEpsilon[j]<< '\t'; // 90% error bar
+			cout << averageEpsilon[j] - r_epsilons[j][Run*0.1-0.9]<< '\t'; // 10% error bar
 			cout << '\n';
 		}
 		
