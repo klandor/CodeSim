@@ -128,7 +128,7 @@ class LT_exp:
 		self.p.stdin.write(input)
 		
 		#prepare listener for ExactNES to write out results
-		self.file_result = open('%s_restlt.txt' % filename, 'w')
+		self.file_result = open('%s_result.txt' % filename, 'w')
 		self.fitness_log = open('%s_fitness_log.txt' % filename, 'w')
 		self.result_line = 0
 		self.times_of_eval = 0
