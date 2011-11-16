@@ -63,15 +63,32 @@ def outOfRange(x):
 	return 0
 
 def validDist(p):
+	# check if p is a valid probability distribution
 	sum = 0.0
-	for i in p:
+	for i in p[:lt.Dsize-1]:
 		if i < 0:
 			return False
 		sum += i
 	if sum > 1:
-		#print sum,
 		return False
-		
+	
+	# check mean and low_degree_probability
+	degree=lt.Tags[:3]+map(int, p[lt.Dsize-1:]+0.5)
+	probability=map(float, p[:lt.Dsize-1])
+	normalize(probability)
+	
+	mean=0.0
+	low_degree_probability=0.0
+	for i in range(lt.Dsize):
+		mean += degree[i]*probability[i]
+		if degree[i] <= 10:
+			low_degree_probability += probability[i]
+	
+	
+	if mean > 25:
+		return False
+	if low_degree_probability < 0.6:
+		return False
 	return True
 
 def nearestPoint(p):
@@ -227,7 +244,7 @@ class ExactNESforLT(ExactNES):
                 z = array(map(float,z[:lt.Dsize-1])+map(degree_bound,z[lt.Dsize-1:]))
                 if useNearest:
                     z = array(nearestPoint(z[:lt.Dsize-1])+map(float,z[lt.Dsize-1:]))
-                if validDist(z[:lt.Dsize-1]):
+                if validDist(z):
                     break
         if p == None:
             p = dot(inv(self.factorSigma).T, (z - self.x))            
@@ -282,7 +299,7 @@ class ExactNESforLT(ExactNES):
                         sample = array(map(float,sample[:lt.Dsize-1])+map(degree_bound,sample[lt.Dsize-1:]))
                         if useNearest:
                             sample = array(nearestPoint(sample[:lt.Dsize-1])+map(float,sample[lt.Dsize-1:]))
-                        if validDist(sample[:lt.Dsize-1]):
+                        if validDist(sample):
                             break
                     oldPs = dot(oldInvA.T, (sample - self.allCenters[-2]))
                     oldPdf = exp(-0.5 * dot(oldPs, oldPs)) / oldDetFactorSigma
