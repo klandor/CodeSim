@@ -158,18 +158,16 @@ class LT_exp:
 		self.fitness_log = open('%s_fitness_log.txt' % filename, 'w')
 		self.result_line = 0
 		self.times_of_eval = 0
+
 	def fitness_LT(self, dist):
 		self.times_of_eval += 1
 		
-		d=map(float,dist[:self.Dsize-1])
-		t=self.Tags[:3]+map(int, dist[self.Dsize-1:]+0.5)
-		"""e=nearestPoint(d)
-		exceed = array(d)-array(e)
-		exceed = map(lambda x:float(x*x), exceed)
-		exceed = sum(exceed)"""
-		#d=e
-		normalize(d)
-		#fit=exceed*100000000
+		d=map(float,dist[:self.Dsize-1]) # distribution 
+		normalize(d) # calculate the probability of dependent degree
+		
+		t=self.Tags[:3]+map(int, dist[self.Dsize-1:]+0.5) #tabs of degree
+
+		
 
 		print 'O',
 		if(d[0]==0):
