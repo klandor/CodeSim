@@ -132,11 +132,7 @@ class LT_exp:
 
 		from subprocess import Popen
 		from subprocess import PIPE
-		if len(sys.argv) >= 3:
-			if sys.argv[2] == "linux":
-				self.p = Popen('./LT_BER_linux.out', stdin=PIPE, stdout=PIPE)
-		else:
-			self.p = Popen('/u/gcs/98/9856523/CodeSim/LT_BER2.out', stdin=PIPE, stdout=PIPE)
+		self.p = Popen('./LT_BER2.out', stdin=PIPE, stdout=PIPE)
 		input = LT_BER_format.format(K=self.K, Run=self.Run, Dsize=self.Dsize, tag_list=' '.join(toStringList(self.Tags)), STEPS=self.STEPS, Delta=self.Delta, targetRho = self.targetRho, targetFailureRate= self.targetFailureRate, targetEpsilon= self.targetEpsilon, optimParameter = self.optimParameter)
 		self.p.stdin.write(input)
 		
@@ -173,7 +169,7 @@ class LT_exp:
 		self.result_line += 1
 		p_list = map(float,parameter_list[:self.Dsize-1])
 		normalize(p_list)
-		self.file_result.write(`self.result_line`+'\t'+ `self.times_of_eval`+'\teval\t'+`-eval`+'\tpara\t' + '\t'.join(toStringList(p_list))+'\n')
+		self.file_result.write(`self.result_line`+'\t'+ `self.times_of_eval`+'\teval\t'+`-eval`+'\tpara\t' + '\t'.join(toStringList(p_list))+'\tdegree\t'+'\t'.join(toStringList(self.Tags[:3]+map(int,parameter_list[self.Dsize-1:]+0.5)))+'\n')
 		self.file_result.flush()
 		self.fitness_log.write(`-eval`+'\t')
 		self.fitness_log.flush()
